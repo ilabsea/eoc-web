@@ -11,15 +11,15 @@ module Sops::Searchable
       return self.__elasticsearch__.search({query: {match_all: {}}}) if params[:keyword].blank?
 
       highlight_options = {
-                            fragment_size: 180,
-                            number_of_fragments: 2,
-                          }
+        fragment_size: 180,
+        number_of_fragments: 2,
+      }
       highlight = {
         pre_tags: ["<em class='highlight'>"],
         post_tags: ["</em>"],
         fields: {
-          name: {},
-          tags: {}
+          name: highlight_options,
+          tags: highlight_options
         }
       }
 
@@ -27,6 +27,7 @@ module Sops::Searchable
         query: {
           multi_match: {
             query: params[:keyword],
+            type: 'phrase_prefix',
             fields: ['name', 'tags']
           }
         },
