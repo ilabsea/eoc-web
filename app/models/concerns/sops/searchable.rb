@@ -8,7 +8,7 @@ module Sops::Searchable
     include Elasticsearch::Model::Callbacks
 
     def self.search(params)
-      return self.__elasticsearch__.search({query: {match_all: {}}}) if params[:keyword].blank?
+      return self.__elasticsearch__.search({query: {match_all: {}}, size: 20}) if params[:keyword].blank?
 
       highlight_options = {
         fragment_size: 180,
@@ -31,7 +31,8 @@ module Sops::Searchable
             fields: ['name', 'tags']
           }
         },
-        highlight: highlight
+        highlight: highlight,
+        size: 20
       })
     end
   end
