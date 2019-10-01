@@ -9,8 +9,8 @@ module Sops::Searchable
 
     def self.search(params)
       autoloadOption = {
-        size: params[:size].to_i,
-        from: params[:from].to_i
+        size: params[:size],
+        from: params[:from]
       }.compact
 
       return self.__elasticsearch__.search({
