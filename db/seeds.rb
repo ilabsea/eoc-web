@@ -1,144 +1,136 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
 Sop.delete_all
 
 sops = [
   {
-    name: 'Cardioforce',
-    tags: 'Lambert-Eaton syndrome in neoplastic disease'
+    name: 'Type 1 Diabetes',
+    tags: 'diabetes autoimmune_disease immune_system beta_cells insulin'
   },
   {
-    name: 'Arizona Ash',
-    tags: 'Poisoning by unsp general anesthetics, assault, subs encntr'
+    name: 'Multiple Sclerosis',
+    tags: 'Multiple_sclerosis autoimmune_disease myelin nerve_fibers nervous_system.'
   },
   {
-    name: 'Diovan HCT',
-    tags: 'Other displaced fracture of third cervical vertebra'
+    name: 'Crohn\'s & Colitis',
+    tags: 'crohn_disease ulcerative_colitis bowel_diseases immune_system intestines'
   },
   {
-    name: 'RETROVIR',
-    tags: 'Toxic effects of chloroform'
+    name: 'Lupus',
+    tags: 'lupus_erythematosus chronic autoimmune_disease body joints skin lungs blood'
   },
   {
-    name: 'Lithium Carbonate',
-    tags: "Tuberculosis of nervous system, unspecified"
+    name: 'Rheumatoid Arthritis',
+    tags: "rheumatoid_arthritis synovium membrane joints"
   },{
-    name: 'Treatment Set TS331259',
-    tags: "Histoplasmosis capsulati, unspecified"
+    name: 'Allergies & Asthma',
+    tags: "allergies asthma overreacts pollen"
   },
   {
-    name: 'Oxycodone Hydrochloride',
-    tags: "Contusion of unsp lesser toe(s) w damage to nail, subs"
+    name: 'Celiac Disease',
+    tags: "celiac disease incidence undiagnose health complications"
   },
   {
-    name: 'Valsartan',
-    tags: "Child neglect or abandonment, suspected, initial encounter"
+    name: 'Relapsing Polychondritis',
+    tags: "relapsing_polychondritis rheumatic autoimmune_disease cartilage"
   },
   {
-    name: 'Everyday Clean Dandruff',
-    tags: "Underdosing of drug/meds/biol subst, sequela"
+    name: 'Liver Disease',
+    tags: "viral_infection alcohol environmental_toxins autoimmune_disease genetics"
   },
   {
-    name: 'Doxycycline Hyclate',
-    tags: 'Unspecified sprain of right elbow'
+    name: 'Malaria',
+    tags: 'malaria Cambodia phnom_penh'
   },
   {
-    name: 'FLORIL TEARS',
-    tags: 'Other specified joint disorders'
+    name: 'HIV/AIDS',
+    tags: 'AIDS female_prostitutes drugs HIV illegal'
   },
   {
-    name: 'Childrens Mucus Relief',
-    tags: "Osteonecrosis in diseases classified elsewhere, unsp thigh"
+    name: 'Dengue Fever',
+    tags: "dengue mosquitos rainy_season cambodia"
   },
   {
-    name: 'Cleocin Phosphate',
-    tags: "Pathological fracture in other disease, unsp site, sequela"
+    name: 'Tuberculosis',
+    tags: "tuberculosis Cambodia airborne_infection lungs"
   },
   {
-    name: 'Prairie Sage',
-    tags: 'Unspecified injury of unspecified foot'
+    name: 'Malnutrition',
+    tags: 'malnutrition cambodia'
   },
   {
-    name: 'Hydroxyzine',
-    tags: "Subluxation of metacarpophalangeal joint of oth finger, init"
+    name: 'Diarrhea diseases',
+    tags: "UNICEF die diarrhea diseases annually"
   },
   {
-    name: 'CAREALL Tolnaftate',
-    tags: "Drown due to fall/jump fr oth burn powered wtrcrft, sequela"
+    name: 'Stroke',
+    tags: "stroke artery blocked leaks"
   },
   {
-    name: 'Famotidine - Acid Controller',
-    tags: "Corrosion of third degree of unsp upper arm, subs encntr"
+    name: 'Lower respiratory infections',
+    tags: "lower_respiratory airways lungs."
   },
   {
-    name: 'Filbert',
-    tags: "Bent bone of unsp ulna, 7thR"
+    name: 'Chronic obstructive pulmonary disease',
+    tags: "COPD lung_disease breathing_difficult chronic_bronchitis emphysema"
   },
   {
-    name: 'In Control Nicotine',
-    tags: "Monteggia's fx unsp ulna, 7thE"
+    name: 'Trachea, bronchus, and lung cancers',
+    tags: "respiratory cancers trachea larynx bronchus lungs smoking smoke"
   },
   {
-    name: 'CALENDULA DIAPER RASH CREAM',
-    tags: "Open bite of left ear, sequela"
+    name: 'Diabetes mellitus',
+    tags: "Diabetes diseases insulin pancrease"
   },
   {
-    name: 'LANEIGE Skin Veil Foundation EX No. 31 Brown Beige',
-    tags: "Expsr to oth furniture fire due to burning cigarette, subs"
+    name: 'Dehydration due to diarrheal diseases',
+    tags: "Expsr burning cigarette subs"
   },
   {
-    name: 'simvastatin',
-    tags: "Dislocation of distal interphaln joint of finger, sequela"
+    name: 'Tuberculosis',
+    tags: "Dislocation interphaln joint of finger sequela"
   },
   {
-    name: 'Lisinopril',
+    name: 'Cirrhosis',
     tags: 'Localized enlarged lymph nodes'
   },
   {
-    name: 'Fleet',
-    tags: "Malignant neoplasm of female genital organ, unspecified"
+    name: 'h5n1',
+    tags: "Malignant neoplasm genital organ"
   },
   {
-    name: 'ibuprofen',
-    tags: "Driver of 3-whl mv injured in clsn w oth mv in traf, subs"
+    name: 'ទឹកនោមផ្អែម',
+    tags: "ជំងឺ ទឹកនោមផែ្អម អ័រម៉ូន ក្រលៀន"
   },
   {
-    name: 'Loblolly Pine',
-    tags: "Unsp fx upper end of l humerus, subs for fx w delay heal"
+    name: 'ក្អកមាន់',
+    tags: "ក្អក​មាន់ Pertussis whooping cough Coqueluche ក្មេង​តូចៗ"
   },
   {
-    name: 'Topiramate',
-    tags: "Superficial foreign body of right shoulder, sequela"
+    name: 'គ្រុនចាញ់',
+    tags: "​គ្រុន​ចាញ់ មនុស្ស​គ្រប់​វ័យ ​រដូវ​ក្ដៅ ភ្នាក់​ងារ សត្វ​មូស​ដែក​គោលញី Anophèle"
   },
   {
-    name: 'family wellness childrens ibuprofen',
-    tags: "Complete traumatic amp at level betw r hip and knee, sequela"
+    name: 'ផ្ដាសាយធម្មតា',
+    tags: "ប្រយ័ត្ន​ ​រាង​កាយ ត្រូវ​អាកាសធាតុ​ត្រជាក់ សុខភាព កម្ពុជា"
   },
   {
-    name: 'ALPRAZOLAM',
-    tags: 'Sltr-haris Type I physl fx upr end rad, l arm, 7thK'
+    name: 'រោគព្រូន',
+    tags: 'ព្រូន ​អាច​ចូល​មក ​ក្នុង​ខ្លួន​មនុស្ស​យើង ដផ្លែ​ឈើ បន្លែ​ស្រស់ សាច់​គោ សាច់​ជ្រូក ត្រី​មិន​ស្អាត'
   },
   {
-    name: 'DayQuil Severe',
-    tags: 'Abrasion of other finger, subsequent encounter'
+    name: 'រោគមួល',
+    tags: 'កម្ពុជា អ្នក​ជំងឺ​ឈឺ​រីងរៃ ​រោគ​ផ្សេងៗ​មក អនាម័យ'
   },
   {
-    name: 'quetiapine fumarate',
-    tags: 'Puncture wound w/o foreign body of thumb w/o damage to nail'
+    name: 'សរសៃប្រសាទ',
+    tags: '​សរសៃ​ប្រសាទ ចិត្ត​គំនិត​របស់​អ្នក​ជំងឺ ខុស​ប្រក្រតី ត​ពូជ​គ្នា បុព្វជន​ក៏​ថា​បាន'
   },
   {
-    name: 'Zenzedi',
-    tags: 'Oth complication of vascular prosth dev/grft, init'
+    name: 'គ្រុន​រលាក​ពោះ​វៀន',
+    tags: 'រលាក​ពោះ​វៀន រោគ​នេះ​អាច​កើត​ដល់​ មនុស្ស​គ្រប់​វ័យ ​គ្រប់​ប្រភេទ'
   },
   {
-    name: 'Psoriasin',
-    tags: 'Nondisp intartic fx l calcaneus, subs for fx w malunion'
+    name: 'ជំងឺហើមសួត',
+    tags: 'ហើមសួត មនុស្ស​គ្រប់​វ័យ គ្រប់​ប្រភេទ។'
   }
 ]
 
