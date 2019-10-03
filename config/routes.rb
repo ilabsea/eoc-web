@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   end
 
   resources :sops do
-    get :download, on: :collection
+    collection do
+      get :download
+      get :upload
+      post :import
+    end
   end
 end
