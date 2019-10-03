@@ -57,6 +57,16 @@ class SopsController < ApplicationController
     send_file "#{Rails.root}/public/#{params[:file]}", disposition: 'attachment'
   end
 
+  def upload
+  end
+
+  def import
+    file = File.open(params[:keyword].path)
+    uploader = FileUploader.new
+    uploader.store! file
+    redirect_to sops_path, notice: 'Import success!'
+  end
+
   private
 
   def sop_params
