@@ -1,6 +1,6 @@
 en:
-  xlsx_service:
+  spreadsheet_service:
     too_many: 'Too many extracted files'
     too_large: 'File too large when extracted'
     not_found: "File %{filename} not found"
-    whitelist: "Allow extension(s): %{allowance}"
+    blacklist_ext: "Allow extension(s): %{allowance}"
