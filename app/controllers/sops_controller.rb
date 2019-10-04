@@ -61,9 +61,17 @@ class SopsController < ApplicationController
   end
 
   def import
-    file = File.open(params[:keyword].path)
+    file = File.open(params[:zip_file].path)
     uploader = FileUploader.new
     uploader.store! file
+
+    service = SpreadsheetService.new uploader.path
+    service.unzip do |excels|
+      excels.each do |excel|
+        excel.load
+      end
+    end
+
     redirect_to sops_path, notice: 'Import success!'
   end
 
