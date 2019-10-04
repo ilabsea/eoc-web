@@ -1,4 +1,6 @@
 class SpreadsheetService
+  cattr_accessor :dest
+
   @@MAX_FILE_SIZE = 10 * 1024**2 # 10MiB
   @@MAX_FILES = 100
   @@WHITELIST = %w(.zip)
@@ -17,6 +19,7 @@ class SpreadsheetService
   # .whitelisted files
   # .unicode file
   # .many other zip files (rar, gz, ...) are not yet support
+  # . 1 sop has many files
 
   # .add pagy gem (pagination)
   # .excel bind with macro (option for document_type)
@@ -40,16 +43,16 @@ class SpreadsheetService
     Zip::File.open(@zip_file) do |zip_file|
       num_files = 0
       base_name = File.basename(zip_file.name, '.zip')
-      @dest = FileUtils.mkdir_p("#{@store_dir}/#{base_name}").first
+      self.dest = FileUtils.mkdir_p("#{@store_dir}/#{base_name}").first
 
       zip_file.each do |entry|
         raise t('too_many')  if ++num_files > @@MAX_FILES
         raise t('too_large') if entry.size > @@MAX_FILE_SIZE
-        entry.extract "#{@dest}/#{entry.name}" 
+        entry.extract "#{dest}/#{entry.name}" 
       end
     end
 
-    spreadsheets = Dir.glob("#{@dest}/*.xlsx")
+    spreadsheets = Dir.glob("#{dest}/*.xlsx")
     raise t('not_found') if spreadsheets.empty?
     yield spreadsheets.map { |f| Importer.new(f) } if block_given?
 
@@ -71,7 +74,7 @@ class SpreadsheetService
 
       rows.each do |row|
         sop = Sop.new(row)
-        sop.with_attachment(@dest, row[:file].to_s) do |f|
+        sop.with_attachment(dest, row[:file].to_s) do |f|
           sop.file = f
         end
 
@@ -89,7 +92,7 @@ class SpreadsheetService
 
   # load multiple speadsheet files & import
   # def load_sop_from_spreadsheet
-  #   spreadsheets = Dir.glob("#{@dest}/*.xlsx")
+  #   spreadsheets = Dir.glob("#{dest}/*.xlsx")
   #   raise t('not_found') if spreadsheets.empty?
 
   #   spreadsheets.each { |xlsx| import(xlsx) }
