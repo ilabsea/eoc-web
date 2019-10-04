@@ -16,11 +16,10 @@ class Sop < ApplicationRecord
     SopSearchResultPresenter.new(response).results
   end
 
-  def with_attachment(file)
-    return unless document?
+  def with_attachment(path, file)
+    return if folder? || file.blank?
     return self.remote_file_url = file if URI.parse(file).absolute?
 
-    path = "public/uploads/roo_test/#{file}"
-    File.open(path) { |f| yield f } if File.exist?(path)
+    File.open("#{path}/#{file}") { |f| yield f } if File.exist?("#{path}/#{file}")
   end
 end
