@@ -15,20 +15,6 @@ class SpreadsheetService
     @store_dir = Rails.root.join('public', @uploader.store_dir).to_path
   end
 
-  # TODO #
-  # .whitelisted files
-  # .unicode file
-  # .many other zip files (rar, gz, ...) are not yet support
-  # . 1 sop has many files
-
-  # .add pagy gem (pagination)
-  # .excel bind with macro (option for document_type)
-  # .add specs
-
-  # .nested sub-dir
-  # .multiple spreadsheet file
-  # .large file
-
   def unzip
     extname = File.extname(@zip_file)
     filename = File.basename(@zip_file)
@@ -90,14 +76,6 @@ class SpreadsheetService
     end
   end
 
-  # load multiple speadsheet files & import
-  # def load_sop_from_spreadsheet
-  #   spreadsheets = Dir.glob("#{dest}/*.xlsx")
-  #   raise t('not_found') if spreadsheets.empty?
-
-  #   spreadsheets.each { |xlsx| import(xlsx) }
-  # end
-
   protected
 
   def log(type=:warn, msg)
@@ -107,16 +85,4 @@ class SpreadsheetService
   def t(key, placeholder={})
     I18n.t(".spreadsheet_service.#{key}", { default: '' }.merge(placeholder))
   end
-
-  # def archive path, files
-  #   folder = Rails.root.join('public', 'uploads', 'roo_test').to_path
-  #   file_names = ['Book1.xlsx', 'fish.jpg']
-  #   zip_name = "#{folder}/archive.zip"
-
-  #   Zip::File.open(zip_name, Zip::File::CREATE) do |zipfile|
-  #     file_names.each do |filename|
-  #       zipfile.add(filename, File.join(folder, filename))
-  #     end
-  #   end
-  # end
 end
