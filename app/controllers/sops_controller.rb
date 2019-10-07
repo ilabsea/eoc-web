@@ -8,10 +8,6 @@ class SopsController < ApplicationController
     end
   end
 
-  def show
-    @sop = Sop.find(params[:id])
-  end
-
   def new
     @sop = Sop.new
   end
