@@ -1,10 +1,17 @@
 module Api::V1
   class SopsController < ApiController
     def index
-      @search = Sop.search({keyword: params['searchText'], from: params['from'], size: params['size']}).results.results
+      keyword, from, size = sop_search_params
+      @search = Sop.search({ keyword: keyword, from: from, size: size }).results.results
       respond_to do |format|
         format.json { render json: @search }
       end
+    end
+
+    private
+
+    def sop_search_params
+      params.values_at(:searchText, :from, :size)
     end
   end
 end
