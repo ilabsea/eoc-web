@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: sops
+#
+#  id            :bigint           not null, primary key
+#  name          :string
+#  file          :string
+#  tags          :text
+#  category_id   :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  document_type :integer          default("document")
+#
+
 require 'rails_helper'
 
 RSpec.describe Sop, type: :model do

@@ -37,4 +37,24 @@ RSpec.describe SopsController, type: :controller do
       expect(response.status).to eq 200
     end
   end
+
+  describe 'PUT update' do
+    it 'updates sop' do
+      sop = create(:sop, name: 'old sop')
+      new_sop = { name: 'new sop' }
+
+      put :update, params: { id: sop.id, sop: { name: 'new sop' } }
+
+      expect( assigns(:sop).name ).to eq( new_sop[:name] )
+    end
+
+    it 'cannot update duplicate sop' do
+      sop1 = create(:sop, name: 'sop 1')
+      sop2 = create(:sop, name: 'sop 2')
+
+      put :update, params: { id: sop1.id, sop: { name: sop2.name } }
+
+      expect( subject ).to render_template(:edit)
+    end
+  end
 end
