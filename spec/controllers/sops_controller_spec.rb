@@ -69,5 +69,18 @@ RSpec.describe SopsController, type: :controller do
     expect(response.status).to eq 200
   end
 
-  
+  describe 'POST import' do
+    it 'renders upload when no attach file' do
+      post :import
+      expect(subject).to render_template(:upload)
+    end
+
+    it 'import zip file' do
+      @file_path = Rails.root.join('spec', 'fixtures', 'files', 'Archive.zip')
+      post :import, params: { zip_file: fixture_file_upload(@file_path, 'application/zip') }
+
+      expect(subject).to redirect_to(sops_path)
+      expect(subject.request.flash[:notice]).to eq "Import success!"
+    end
+  end
 end
