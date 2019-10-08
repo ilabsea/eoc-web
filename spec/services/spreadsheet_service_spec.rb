@@ -27,4 +27,9 @@ RSpec.describe SpreadsheetService, type: :model do
       expect(excels).to all(be_a(described_class::Importer)) 
     end
   end
+
+  it 'import data from spreadsheet to database' do
+    service = described_class::Importer.new( file_path('test.xlsx') )
+    expect { service.load }.not_to raise_error(RuntimeError)
+  end
 end
