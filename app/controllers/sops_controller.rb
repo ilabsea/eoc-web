@@ -57,20 +57,22 @@ class SopsController < ApplicationController
   end
 
   def import
-    render :import unless params[:zip_file]
-    
-    file = File.open(params[:zip_file].path)
-    uploader = FileUploader.new
-    uploader.store! file
+    if params[:zip_file]
+      file = File.open(params[:zip_file].path)
+      uploader = FileUploader.new
+      uploader.store! file
 
-    service = SpreadsheetService.new uploader.path
-    service.unzip do |excels|
-      excels.each do |excel|
-        excel.load
+      service = SpreadsheetService.new uploader.path
+      service.unzip do |excels|
+        excels.each do |excel|
+          excel.load
+        end
       end
-    end
 
-    redirect_to sops_path, notice: 'Import success!'
+      redirect_to sops_path, notice: 'Import success!'
+    else
+      render :upload
+    end
   end
 
   private
