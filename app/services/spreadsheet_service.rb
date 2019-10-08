@@ -41,9 +41,6 @@ class SpreadsheetService
     spreadsheets = Dir.glob("#{dest}/*.xlsx")
     raise t('not_found') if spreadsheets.empty?
     yield spreadsheets.map { |f| Importer.new(f) } if block_given?
-
-  # rescue => err
-  #   puts err.message
   end
 
   class Importer < self
