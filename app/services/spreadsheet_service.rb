@@ -42,8 +42,8 @@ class SpreadsheetService
     raise t('not_found') if spreadsheets.empty?
     yield spreadsheets.map { |f| Importer.new(f) } if block_given?
 
-  rescue => err
-    print err.message
+  # rescue => err
+  #   puts err.message
   end
 
   class Importer < self
