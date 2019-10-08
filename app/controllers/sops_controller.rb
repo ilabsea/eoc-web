@@ -57,6 +57,8 @@ class SopsController < ApplicationController
   end
 
   def import
+    render :import unless params[:zip_file]
+    
     file = File.open(params[:zip_file].path)
     uploader = FileUploader.new
     uploader.store! file
