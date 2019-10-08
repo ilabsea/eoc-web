@@ -4,3 +4,4 @@ en:
     too_large: 'File too large when extracted'
     not_found: "File %{filename} not found"
     blacklist_ext: "Allow extension(s): %{allowance}"
+    unprocessible: "Unprocessible: %{msg}"

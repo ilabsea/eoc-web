@@ -61,15 +61,8 @@ class SpreadsheetService
           sop.file = f
         end
 
-        unless sop.save
-          sop.errors.full_messages.each do |msg|
-            log msg
-          end
-        end
+        raise t('unprocessible', msg: sop.errors.full_messages.join(',')) unless sop.save
       end
-
-    rescue => err
-      log err.message
     end
   end
 
