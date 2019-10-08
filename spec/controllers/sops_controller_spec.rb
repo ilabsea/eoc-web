@@ -63,4 +63,11 @@ RSpec.describe SopsController, type: :controller do
     delete :destroy, params: { id: sop.id }
     expect(subject).to redirect_to(sops_path)
   end
+
+  it 'GET upload' do
+    get :upload
+    expect(response.status).to eq 200
+  end
+
+  
 end
