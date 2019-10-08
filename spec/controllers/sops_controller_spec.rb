@@ -57,4 +57,10 @@ RSpec.describe SopsController, type: :controller do
       expect( subject ).to render_template(:edit)
     end
   end
+
+  it 'deletes sop' do
+    sop = create(:sop, name: 'unwanted sop')
+    delete :destroy, params: { id: sop.id }
+    expect(subject).to redirect_to(sops_path)
+  end
 end
