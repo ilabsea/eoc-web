@@ -2,6 +2,10 @@ require 'rails_helper'
 
 # test only Active Record
 RSpec.describe SopsController, type: :controller do
+  before(:each) do
+    sign_in FactoryBot.create(:user)
+  end
+
   describe 'GET index' do
     it 'returns 200' do
       get :index
