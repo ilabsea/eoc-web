@@ -17,8 +17,10 @@
 @import 'bootstrap';
 @import 'jquery.tag-editor';
 
-@import 'flex-layout';
-@import 'shared';
+@import 'shared/base';
+@import 'shared/common';
+@import 'shared/flex-layout';
+@import 'shared/devise';
 
 @import 'sidebar';
 @import 'sops';
