@@ -24,6 +24,8 @@ class Sop < ApplicationRecord
   validates :name, presence: true, uniqueness: true
   after_commit :remove_file!, on: :destroy
 
+  delegate :identifier, to: :file, allow_nil: true
+
   def self.search_highlight(params)
     response = self.search(params)
 
