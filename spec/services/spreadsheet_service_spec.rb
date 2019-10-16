@@ -16,7 +16,6 @@ RSpec.describe SpreadsheetService, type: :model do
     service = described_class.new(blacklist)
     whitelist = described_class.class_variable_get(:@@WHITELIST)
     error_msg = I18n.t('.spreadsheet_service.blacklist_ext', allowance: whitelist.to_sentence)
-
     expect { service.unzip }.to raise_error(RuntimeError, error_msg)
   end
 
@@ -24,12 +23,12 @@ RSpec.describe SpreadsheetService, type: :model do
     service = described_class.new(archive)
 
     service.unzip do |excels| 
-      expect(excels).to all(be_a(described_class::Importer)) 
+      expect(excels).to all(be_a(Importer)) 
     end
   end
 
   it 'import data from spreadsheet to database' do
-    service = described_class::Importer.new( file_path('test.xlsx') )
+    service = Importer.new( file_path('test.xlsx') )
     expect { service.load }.not_to raise_error(RuntimeError)
   end
 end
