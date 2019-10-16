@@ -38,4 +38,9 @@ ActiveRecord::Schema.define(version: 2019_10_08_013605) do
     t.index ["name"], name: "index_sops_on_name", unique: true
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
 end

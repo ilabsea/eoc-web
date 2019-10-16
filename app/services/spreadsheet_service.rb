@@ -16,11 +16,9 @@ class SpreadsheetService
   end
 
   def unzip
-    extname = File.extname(@zip_file)
-    filename = File.basename(@zip_file)
-
-    raise t('not_found', filename: filename) unless File.exist?(@zip_file)
-    raise t('blacklist_ext', allowance: @@WHITELIST.to_sentence ) unless @@WHITELIST.include?(extname)
+    checker = FileChecker.new(@zip_file)
+    checker.exist!
+    checker.blacklist!
 
     #Dealing with existing file
     Zip.on_exists_proc = true
@@ -32,38 +30,15 @@ class SpreadsheetService
       self.dest = FileUtils.mkdir_p("#{@store_dir}/#{base_name}").first
 
       zip_file.each do |entry|
-        raise t('too_many')  if ++num_files > @@MAX_FILES
-        raise t('too_large') if entry.size > @@MAX_FILE_SIZE
+        checker.too_many!(++num_files)
+        checker.too_large!(entry.size)
         entry.extract "#{dest}/#{entry.name}" 
       end
     end
 
-    spreadsheets = Dir.glob("#{dest}/*.xlsx")
-    raise t('not_found') if spreadsheets.empty?
+    spreadsheets = Dir.glob("#{dest}/**/*.xlsx")
+    checker.no_spreadsheet!(spreadsheets)
     yield spreadsheets.map { |f| Importer.new(f) } if block_given?
-  end
-
-  class Importer < self
-    def initialize(f)
-      @file = f
-    end
-
-    def load
-      sheet_index = 0
-      roo = Roo::Excelx.new(@file)
-
-      sheet = roo.sheet(sheet_index)
-      rows = sheet.parse(@@COLS)
-
-      rows.each do |row|
-        sop = Sop.new(row)
-        sop.with_attachment(dest, row[:file].to_s) do |f|
-          sop.file = f
-        end
-
-        raise t('unprocessible', msg: sop.errors.full_messages.join(',')) unless sop.save
-      end
-    end
   end
 
   protected
