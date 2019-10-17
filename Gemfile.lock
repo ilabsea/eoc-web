@@ -50,6 +50,8 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (9.6.1.1)
       execjs
+    awesome_nested_set (3.2.0)
+      activerecord (>= 4.0.0, < 7.0)
     bcrypt (3.1.13)
     bindex (0.8.1)
     bootsnap (1.4.5)
@@ -353,6 +355,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate
+  awesome_nested_set (~> 3.2)
   bootsnap (>= 1.1.0)
   bootstrap (~> 4.3.1)
   byebug

@@ -1,11 +1,11 @@
-- if notice.present?
+- if flash[:notice]
   .alert.alert-success.notify-message
     %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-label' => 'Close'}
-    = notice
-- if alert.present?
+    = flash[:notice]
+- if flash[:alert]
   .alert.alert-danger.notify-message
     %button.close{type: 'button', 'data-dismiss' => 'alert', 'aria-label' => 'Close'}
-    = alert
+    = flash[:alert]
 
 :javascript
   setTimeout(function() {

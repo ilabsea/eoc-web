@@ -16,4 +16,6 @@ Rails.application.routes.draw do
       post :import
     end
   end
+
+  resources :categories
 end
