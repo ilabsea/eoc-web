@@ -14,7 +14,6 @@
 
 class Sop < ApplicationRecord
   include Sops::Searchable
-  enum document_type: [:document, :folder]
 
   mount_uploader :file, FileUploader
 
