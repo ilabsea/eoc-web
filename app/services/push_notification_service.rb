@@ -5,8 +5,6 @@ class PushNotificationService
   def initialize(options = {})
     @title = options[:title]
     @body = options[:body]
-
-    @fcm = ::FCMFake.new(@@server_key)
   end
 
   def notify tokens
@@ -15,9 +13,13 @@ class PushNotificationService
     end
   end
 
-  delegate :send, to: :@fcm
+  delegate :send, to: :fcm
 
   private
+
+  def fcm
+    @fcm ||= ::FCM.new(@@server_key)
+  end
 
   def message_options
     { 
