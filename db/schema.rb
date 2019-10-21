@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_093313) do
+ActiveRecord::Schema.define(version: 2019_10_21_020557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,10 @@ ActiveRecord::Schema.define(version: 2019_10_14_093313) do
     t.index ["lft"], name: "index_categories_on_lft"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
     t.index ["rgt"], name: "index_categories_on_rgt"
+  end
+
+  create_table "firebase_tokens", force: :cascade do |t|
+    t.string "token"
   end
 
   create_table "sops", force: :cascade do |t|
