@@ -1,6 +1,6 @@
 class CategoriesController < ApplicationController
   def index
-    @categories = Category.roots
+    @sub_categories = Category.roots
     @sops = Sop.where(category_id: nil)
   end
 
@@ -10,8 +10,8 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.new(category_params)
-    if(@category).save
-      redirect_to @category.parent_id ? category_path(category.parent_id) : categories_path
+    if @category.save
+      redirect_to category_path(@category)
     else
       flash.now[:alert] = @category.errors.full_messages
       render :new

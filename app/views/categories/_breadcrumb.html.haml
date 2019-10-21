@@ -1,0 +1,12 @@
+%nav{ 'aria-label' => 'breadcrumb' }
+  %ol.breadcrumb
+    - if @category.present?
+      %li.breadcrumb-item
+        = link_to 'Root', categories_path
+      - @category.ancestors.each do |ancestor_category|
+        %li.breadcrumb-item
+          = link_to ancestor_category.name, category_path(ancestor_category.id)
+      %li.breadcrumb-item.active{ 'aria-current' => 'page' }= @category.name
+    - else
+      %li.breadcrumb-item.active{ 'aria-current' => 'page' } Root
+

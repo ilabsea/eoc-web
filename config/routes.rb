@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :categories
+  resources :categories do
+    post :move
+  end
 end
