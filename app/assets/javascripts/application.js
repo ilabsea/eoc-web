@@ -20,5 +20,15 @@
 
 //= require jquery.tag-editor.min
 //= require jquery.caret.min
+//= require bootstrap-treeview.min
 
 //= require_tree .
+//
+
+/*
+ *document.addEventListener('turbolinks:load', function() {
+ *
+ *  const currentPage = EOC.Util.getCurrentPage();
+ *  !!EOC[currentPage] && EOC[currentPage].init();
+ *})
+ */

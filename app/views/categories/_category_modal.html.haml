@@ -1,0 +1,16 @@
+#category-modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "categoryModal", :role => "dialog", :tabindex => "-1"}
+  .modal-dialog{:role => "document"}
+    .modal-content
+      .modal-header
+        %h5#exampleModalLabel.modal-title Modal title
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} ×
+      .modal-body
+        = nested_li(Category.order(:lft)) do |category|
+          = category.name
+
+      %form#move-category-form.modal-footer
+        %input{type: :hidden, name: 'category[parent_id]'}
+        %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Close
+        %button.btn.btn-primary{:type => "button"} Move
+

@@ -1,0 +1,60 @@
+#content
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %h3 Category
+      %ul.navbar-nav.ml-auto
+        %li.nav-item.mr-sm-2
+          = link_to new_category_path(parent_id: @category.try(:id)), class: 'btn btn-primary' do
+            %i.fas.fa-plus
+        %li.nav-item
+          - if @category.nil? || !@category.is_empty?
+            .btn.btn-secondary{ disabled: true }
+              %i.fas.fa-file-archive
+          - else
+            = link_to "#", class: 'btn btn-danger' do
+              %i.fas.fa-file-archive
+
+  = render 'breadcrumb'            
+
+  -#%div Name
+  -#.list-group
+    -#- @sub_categories.each do |category|
+      -#= link_to category_path(category.id), class: 'list-group-item list-group-item-action' do
+        -#%span
+          -#%i.fa.fa-folder
+        -#%span= category.name
+
+    -#- @sops.each do |sop|
+      -#= link_to '#', class: 'list-group-item list-group-item-action' do
+        -#%span
+          -#%i.far.fa-file
+        -#%span= sop.name
+
+  %table.table
+    -#%thead
+      -#%tr
+        -#%th Name
+    %tbody
+      - @sub_categories.each do |category|
+        %tr
+          %td
+            = link_to category_path(category.id) do
+              %i.fa.fa-folder
+              %span= category.name
+          %td
+            = link_to 'Move', "#", class: 'badge badge-info', id: "#{category.id}", 'data-toggle' => :modal, 'data-target' => "#category-modal"
+      - @sops.each do |sop|
+        %tr
+          %td
+            = link_to '#' do
+              %i.far.fa-file
+              %span= sop.name
+          %td
+            = link_to 'Move', "#", class: 'badge badge-info', id: "#{sop.id}"
+            \/
+            = link_to 'Edit', edit_sop_path(id: sop.id), class: 'badge badge-info'
+            \/
+            = link_to 'Delete', sop_path(id: sop.id), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}
+
+= render 'category_modal'
+
