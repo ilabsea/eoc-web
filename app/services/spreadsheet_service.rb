@@ -6,7 +6,6 @@ class SpreadsheetService
   @@WHITELIST = %w(.zip)
   @@COLS = {  name: 'Name', 
               tags: 'Tags', 
-              document_type: 'Document_type', 
               file: 'File' }
 
   def initialize(zip_file)
