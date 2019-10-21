@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+RSpec::Expectations.configuration.on_potential_false_positives = :nothing
 RSpec.describe SpreadsheetService, type: :model do
   let(:not_found) { file_path('404.zip') }
   let(:blacklist) { file_path('angkorwat.jpg') }
