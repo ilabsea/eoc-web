@@ -1,7 +1,7 @@
 module Api::V1
   class TokensController < ApiController
     def create
-      @token = FirebaseToken.new(firebase_token_params)
+      @token = FirebaseDeviceToken.new(firebase_token_params)
       if @token.save
         render json: @token, status: :ok
       else
