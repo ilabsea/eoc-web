@@ -26,19 +26,17 @@ class CategoriesController < ApplicationController
 
   def move
     category = Category.find(move_params[:category_id])
-    parent_category = Category.find(move_params[:parent_id])
-    if category.move_to_child_of(parent_category)
-      redirect_to category_path(parent_category.id)
+    if category.update(parent_id: move_params[:parent_id])
+      redirect_to redirect_url
     else
-      flash.now[:alert] = @category.errors.full_messages
+      flash.now[:alert] = category.errors.full_messages
     end
   end
 
   def move_sop
     sop = Sop.find(move_params[:sop_id])
-    parent_category = Category.find(move_params[:parent_id])
     if sop.update(category_id: move_params[:parent_id])
-      redirect_to category_path(parent_category.id)
+      redirect_to redirect_url
     else
       flash.now[:alert] = sop.errors.full_messages
     end
@@ -52,6 +50,10 @@ class CategoriesController < ApplicationController
 
   def move_params
     params.require(:category).permit(:parent_id, :category_id, :sop_id)
+  end
+
+  def redirect_url
+    move_params[:parent_id].present? ? category_path(move_params[:parent_id]) : categories_path
   end
 end
 
