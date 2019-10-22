@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_023626) do
+ActiveRecord::Schema.define(version: 2019_10_21_020557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,15 +27,17 @@ ActiveRecord::Schema.define(version: 2019_10_22_023626) do
     t.index ["rgt"], name: "index_categories_on_rgt"
   end
 
-  create_table "firebase_tokens", force: :cascade do |t|
+  create_table "firebase_device_tokens", force: :cascade do |t|
     t.string "token"
   end
 
   create_table "sops", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.string "file"
     t.text "tags"
     t.integer "category_id"
+    t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_sops_on_name", unique: true
