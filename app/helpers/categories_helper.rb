@@ -4,7 +4,7 @@ module CategoriesHelper
 
     return '' if objects.size == 0
 
-    output = "<ul style='list-style: none;'><li id=#{objects.first.id}>"
+    output = "<ul><li id=#{objects.first.id}>"
     path = [nil]
 
     objects.each_with_index do |o, i|

@@ -5,15 +5,21 @@ module.exports = {
     jquery: true,
   },
   extends: [
-    'airbnb-base',
+    'eslint:recommended',
+    'prettier'
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
+    EOC: 'writable'
   },
   parserOptions: {
     ecmaVersion: 2018,
   },
+  plugins: [
+    'prettier'
+  ],
   rules: {
+    'prettier/prettier': 'error'
   },
 };
