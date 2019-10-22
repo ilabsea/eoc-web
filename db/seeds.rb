@@ -142,6 +142,8 @@ categories = [
   }
 ]
 
+p 'preparing...'
+
 categories.each do |cat1|
   _cat1 = Category.create name: cat1[:name]
 
@@ -154,7 +156,7 @@ categories.each do |cat1|
     end
 
     cat2[:sops].each do |sop2|
-      _sop2 = Sop.new name: sop2[:name]
+      _sop2 = Sop.create name: sop2[:name]
       file_path = Rails.root.join('public', 'seed', 'sops')
       _sop2.with_attachment(file_path, sop2[:file]) do |f|
         _sop2.file = f
@@ -163,11 +165,12 @@ categories.each do |cat1|
   end
 
   cat1[:sops].each do |sop1|
-    _sop1 = Sop.new name: sop1[:name]
-
+    _sop1 = Sop.create name: sop1[:name]
     file_path = Rails.root.join('public', 'seed', 'sops')
     _sop1.with_attachment(file_path, sop1[:file]) do |f|
       _sop1.file = f
     end
   end
 end
+
+p 'finish'
