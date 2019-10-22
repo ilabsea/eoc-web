@@ -1,6 +1,5 @@
 class PushNotificationService
-  @@server_key = 'xxx'
-  @@max_count = 2
+  SEND_THRESHOLD = 500
 
   def initialize(options = {})
     @title = options[:title]
@@ -8,7 +7,7 @@ class PushNotificationService
   end
 
   def notify tokens
-    tokens.in_groups_of(@@max_count, false).each do |groups|
+    tokens.in_groups_of(SEND_THRESHOLD, false).each do |groups|
       send(groups, message_options)
     end
   end
@@ -18,7 +17,7 @@ class PushNotificationService
   private
 
   def fcm
-    @fcm ||= ::FCM.new(@@server_key)
+    @fcm ||= ::FCM.new(ENV[FIREBASE_SERVER_KEY])
   end
 
   def message_options
