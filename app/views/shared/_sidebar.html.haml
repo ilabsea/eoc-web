@@ -12,5 +12,10 @@
         %i.fas.fa-book
         SOP
 
+    %li
+      = link_to destroy_user_session_path, method: :delete do
+        %i.fas.fa-key
+        = t('sidebar.logout')
+
   .copyright
     © 2019 InSTEDD
