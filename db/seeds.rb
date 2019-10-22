@@ -1,6 +1,16 @@
 Sop.destroy_all
 Category.destroy_all
 
+def create_sop sop
+  _sop = Sop.create name: sop[:name]
+  file_path = Rails.root.join('public', 'seed', 'sops')
+  _sop.with_attachment(file_path, sop[:file]) do |f|
+    _sop.file = f
+  end
+
+  _sop
+end
+
 categories = [
   {
     name: 'cat 1',
@@ -142,8 +152,6 @@ categories = [
   }
 ]
 
-p 'preparing...'
-
 categories.each do |cat1|
   _cat1 = Category.create name: cat1[:name]
 
@@ -156,21 +164,11 @@ categories.each do |cat1|
     end
 
     cat2[:sops].each do |sop2|
-      _sop2 = Sop.create name: sop2[:name]
-      file_path = Rails.root.join('public', 'seed', 'sops')
-      _sop2.with_attachment(file_path, sop2[:file]) do |f|
-        _sop2.file = f
-      end
+      _cat2.sops << create_sop(sop2)
     end
   end
 
   cat1[:sops].each do |sop1|
-    _sop1 = Sop.create name: sop1[:name]
-    file_path = Rails.root.join('public', 'seed', 'sops')
-    _sop1.with_attachment(file_path, sop1[:file]) do |f|
-      _sop1.file = f
-    end
+    _cat1.sops << create_sop(sop1)
   end
 end
-
-p 'finish'
