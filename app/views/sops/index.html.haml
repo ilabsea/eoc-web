@@ -1,0 +1,27 @@
+#content
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %h3 Sop
+      = link_to new_sop_path, class: 'btn btn-primary' do
+        %i.fas.fa-plus
+
+  = form_with(url: "/sops", method: "get") do
+    .form-row.medium-width
+      .col-auto
+        .form-group
+          = text_field_tag(:keyword, '', class: 'form-control')
+      .col-auto
+        = submit_tag("Search", class: 'btn btn-light')
+
+  - if @sop_highlights.present?
+    %table.table.table-hover.medium-width
+      %thead
+        %tr
+          %th Name
+          %th Tags
+          %th File
+          %th Category
+          %th
+
+      %tbody#body-content
+        = render 'sops'

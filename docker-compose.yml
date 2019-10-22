@@ -1,0 +1,42 @@
+version: '3'
+
+volumes:
+  bundle:
+  elastic:
+
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+
+  web: &rails
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+    volumes:
+      - .:/app
+      - bundle:/usr/local/bundle
+    tmpfs: /app/tmp
+    depends_on:
+      - db
+      - elasticsearch
+      - redis
+    env_file: docker-env
+    tty: true
+    stdin_open: true
+    ports:
+      - "3000:3000"
+
+  redis:
+    image: redis
+
+  elasticsearch:
+    image: elasticsearch:7.3.1
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
+    ports:
+      - "9200:9200"
