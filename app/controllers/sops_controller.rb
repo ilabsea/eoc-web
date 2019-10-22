@@ -8,10 +8,6 @@ class SopsController < ApplicationController
     end
   end
 
-  def show
-    @sop = Sop.find(params[:id])
-  end
-
   def new
     @sop = Sop.new
   end
@@ -55,6 +51,28 @@ class SopsController < ApplicationController
 
   def download
     send_file "#{Rails.root}/public/#{params[:file]}", disposition: 'attachment'
+  end
+
+  def upload
+  end
+
+  def import
+    if params[:zip_file]
+      file = File.open(params[:zip_file].path)
+      uploader = FileUploader.new
+      uploader.store! file
+
+      service = SpreadsheetService.new uploader.path
+      service.unzip do |excels|
+        excels.each do |excel|
+          excel.load
+        end
+      end
+
+      redirect_to sops_path, notice: 'Import success!'
+    else
+      render :upload
+    end
   end
 
   private

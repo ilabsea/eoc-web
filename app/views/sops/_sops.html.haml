@@ -6,7 +6,7 @@
     %td
       - if sop.file_url.present?
         = link_to download_sops_path(file: sop.file_url), target: "_blank", style:'color: #007bff' do
-          %span= sop.file_url.split('/').last
+          %span= name(sop.file_url)
           %i.fas.fa-download
 
     %td= sop.category_name

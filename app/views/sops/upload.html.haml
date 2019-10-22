@@ -1,0 +1,10 @@
+#content
+  %h3 Upload SOP
+  = form_with(url: import_sops_path, method: "post", multipart: true) do
+    .col-auto
+      .form-group
+        %label.btn.btn-primary
+          = file_field_tag(:zip_file, class: 'hidden')
+          Import
+    .col-auto
+      = submit_tag("Import", class: 'btn btn-light')

@@ -10,6 +10,8 @@ class FileUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
+    return 'uploads/carrierwave' unless model.present?
+    
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
@@ -41,7 +43,10 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    if original_filename
+      f = Digest::SHA256.file path
+      "#{f.hexdigest}-#{original_filename}" 
+    end
+  end
 end
