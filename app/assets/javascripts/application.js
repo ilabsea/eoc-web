@@ -25,10 +25,11 @@
 //= require_tree .
 //
 
-/*
- *document.addEventListener('turbolinks:load', function() {
- *
- *  const currentPage = EOC.Util.getCurrentPage();
- *  !!EOC[currentPage] && EOC[currentPage].init();
- *})
- */
+document.addEventListener('turbolinks:load', () => {
+  const currentPage = EOC.Util.getCurrentPage();
+  if (EOC[currentPage]) {
+    EOC[currentPage].init();
+  }
+  Rails.refreshCSRFTokens();
+});
+

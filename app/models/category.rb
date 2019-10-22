@@ -16,6 +16,9 @@ class Category < ApplicationRecord
   belongs_to :parent, class_name: 'Category', optional: true
   has_many :sops, class_name: 'Sop'
 
+  validates :name, presence: true
+  validates :name, uniqueness: true
+
   before_destroy :destroy_category
 
   acts_as_nested_set

@@ -1,0 +1,1 @@
+window.EOC = window.EOC || {};
