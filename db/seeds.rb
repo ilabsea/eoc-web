@@ -27,6 +27,10 @@ categories = [
         ],
         sops: [
           {
+            name: 'cat 1 as sop',
+            file: nil
+          },
+          {
             name: 'sop 1.1',
             file: 'sop-1.1.zip'
           }
