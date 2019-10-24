@@ -41,7 +41,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'haml-rails',     '~> 2.0'
 gem 'jquery-rails',   '~> 4.3.5'
 gem 'bootstrap',      '~> 4.3.1'
-gem 'simple_form',    '~> 4.1.0'
+gem 'simple_form',    '~> 5.0.0'
 gem 'carrierwave',    '~> 2.0'
 gem 'devise', '~> 4.7.1'
 
