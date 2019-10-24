@@ -7,10 +7,14 @@
           %span{"aria-hidden" => "true"} ×
       .modal-body
         %ul#category-list
-          %li
-            %span.category-item Root
+          %li.root-category
+            %span.category-item
+              %i.fa.fa-folder
+              Root
           = nested_li(Category.order(:lft)) do |category|
-            %span.category-item= category.name
+            %span.category-item
+              %i.fa.fa-folder
+              = category.name
 
       = form_tag '', id: 'move-category-form', class: 'modal-footer', method: :post, 'data-category-url' => move_categories_path, 'data-sop-url' => move_sop_categories_path, 'data-current-id' => params[:id] do
         %input#category-item{type: :hidden, name: 'category[category_id]'}
