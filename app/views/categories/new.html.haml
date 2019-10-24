@@ -3,4 +3,5 @@
     .container-fluid
       %h3 New Category
 
-  = render 'form'
+  - url = @category.parent_id ? category_path(@category.parent_id) : categories_path
+  = render 'form', url: url

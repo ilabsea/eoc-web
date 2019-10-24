@@ -3,7 +3,6 @@
     = f.input :name
     = f.input :parent_id, as: :hidden, value: @category.parent_id
 
-    - cancel_url = @category.parent_id ? category_path(@category.parent_id) : categories_path
     .actions{style: 'margin-top: 30px'}
       = f.button :submit, class: 'btn btn-primary'
-      = link_to 'Cancel', cancel_url, class: 'btn btn-secondary'
+      = link_to 'Cancel', url, class: 'btn btn-secondary'

@@ -24,6 +24,20 @@ class CategoriesController < ApplicationController
     @sops = Sop.where(category_id: params[:id])
   end
 
+  def edit
+    @category = Category.find(params[:id])
+  end
+
+  def update
+    @category = Category.find(params[:id])
+    if @category.update_attributes(category_params)
+      redirect_to category_path(@category)
+    else
+      flash.now[:alert] = @category.errors.full_messages
+      render :edit
+    end
+  end
+
   def move
     category = Category.find(move_params[:category_id])
     if category.update(parent_id: move_params[:parent_id])

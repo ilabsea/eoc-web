@@ -14,13 +14,13 @@
 class Category < ApplicationRecord
   include ::SoftDeletable
   include Sops::Searchable
-  
+
   has_many :sops, class_name: 'Sop'
 
   validates :name, presence: true
   validates :name, uniqueness: true
 
-  before_destroy :destroy_category
+  before_destroy :check_category
 
   acts_as_nested_set
 
@@ -30,7 +30,10 @@ class Category < ApplicationRecord
 
   private
 
-  def destroy_category
-    delete if is_empty?
+  def check_category
+    unless is_empty?
+      errors[:base] << 'category is not empty'
+      throw :abort
+    end
   end
 end

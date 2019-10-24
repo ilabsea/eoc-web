@@ -6,6 +6,9 @@
         %li.nav-item.mr-sm-2
           = link_to new_category_path(parent_id: @category.try(:id)), class: 'btn btn-primary' do
             %i.fas.fa-plus
+        %li.nav-item.mr-sm-2
+          = link_to edit_category_path(@category.id), class: 'btn btn-primary' do
+            %i.fas.fa-pen
         %li.nav-item
           - if @category.nil? || !@category.is_empty?
             .btn.btn-secondary{ disabled: true }
@@ -26,6 +29,8 @@
               %span= category.name
           %td
             = link_to 'Move', "#", class: 'badge badge-info', 'data-toggle' => :modal, 'data-target' => "#category-modal", 'data-id' => category.id, 'data-type' => 'category'
+            \/
+            = link_to 'Edit', edit_category_path(id: category.id), class: 'badge badge-info'
       - @sops.each do |sop|
         %tr
           %td
