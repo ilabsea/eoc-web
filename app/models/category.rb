@@ -12,10 +12,9 @@
 #
 
 class Category < ApplicationRecord
+  include ::SoftDeletable
   include Sops::Searchable
   
-  has_many :children, class_name: 'Category', foreign_key: :parent_id
-  belongs_to :parent, class_name: 'Category', optional: true
   has_many :sops, class_name: 'Sop'
 
   validates :name, presence: true
@@ -32,6 +31,6 @@ class Category < ApplicationRecord
   private
 
   def destroy_category
-    self.destroy if self.is_empty?
+    delete if is_empty?
   end
 end

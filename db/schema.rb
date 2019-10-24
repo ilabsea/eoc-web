@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_21_020557) do
+ActiveRecord::Schema.define(version: 2019_10_24_080041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2019_10_21_020557) do
     t.integer "rgt", null: false
     t.integer "depth", default: 0, null: false
     t.integer "children_count", default: 0, null: false
+    t.boolean "is_deleted", default: false
+    t.index ["is_deleted"], name: "index_categories_on_is_deleted"
     t.index ["lft"], name: "index_categories_on_lft"
     t.index ["parent_id"], name: "index_categories_on_parent_id"
     t.index ["rgt"], name: "index_categories_on_rgt"
@@ -33,13 +35,12 @@ ActiveRecord::Schema.define(version: 2019_10_21_020557) do
 
   create_table "sops", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.string "file"
     t.text "tags"
     t.integer "category_id"
-    t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "document_type", default: 0
     t.index ["name"], name: "index_sops_on_name", unique: true
   end
 
