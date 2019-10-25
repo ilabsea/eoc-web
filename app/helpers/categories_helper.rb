@@ -9,9 +9,7 @@ module CategoriesHelper
 
     objects.each_with_index do |o, i|
       if o.parent_id != path.last
-        # We are on a new level, did we descend or ascend?
         if path.include?(o.parent_id)
-          # Remove the wrong trailing path elements
           while path.last != o.parent_id
             path.pop
             output << '</li></ul>'

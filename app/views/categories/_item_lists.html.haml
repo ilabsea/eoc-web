@@ -6,9 +6,10 @@
         %li.nav-item.mr-sm-2
           = link_to new_category_path(parent_id: @category.try(:id)), class: 'btn btn-primary' do
             %i.fas.fa-plus
-        %li.nav-item.mr-sm-2
-          = link_to edit_category_path(@category.id), class: 'btn btn-primary' do
-            %i.fas.fa-pen
+        - if @category.present?
+          %li.nav-item.mr-sm-2
+            = link_to edit_category_path(@category.id), class: 'btn btn-primary' do
+              %i.fas.fa-pen
         %li.nav-item
           - if @category.nil? || !@category.is_empty?
             .btn.btn-secondary{ disabled: true }

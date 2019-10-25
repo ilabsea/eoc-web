@@ -70,7 +70,7 @@ EOC.CategoriesIndex = EOC.CategoriesShow = (() => {
   }
 
   function addEventToForm() {
-    $('#move-category-form').submit( event => {
+    $('#move-category-form').submit(event => {
       if ($('#category-list .selected').length == 0) {
         event.preventDefault();
       }

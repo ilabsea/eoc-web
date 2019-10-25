@@ -17,8 +17,7 @@ class Category < ApplicationRecord
 
   has_many :sops, class_name: 'Sop'
 
-  validates :name, presence: true
-  validates :name, uniqueness: true
+  validates :name, presence: true, uniqueness: true
 
   before_destroy :check_category
 
