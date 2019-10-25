@@ -2,12 +2,13 @@ Sop.destroy_all
 Category.destroy_all
 
 def create_sop sop
-  _sop = Sop.create name: sop[:name]
+  _sop = Sop.new name: sop[:name]
   file_path = Rails.root.join('public', 'seed', 'sops')
   _sop.with_attachment(file_path, sop[:file]) do |f|
     _sop.file = f
   end
 
+  _sop.errors.full_messages unless _sop.save
   _sop
 end
 
