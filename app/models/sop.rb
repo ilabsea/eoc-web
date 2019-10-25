@@ -2,14 +2,14 @@
 #
 # Table name: sops
 #
-#  id            :bigint           not null, primary key
-#  name          :string
-#  file          :string
-#  tags          :text
-#  category_id   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  document_type :integer          default("document")
+#  id          :bigint           not null, primary key
+#  name        :string
+#  file        :string
+#  tags        :text             default([]), is an Array
+#  category_id :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  description :text
 #
 
 class Sop < ApplicationRecord
@@ -18,7 +18,6 @@ class Sop < ApplicationRecord
   mount_uploader :file, FileUploader
 
   belongs_to :category, optional: true
-  # serialize :tags
 
   validates :name, presence: true, uniqueness: true
   after_commit :remove_file!, on: :destroy

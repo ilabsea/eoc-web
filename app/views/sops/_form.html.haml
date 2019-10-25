@@ -1,8 +1,9 @@
 .w-50.view-center
-  = simple_form_for @sop do |f|
+  = simple_form_for @sop, html: { id: 'sop-form' } do |f|
     = f.input :name
-    = f.input :tags
-    = f.input :file
+    = f.input :description
+    %input#sop-tags{ name: 'sop[tags]', value: @sop.tags.join(',') }
+    = f.input :file, input_html: { accept: '.pdf, .zip' }
 
     - if f.object.file.present?
       .flex-row
@@ -10,7 +11,7 @@
         = link_to '#', class: "remove-file", style: f.object.file? ? '' : 'display: none' do
           %i.far.fa-trash-alt{style: 'color: red; margin-right: 5px'}
 
-        %small.form-text.text-muted= f.object.file_url.split('/').last
+        %small.form-text.text-muted= raw(File.basename(@sop.file.path))
 
     .actions{style: 'margin-top: 30px'}
       = f.button :submit, class: 'btn btn-primary'
