@@ -8,7 +8,7 @@ def create_sop sop
     _sop.file = f
   end
 
-  _sop.errors.full_messages unless _sop.save
+  p _sop.errors.full_messages unless _sop.save
   _sop
 end
 
@@ -29,7 +29,7 @@ categories = [
         sops: [
           {
             name: 'cat 1 as sop',
-            file: nil
+            file: 'cat-1-as-sop.zip'
           },
           {
             name: 'sop 1.1',
@@ -69,7 +69,7 @@ categories = [
     ],
     sops: [
       {
-        name: 'sop 1.1',
+        name: 'sop 1.12',
         file: 'sop-1.1.pdf'
       },
       {
