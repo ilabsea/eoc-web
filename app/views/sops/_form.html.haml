@@ -3,12 +3,12 @@
     = f.input :name
     = f.input :description
     %input#sop-tags{ name: 'sop[tags]', value: @sop.tags.join(',') }
-    = f.input :file, input_html: { accept: '.pdf, .zip' }
+    = f.input :file, as: :file, input_html: { accept: '.pdf, .zip' }
 
-    - if f.object.file.present?
+    - unless @sop.file.file.nil?
       .flex-row
         = f.hidden_field :remove_file, class: 'destroy'
-        = link_to '#', class: "remove-file", style: f.object.file? ? '' : 'display: none' do
+        = link_to '#', class: "remove-file", style: @sop.file.file.nil? ? 'display: none': '' do
           %i.far.fa-trash-alt{style: 'color: red; margin-right: 5px'}
 
         %small.form-text.text-muted= raw(File.basename(@sop.file.path))

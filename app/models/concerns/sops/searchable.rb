@@ -15,7 +15,9 @@ module Sops::Searchable
 
       return self.__elasticsearch__.search({
         query: {
-          match_all: {}
+          term: {
+            is_deleted: false
+          }
         }
       }.merge(autoloadOption)) if params[:keyword].blank?
 
@@ -35,10 +37,19 @@ module Sops::Searchable
 
       self.__elasticsearch__.search({
         query: {
-          multi_match: {
-            query: params[:keyword],
-            type: 'phrase_prefix',
-            fields: ['name', 'tags']
+          bool: {
+            must: {
+              multi_match: {
+                query: params[:keyword],
+                type: 'phrase_prefix',
+                fields: ['name', 'tags']
+              }
+            },
+            filter: {
+              term: {
+                is_deleted: false
+              }
+            }
           }
         },
         # sort: [{id: 'asc'}],

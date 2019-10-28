@@ -13,6 +13,18 @@ RSpec.describe Sop, type: :model do
     it { should belong_to(:category).optional }
   end
 
+  describe 'destroy' do
+    before(:each) do
+      @sop = FactoryBot.create :sop
+    end
+
+    it 'should soft delete item' do
+      @sop.destroy
+      expect(Sop.count).to eq(0)
+      expect(Sop.unscoped.count).to eq(1)
+    end
+  end
+
   describe 'category_name' do
     before(:each) do
       @sop = FactoryBot.create :sop

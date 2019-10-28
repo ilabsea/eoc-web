@@ -13,6 +13,7 @@
 #
 
 class Sop < ApplicationRecord
+  include ::SoftDeletable
   include Sops::Searchable
 
   mount_uploader :file, FileUploader

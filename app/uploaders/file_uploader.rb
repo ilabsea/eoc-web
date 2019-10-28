@@ -11,7 +11,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
     return 'uploads/carrierwave' unless model.present?
-    
+
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
@@ -45,8 +45,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
     if original_filename
-      f = Digest::SHA256.file path
-      "#{f.hexdigest}-#{original_filename}" 
+      "#{SecureRandom.hex(4)}-#{original_filename}"
     end
   end
 end

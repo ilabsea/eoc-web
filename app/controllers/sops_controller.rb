@@ -90,7 +90,7 @@ class SopsController < ApplicationController
 
   def sop_params
     params.require(:sop).permit(
-      :name, :category_id, :file, :tags, :description
+      :name, :category_id, :file, :tags, :description, :remove_file
     )
   end
 end

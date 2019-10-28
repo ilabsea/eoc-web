@@ -15,9 +15,10 @@ RSpec.describe Category, type: :model do
       @category = FactoryBot.create :category
     end
 
-    it 'should delete empty category' do
+    it 'should soft delete empty category' do
       @category.destroy
       expect(Category.count).to eq(0)
+      expect(Category.unscoped.count).to eq(1)
     end
 
     it 'should not delete when has child category' do
