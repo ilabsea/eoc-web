@@ -1,11 +1,8 @@
 class SopsController < ApplicationController
-  def index
-    @sop_highlights = Sop.search_highlight(params)
+  include Pagy::Backend
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+  def index
+    @pagy, @sops = pagy(Sop.includes(:category))
   end
 
   def new
@@ -77,6 +74,15 @@ class SopsController < ApplicationController
       redirect_to sops_path, notice: 'Import success!'
     else
       render :upload
+    end
+  end
+
+  def search
+    @sop_highlights = Sop.search_highlight(params)
+
+    respond_to do |format|
+      format.html
+      format.js
     end
   end
 

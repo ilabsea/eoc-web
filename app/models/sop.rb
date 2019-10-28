@@ -36,4 +36,8 @@ class Sop < ApplicationRecord
 
     File.open("#{path}/#{file}") { |f| yield f } if File.exist?("#{path}/#{file}")
   end
+
+  def category_name
+    category.try(:name) || ''
+  end
 end
