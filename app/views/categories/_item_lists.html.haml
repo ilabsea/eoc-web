@@ -35,7 +35,7 @@
       - @sops.each do |sop|
         %tr
           %td
-            = link_to '#' do
+            = link_to sop_path(sop) do
               %i.far.fa-file
               %span= sop.name
           %td

@@ -5,6 +5,10 @@ class SopsController < ApplicationController
     @pagy, @sops = pagy(Sop.includes(:category))
   end
 
+  def show
+    @sop = Sop.find(params[:id])
+  end
+
   def new
     @sop = Sop.new
   end
@@ -15,7 +19,7 @@ class SopsController < ApplicationController
 
     @sop = Sop.new(data)
     if @sop.save
-      redirect_to sops_url
+      redirect_to sop_path(@sop)
     else
       flash.now[:alert] = @sop.errors.full_messages
       render :new
@@ -37,7 +41,7 @@ class SopsController < ApplicationController
         @sop.save
       end
 
-      redirect_to sops_url
+      redirect_to sop_path(@sop)
     else
       flash.now[:alert] = @sop.errors.full_messages
       render :edit
