@@ -9,6 +9,7 @@
 #  rgt            :integer          not null
 #  depth          :integer          default(0), not null
 #  children_count :integer          default(0), not null
+#  is_deleted     :boolean          default(FALSE)
 #
 
 class Category < ApplicationRecord
