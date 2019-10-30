@@ -29,7 +29,7 @@ categories = [
         sops: [
           {
             name: 'cat 1 as sop',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: 'cat-1-as-sop.zip'
           },
@@ -64,7 +64,7 @@ categories = [
         sops: [
           {
             name: 'sop 1.3.11',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: 'sop-1.3.11.zip'
           }
@@ -74,19 +74,19 @@ categories = [
     sops: [
       {
         name: 'sop 1.12',
-        tags: '#tag1 #tag2 #tag3',
+        tags: ['#tag1', '#tag2', '#tag3'],
         description: 'some description cat 1 as sop',
         file: 'sop-1.1.pdf'
       },
       {
         name: 'sop 1.22',
-        tags: '#tag1 #tag2 #tag3',
+        tags: ['#tag1', '#tag2', '#tag3'],
         description: 'some description cat 1 as sop',
         file: 'sop-1.22.zip'
       },
       {
         name: 'sop 1.3',
-        tags: '#tag1 #tag2 #tag3',
+        tags: ['#tag1', '#tag2', '#tag3'],
         description: 'some description cat 1 as sop',
         file: nil
       }
@@ -109,7 +109,7 @@ categories = [
         sops: [
           {
             name: 'sop 2.1',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: 'sop-2.1.pdf'
           }
@@ -125,7 +125,7 @@ categories = [
         sops: [
           {
             name: 'sop 2.2',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: 'sop-2.2.pdf'
           }
@@ -147,7 +147,7 @@ categories = [
         sops: [
           {
             name: 'sop 2.3',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: nil
           }
@@ -159,7 +159,7 @@ categories = [
         sops: [
           {
             name: 'sop 2.4',
-            tags: '#tag1 #tag2 #tag3',
+            tags: ['#tag1', '#tag2', '#tag3'],
             description: 'some description cat 1 as sop',
             file: 'sop-2.4.pdf'
           }
@@ -169,7 +169,7 @@ categories = [
     sops: [
       {
         name: 'sop 2',
-        tags: '#tag1 #tag2 #tag3',
+        tags: ['#tag1', '#tag2', '#tag3'],
         description: 'some description cat 1 as sop',
         file: 'sop-2.pdf'
       }
