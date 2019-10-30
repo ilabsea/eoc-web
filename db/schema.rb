@@ -35,14 +35,19 @@ ActiveRecord::Schema.define(version: 2019_10_28_080146) do
 
   create_table "sops", force: :cascade do |t|
     t.string "name"
+    t.text "description"
     t.string "file"
     t.text "tags", default: [], array: true
     t.integer "category_id"
+    t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+<<<<<<< HEAD
     t.text "description"
     t.boolean "is_deleted", default: false
     t.index ["is_deleted"], name: "index_sops_on_is_deleted"
+=======
+>>>>>>> rebase branch category
     t.index ["name"], name: "index_sops_on_name", unique: true
   end
 
