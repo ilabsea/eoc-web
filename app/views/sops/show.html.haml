@@ -12,27 +12,27 @@
 
   .container
     .row
-      .col-sm-2 Name
+      .col-sm-1 Name
       .col-sm= @sop.name
     - if @sop.description.present?
       .row
-        .col-sm-2 Description:
-        .col-sm= @sop.description
+        .col-sm-1 Description:
+        .col-sm= simple_format @sop.description
     - if @sop.category.present?
       .row
-        .col-sm-2 Category:
-        .col-sm= @sop.category_name
+        .col-sm-1 Category:
+        .col-sm= link_to @sop.category_name, category_path(@sop.category)
     - if @sop.tags.size.positive?
       .row
-        .col-sm-2 Tags:
+        .col-sm-1 Tags:
         .col-sm
           - @sop.tags.each do |tag|
             .badge.badge-secondary= tag
     - unless @sop.file.file.nil?
       .row
-        .col-sm-2 File:
+        .col-sm-1 File:
         .col-sm
           = link_to @sop.file.url, download: name(@sop.file.url) do
-            = name(@sop.file.url)
+            = name(@sop.file.path)
             %i.fa.fa-download
 
