@@ -66,7 +66,7 @@ categories = [
             name: 'sop 1.3.11',
             tags: '#tag1 #tag2 #tag3',
             description: 'some description cat 1 as sop',
-            file: 'sop-1.3.11.rar'
+            file: 'sop-1.3.11.zip'
           }
         ]
       }
@@ -82,7 +82,7 @@ categories = [
         name: 'sop 1.22',
         tags: '#tag1 #tag2 #tag3',
         description: 'some description cat 1 as sop',
-        file: 'sop-1.22.rar'
+        file: 'sop-1.22.zip'
       },
       {
         name: 'sop 1.3',
@@ -111,7 +111,7 @@ categories = [
             name: 'sop 2.1',
             tags: '#tag1 #tag2 #tag3',
             description: 'some description cat 1 as sop',
-            file: 'sop-2.1.docx'
+            file: 'sop-2.1.pdf'
           }
         ]
       },
@@ -127,7 +127,7 @@ categories = [
             name: 'sop 2.2',
             tags: '#tag1 #tag2 #tag3',
             description: 'some description cat 1 as sop',
-            file: 'sop-2.2.xlsx'
+            file: 'sop-2.2.pdf'
           }
         ]
       },
@@ -171,7 +171,7 @@ categories = [
         name: 'sop 2',
         tags: '#tag1 #tag2 #tag3',
         description: 'some description cat 1 as sop',
-        file: 'sop-2.docx'
+        file: 'sop-2.pdf'
       }
     ]
   }
