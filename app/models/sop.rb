@@ -21,7 +21,7 @@ class Sop < ApplicationRecord
 
   belongs_to :category, optional: true
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: { message: "`%{value}` already taken!" }
   after_commit :remove_file!, on: :destroy
 
   delegate :identifier, to: :file, allow_nil: true
