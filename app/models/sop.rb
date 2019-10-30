@@ -21,7 +21,10 @@ class Sop < ApplicationRecord
 
   belongs_to :category, optional: true
 
-  validates :name, presence: true, uniqueness: { message: "`%{value}` already taken!" }
+  validates :name, presence: true, 
+            uniqueness: { message: "`%{value}` already taken!" }, 
+            if: :exist?
+
   after_commit :remove_file!, on: :destroy
 
   delegate :identifier, to: :file, allow_nil: true
@@ -41,5 +44,11 @@ class Sop < ApplicationRecord
 
   def category_name
     category.try(:name) || ''
+  end
+
+  private 
+
+  def exist?
+    self.class.find_by(name: name)
   end
 end
