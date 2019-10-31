@@ -9,6 +9,8 @@ Sop.__elasticsearch__.create_index!(force: true)
 conn.execute('DELETE FROM categories;')
 conn.execute('DELETE FROM sops;')
 
+Sop.all.map &:remove_file!
+
 def create_sop sop
   _sop = Sop.new name: sop[:name], tags: sop[:tags], description: sop[:description]
   file_path = Rails.root.join('public', 'seed', 'sops')
