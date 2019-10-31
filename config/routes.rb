@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       get :download
       get :upload
       post :import
+      get :search
     end
   end
 

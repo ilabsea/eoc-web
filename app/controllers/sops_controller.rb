@@ -82,12 +82,8 @@ class SopsController < ApplicationController
   end
 
   def search
-    @sop_highlights = Sop.search_highlight(params)
-
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @sops = Sop.text_search(params.merge(items: 20))
+    @pagy = Pagy.new_from_elasticsearch_rails(@sops)
   end
 
   private

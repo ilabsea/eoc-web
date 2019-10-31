@@ -1,0 +1,47 @@
+#content
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %h3 Search
+      .col-sm-10
+        = render 'shared/search_form'
+      %ul.navbar-nav.ml-auto
+        %li.nav-item.mr-sm-2
+          = link_to new_sop_path, class: 'btn btn-primary' do
+            %i.fas.fa-plus
+        %li.nav-item
+          = link_to upload_sops_path, class: 'btn btn-primary' do
+            %i.fas.fa-file-archive
+
+  - if @sops.size.positive?
+    %table.table.table-hover.medium-width
+      %thead
+        %tr
+          %th Name
+          %th Tags
+          %th File
+          %th Category
+          %th
+
+      %tbody#body-content
+        - @sops.each do |sop|
+          %tr
+            %td
+              = link_to sop_path(id: sop.id) do
+                != hilite_name(sop)
+            %td= sop.tags.try(:html_safe)
+            %td
+              - if sop.file.url.present?
+                - file_name = name(URI.decode(sop.file.url))
+                = link_to sop.file.url, download: file_name, style:'color: #007bff' do
+                  %span= file_name
+                  %i.fas.fa-download
+
+            %td= sop.try(:category_name)
+            %td
+              = link_to 'Edit', edit_sop_path(id: sop.id), class: 'badge badge-info'
+              = "/"
+              = link_to 'Delete', sop_path(sop), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}
+  - if @pagy.pages > 1
+    .pagy-wrapper.d-flex.justify-content-center
+      != pagy_bootstrap_nav(@pagy)
+
