@@ -2,6 +2,10 @@ return unless Rails.env == 'development'
 
 conn = ActiveRecord::Base.connection
 
+
+Category.__elasticsearch__.create_index!(force: true)
+Sop.__elasticsearch__.create_index!(force: true)
+
 conn.execute('DELETE FROM categories;')
 conn.execute('DELETE FROM sops;')
 
