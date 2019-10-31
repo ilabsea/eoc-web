@@ -1,5 +1,9 @@
-Sop.destroy_all
-Category.destroy_all
+return unless Rails.env == 'development'
+
+conn = ActiveRecord::Base.connection
+
+conn.execute('DELETE FROM categories;')
+conn.execute('DELETE FROM sops;')
 
 def create_sop sop
   _sop = Sop.new name: sop[:name], tags: sop[:tags], description: sop[:description]
