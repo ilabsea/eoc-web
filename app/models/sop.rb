@@ -14,7 +14,6 @@
 
 class Sop < ApplicationRecord
   include Sops::Searchable
-  enum document_type: [:document, :folder]
 
   mount_uploader :file, FileUploader
 
@@ -33,7 +32,7 @@ class Sop < ApplicationRecord
   end
 
   def with_attachment(path, file)
-    return if folder? || file.blank?
+    return if file.blank?
     return self.remote_file_url = file if URI.parse(file).absolute?
 
     File.open("#{path}/#{file}") { |f| yield f } if File.exist?("#{path}/#{file}")

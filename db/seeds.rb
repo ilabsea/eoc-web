@@ -1,219 +1,174 @@
-Sop.delete_all
+Sop.destroy_all
+Category.destroy_all
 
-def file_exist? file
-  file.present? && File.exist?(file)
+def create_sop sop
+  _sop = Sop.create name: sop[:name]
+  file_path = Rails.root.join('public', 'seed', 'sops')
+  _sop.with_attachment(file_path, sop[:file]) do |f|
+    _sop.file = f
+  end
+
+  _sop
 end
 
-sops = [
+categories = [
   {
-    name: 'Type 1 Diabetes',
-    document_type: 0,
-    file: '1.jpg',
-    tags: 'diabetes autoimmune_disease immune_system beta_cells insulin'
+    name: 'cat 1',
+    children: [
+      {
+        name: 'cat 1.1',
+        children: [
+          {
+            name: 'cat 1.1.1'
+          },
+          {
+            name: 'cat 1.1.2'
+          }
+        ],
+        sops: [
+          {
+            name: 'sop 1.1',
+            file: 'sop-1.1.zip'
+          }
+        ]
+      },
+      {
+        name: 'cat 1.2',
+        children: [
+          {
+            name: 'cat 1.2.1'
+          }
+        ],
+        sops: []
+      },
+      {
+        name: 'cat 1.3',
+        children: [
+          {
+            name: 'cat 1.3.1'
+          },
+          {
+            name: 'cat 1.3.2'
+          },
+          {
+            name: 'cat 1.3.3'
+          }
+        ],
+        sops: [
+          {
+            name: 'sop 1.3.11',
+            file: 'sop-1.3.11.rar'
+          }
+        ]
+      }
+    ],
+    sops: [
+      {
+        name: 'sop 1.1',
+        file: 'sop-1.1.pdf'
+      },
+      {
+        name: 'sop 1.22',
+        file: 'sop-1.22.rar'
+      },
+      {
+        name: 'sop 1.3',
+        file: nil
+      }
+    ]
   },
+
   {
-    name: 'Multiple Sclerosis',
-    document_type: 1,
-    file: nil,
-    tags: 'Multiple_sclerosis autoimmune_disease myelin nerve_fibers nervous_system.'
-  },
-  {
-    name: 'Crohn\'s & Colitis',
-    document_type: 0,
-    file: '2.jpg',
-    tags: 'crohn_disease ulcerative_colitis bowel_diseases immune_system intestines'
-  },
-  {
-    name: 'Lupus',
-    document_type: 0,
-    file: '2.jpg',
-    tags: 'lupus_erythematosus chronic autoimmune_disease body joints skin lungs blood'
-  },
-  {
-    name: 'Rheumatoid Arthritis',
-    document_type: 1,
-    file: nil,
-    tags: "rheumatoid_arthritis synovium membrane joints"
-  },{
-    name: 'Allergies & Asthma',
-    document_type: 0,
-    file: '3.jpg',
-    tags: "allergies asthma overreacts pollen"
-  },
-  {
-    name: 'Celiac Disease',
-    document_type: 0,
-    file: '2.jpg',
-    tags: "celiac disease incidence undiagnose health complications"
-  },
-  {
-    name: 'Relapsing Polychondritis',
-    document_type: 1,
-    file: nil,
-    tags: "relapsing_polychondritis rheumatic autoimmune_disease cartilage"
-  },
-  {
-    name: 'Liver Disease',
-    document_type: 1,
-    file: nil,
-    tags: "viral_infection alcohol environmental_toxins autoimmune_disease genetics"
-  },
-  {
-    name: 'Malaria',
-    document_type: 1,
-    file: nil,
-    tags: 'malaria Cambodia phnom_penh'
-  },
-  {
-    name: 'HIV/AIDS',
-    document_type: 1,
-    file: nil,
-    tags: 'AIDS female_prostitutes drugs HIV illegal'
-  },
-  {
-    name: 'Dengue Fever',
-    document_type: 1,
-    file: nil,
-    tags: "dengue mosquitos rainy_season cambodia"
-  },
-  {
-    name: 'Tuberculosis',
-    document_type: 1,
-    file: nil,
-    tags: "tuberculosis Cambodia airborne_infection lungs"
-  },
-  {
-    name: 'Malnutrition',
-    document_type: 1,
-    file: nil,
-    tags: 'malnutrition cambodia'
-  },
-  {
-    name: 'Diarrhea diseases',
-    document_type: 1,
-    file: nil,
-    tags: "UNICEF die diarrhea diseases annually"
-  },
-  {
-    name: 'Stroke',
-    document_type: 1,
-    file: nil,
-    tags: "stroke artery blocked leaks"
-  },
-  {
-    name: 'Lower respiratory infections',
-    document_type: 1,
-    file: nil,
-    tags: "lower_respiratory airways lungs."
-  },
-  {
-    name: 'Chronic obstructive pulmonary disease',
-    document_type: 1,
-    file: nil,
-    tags: "COPD lung_disease breathing_difficult chronic_bronchitis emphysema"
-  },
-  {
-    name: 'Trachea, bronchus, and lung cancers',
-    document_type: 1,
-    file: nil,
-    tags: "respiratory cancers trachea larynx bronchus lungs smoking smoke"
-  },
-  {
-    name: 'Diabetes mellitus',
-    document_type: 1,
-    file: nil,
-    tags: "Diabetes diseases insulin pancrease"
-  },
-  {
-    name: 'Dehydration due to diarrheal diseases',
-    document_type: 1,
-    file: nil,
-    tags: "Expsr burning cigarette subs"
-  },
-  {
-    name: 'Tuberculosis',
-    document_type: 1,
-    file: nil,
-    tags: "Dislocation interphaln joint of finger sequela"
-  },
-  {
-    name: 'Cirrhosis',
-    document_type: 1,
-    file: nil,
-    tags: 'Localized enlarged lymph nodes'
-  },
-  {
-    name: 'h5n1',
-    document_type: 1,
-    file: nil,
-    tags: "Malignant neoplasm genital organ"
-  },
-  {
-    name: 'ទឹកនោមផ្អែម',
-    document_type: 1,
-    file: nil,
-    tags: "ជំងឺ ទឹកនោមផែ្អម អ័រម៉ូន ក្រលៀន"
-  },
-  {
-    name: 'ក្អកមាន់',
-    document_type: 1,
-    file: nil,
-    tags: "ក្អក​មាន់ Pertussis whooping cough Coqueluche ក្មេង​តូចៗ"
-  },
-  {
-    name: 'គ្រុនចាញ់',
-    document_type: 1,
-    file: nil,
-    tags: "​គ្រុន​ចាញ់ មនុស្ស​គ្រប់​វ័យ ​រដូវ​ក្ដៅ ភ្នាក់​ងារ សត្វ​មូស​ដែក​គោលញី Anophèle"
-  },
-  {
-    name: 'ផ្ដាសាយធម្មតា',
-    document_type: 1,
-    file: nil,
-    tags: "ប្រយ័ត្ន​ ​រាង​កាយ ត្រូវ​អាកាសធាតុ​ត្រជាក់ សុខភាព កម្ពុជា"
-  },
-  {
-    name: 'រោគព្រូន',
-    document_type: 1,
-    file: nil,
-    tags: 'ព្រូន ​អាច​ចូល​មក ​ក្នុង​ខ្លួន​មនុស្ស​យើង ដផ្លែ​ឈើ បន្លែ​ស្រស់ សាច់​គោ សាច់​ជ្រូក ត្រី​មិន​ស្អាត'
-  },
-  {
-    name: 'រោគមួល',
-    document_type: 1,
-    file: nil,
-    tags: 'កម្ពុជា អ្នក​ជំងឺ​ឈឺ​រីងរៃ ​រោគ​ផ្សេងៗ​មក អនាម័យ'
-  },
-  {
-    name: 'សរសៃប្រសាទ',
-    document_type: 1,
-    file: nil,
-    tags: '​សរសៃ​ប្រសាទ ចិត្ត​គំនិត​របស់​អ្នក​ជំងឺ ខុស​ប្រក្រតី ត​ពូជ​គ្នា បុព្វជន​ក៏​ថា​បាន'
-  },
-  {
-    name: 'គ្រុន​រលាក​ពោះ​វៀន',
-    document_type: 1,
-    file: nil,
-    tags: 'រលាក​ពោះ​វៀន រោគ​នេះ​អាច​កើត​ដល់​ មនុស្ស​គ្រប់​វ័យ ​គ្រប់​ប្រភេទ'
-  },
-  {
-    name: 'ជំងឺហើមសួត',
-    document_type: 1,
-    file: nil,
-    tags: 'ហើមសួត មនុស្ស​គ្រប់​វ័យ គ្រប់​ប្រភេទ។'
+    name: 'cat 2',
+    children: [
+      {
+        name: 'cat 2.1',
+        children: [
+          {
+            name: 'cat 2.1.1'
+          },
+          {
+            name: 'cat 2.1.2'
+          }
+        ],
+        sops: [
+          {
+            name: 'sop 2.1',
+            file: 'sop-2.1.docx'
+          }
+        ]
+      },
+      {
+        name: 'cat 2.2',
+        children: [
+          {
+            name: 'cat 2.2.1'
+          }
+        ],
+        sops: [
+          {
+            name: 'sop 2.2',
+            file: 'sop-2.2.xlsx'
+          }
+        ]
+      },
+      {
+        name: 'cat 2.3',
+        children: [
+          {
+            name: 'cat 2.3.1'
+          },
+          {
+            name: 'cat 2.3.2'
+          },
+          {
+            name: 'cat 2.3.3'
+          }
+        ],
+        sops: [
+          {
+            name: 'sop 2.3',
+            file: nil
+          }
+        ]
+      },
+      {
+        name: 'cat 2.4',
+        children: [],
+        sops: [
+          {
+            name: 'sop 2.4',
+            file: 'sop-2.4.pdf'
+          }
+        ]
+      }
+    ],
+    sops: [
+      {
+        name: 'sop 2',
+        file: 'sop-2.docx'
+      }
+    ]
   }
 ]
 
+categories.each do |cat1|
+  _cat1 = Category.create name: cat1[:name]
 
-sops.each do |sop|
-  s = Sop.new(sop)
-  file = Rails.root.join('public', 'seed', sop[:file].to_s)
+  cat1[:children].each do |cat2|
+    _cat2 = Category.new name: cat2[:name]
+    _cat1.children << _cat2
+    cat2[:children].each do |cat3|
+      _cat3 = Category.new name: cat3[:name]
+      _cat2.children << _cat3
+    end
 
-  if s.document? && file_exist?(file)
-    File.open(file) { |f| s.file = f }
+    cat2[:sops].each do |sop2|
+      _cat2.sops << create_sop(sop2)
+    end
   end
 
-  s.save
+  cat1[:sops].each do |sop1|
+    _cat1.sops << create_sop(sop1)
+  end
 end
-
-

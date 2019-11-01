@@ -12,4 +12,27 @@
 #
 
 class Category < ApplicationRecord
+  include ::SoftDeletable
+  include Sops::Searchable
+
+  has_many :sops, class_name: 'Sop'
+
+  validates :name, presence: true, uniqueness: true
+
+  before_destroy :check_category
+
+  acts_as_nested_set
+
+  def is_empty?
+    children.count.zero? && sops.count.zero?
+  end
+
+  private
+
+  def check_category
+    unless is_empty?
+      errors[:base] << 'category is not empty'
+      throw :abort
+    end
+  end
 end

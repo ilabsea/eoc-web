@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :sops, only: [:index]
+      resources :tokens, only: [:create]
     end
   end
 
@@ -14,6 +15,13 @@ Rails.application.routes.draw do
       get :download
       get :upload
       post :import
+    end
+  end
+
+  resources :categories do
+    collection do
+      post :move
+      post :move_sop
     end
   end
 end

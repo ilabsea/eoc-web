@@ -20,5 +20,16 @@
 
 //= require jquery.tag-editor.min
 //= require jquery.caret.min
+//= require bootstrap-treeview.min
 
 //= require_tree .
+//
+
+document.addEventListener('turbolinks:load', () => {
+  const currentPage = EOC.Util.getCurrentPage();
+  if (EOC[currentPage]) {
+    EOC[currentPage].init();
+  }
+  Rails.refreshCSRFTokens();
+});
+

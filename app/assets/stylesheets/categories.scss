@@ -1,0 +1,27 @@
+#categories-index,
+#categories-show {
+  #category-list {
+    list-style: none;
+    padding-inline-start: 0;
+
+    ul {
+      list-style: none;
+      padding-inline-start: 20px;
+    }
+  }
+
+  .selected > span:first-child {
+    background-color: #428bca;
+    color: #fff;
+  }
+
+  .category-item {
+    padding: 5px;
+    display: block;
+  }
+
+  .disable > span:first-child {
+    color: #afafaf;
+    cursor: not-allowed;
+  }
+}

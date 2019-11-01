@@ -7,6 +7,7 @@ ELASTICSEARCH_URL=elasticsearch:9200
 REDIS_URL=redis://redis:6379
 KIBANA_HOST=kibana
 KIBANA_PORT=5601
+FIREBASE_SERVER_KEY=your_firebase_server_key
 
 # Shell with unicode support
 LANG=C.UTF-8
