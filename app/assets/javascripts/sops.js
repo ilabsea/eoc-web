@@ -11,7 +11,7 @@ EOC.SopsNew = EOC.SopsEdit = EOC.SopsCreate = EOC.SopsUpdate = (() => {
   }
 
   function initTagEditor() {
-    var input = document.querySelector('input[name="sop[tags]"]');
+    const input = document.querySelector('input[name="sop[tags]"]');
     new Tagify(input);
   }
 

@@ -26,7 +26,7 @@
 //= require_tree .
 //
 
-document.addEventListener('turbolinks:load', () => {
+$(document).on('ready turbolinks:load', () => {
   const currentPage = EOC.Util.getCurrentPage();
   if (EOC[currentPage]) {
     EOC[currentPage].init();

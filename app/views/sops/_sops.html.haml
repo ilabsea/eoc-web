@@ -1,15 +1,16 @@
 - @sops.each do |sop|
   %tr
-    %td= sop.name.html_safe
+    %td
+      = link_to sop.name.html_safe, sop_path(sop)
     %td= sop.tags.join(', ')
     %td
       - if sop.file_url.present?
-        = link_to download_sops_path(file: sop.file_url), target: "_blank", style:'color: #007bff' do
-          %span= name(sop.file_url)
+        = link_to sop.file_url, download: name(sop.file.path), style:'color: #007bff' do
+          %span= name(sop.file.path)
           %i.fas.fa-download
 
     %td= sop.category_name
     %td
-      = link_to 'Edit', edit_sop_path(id: sop.id), class: 'badge badge-info'
+      = link_to 'Edit', edit_sop_path(sop), class: 'badge badge-info'
       = "/"
-      = link_to 'Delete', sop_path(id: sop.id), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}
+      = link_to 'Delete', sop_path(sop), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}
