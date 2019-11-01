@@ -35,7 +35,7 @@ module Sops::Searchable
         }
       }
 
-      self.__elasticsearch__.search({
+      Elasticsearch::Model.search({
         query: {
           bool: {
             must: {
@@ -54,7 +54,7 @@ module Sops::Searchable
         },
         # sort: [{id: 'asc'}],
         highlight: highlight
-      }.merge( autoloadOption ) )
+      }.merge( autoloadOption ), [Category, Sop] )
     end
   end
 end

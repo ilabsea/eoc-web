@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :categories, only: [:show]
       resources :sops, only: [:index]
       resources :tokens, only: [:create]
     end
