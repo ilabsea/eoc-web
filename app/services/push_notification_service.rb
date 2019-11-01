@@ -17,7 +17,7 @@ class PushNotificationService
   private
 
   def fcm
-    @fcm ||= ::FCM.new(ENV[FIREBASE_SERVER_KEY])
+    @fcm ||= ::FCM.new(ENV["FIREBASE_SERVER_KEY"])
   end
 
   def message_options
