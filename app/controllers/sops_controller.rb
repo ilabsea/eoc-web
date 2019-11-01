@@ -81,11 +81,6 @@ class SopsController < ApplicationController
     end
   end
 
-  def search
-    @sops = Sop.text_search(params.merge(items: 20))
-    @pagy = Pagy.new_from_elasticsearch_rails(@sops)
-  end
-
   private
 
   def sop_params

@@ -18,7 +18,7 @@ module Sops::Searchable
 
       query = params[:q].blank? ? get_all_query : matching_query(params)
 
-      Elasticsearch::Model.search(query, Sop, {
+      Elasticsearch::Model.search(query, [Sop, Category], {
         size: size,
         from: from
       })

@@ -1,0 +1,12 @@
+%tr
+  %td
+    = link_to sop_path(id: result.id) do
+      %i.far.fa-file
+      %span!= hilite_name(result)
+  %td
+    -# != hilite_tags(sop).join(', ')
+
+  %td
+    = link_to 'Edit', edit_sop_path(id: result.id), class: 'badge badge-info'
+    = "/"
+    = link_to 'Delete', sop_path(id: result.id), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}

@@ -16,7 +16,6 @@ Rails.application.routes.draw do
       get :download
       get :upload
       post :import
-      get :search
     end
   end
 
@@ -26,4 +25,6 @@ Rails.application.routes.draw do
       post :move_sop
     end
   end
+
+  resources :searches, only: [:index]
 end
