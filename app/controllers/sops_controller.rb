@@ -1,11 +1,8 @@
 class SopsController < ApplicationController
-  def index
-    @sop_highlights = Sop.search_highlight(params)
+  include Pagy::Backend
 
-    respond_to do |format|
-      format.html
-      format.js
-    end
+  def index
+    @pagy, @sops = pagy(Sop.includes(:category))
   end
 
   def new
@@ -13,7 +10,10 @@ class SopsController < ApplicationController
   end
 
   def create
-    @sop = Sop.new(sop_params)
+    data = sop_params
+    data[:tags] = data[:tags].split(',')
+
+    @sop = Sop.new(data)
     if @sop.save
       redirect_to sops_url
     else
@@ -28,8 +28,10 @@ class SopsController < ApplicationController
 
   def update
     @sop = Sop.find(params[:id])
+    data = sop_params
+    data[:tags] = data[:tags].split(',')
 
-    if @sop.update_attributes(sop_params)
+    if @sop.update_attributes(data)
       if params[:sop][:remove_file] == '1'
         @sop.remove_file!
         @sop.save
@@ -75,11 +77,20 @@ class SopsController < ApplicationController
     end
   end
 
+  def search
+    @sop_highlights = Sop.search_highlight(params)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   private
 
   def sop_params
     params.require(:sop).permit(
-      :name, :category_id, :file, :tags
+      :name, :category_id, :file, :tags, :description, :remove_file
     )
   end
 end

@@ -1,17 +1,3 @@
-# == Schema Information
-#
-# Table name: sops
-#
-#  id            :bigint           not null, primary key
-#  name          :string
-#  file          :string
-#  tags          :text
-#  category_id   :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  document_type :integer          default("document")
-#
-
 require 'rails_helper'
 
 RSpec.describe Sop, type: :model do
@@ -25,5 +11,33 @@ RSpec.describe Sop, type: :model do
 
   describe 'association' do
     it { should belong_to(:category).optional }
+  end
+
+  describe 'destroy' do
+    before(:each) do
+      @sop = FactoryBot.create :sop
+    end
+
+    it 'should soft delete item' do
+      @sop.destroy
+      expect(Sop.count).to eq(0)
+      expect(Sop.unscoped.count).to eq(1)
+    end
+  end
+
+  describe 'category_name' do
+    before(:each) do
+      @sop = FactoryBot.create :sop
+    end
+
+    it 'should return category name' do
+      category = FactoryBot.create :category
+      @sop.update(category_id: category.id)
+      expect(@sop.category_name).to eq(category.name)
+    end
+
+    it 'should return empty string when sop has no category' do
+      expect(@sop.category_name).to eq('')
+    end
   end
 end

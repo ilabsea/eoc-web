@@ -57,6 +57,8 @@ gem 'zip-zip' # will load compatibility for old rubyzip API.
 gem 'awesome_nested_set', '~> 3.2'
 gem 'fcm', '~> 0.0.6'
 
+gem 'pagy', '~> 3.6.0'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

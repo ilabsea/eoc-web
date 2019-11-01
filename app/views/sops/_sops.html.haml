@@ -1,8 +1,7 @@
-- @sop_highlights.each do |sop_highlight|
-  - sop = SopHighlight.new(sop_highlight)
+- @sops.each do |sop|
   %tr
     %td= sop.name.html_safe
-    %td= sop.tags.try(:html_safe)
+    %td= sop.tags.join(', ')
     %td
       - if sop.file_url.present?
         = link_to download_sops_path(file: sop.file_url), target: "_blank", style:'color: #007bff' do

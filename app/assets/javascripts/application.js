@@ -21,6 +21,7 @@
 //= require jquery.tag-editor.min
 //= require jquery.caret.min
 //= require bootstrap-treeview.min
+//= require tagify.min
 
 //= require_tree .
 //
