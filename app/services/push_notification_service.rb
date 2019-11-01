@@ -12,7 +12,11 @@ class PushNotificationService
     end
   end
 
-  delegate :send, to: :fcm
+  def notify_with_key token, data
+    send_with_notification_key(token, data: data, collapse_key: "updated_score")
+  end
+
+  delegate :send, :send_with_notification_key, to: :fcm
 
   private
 
