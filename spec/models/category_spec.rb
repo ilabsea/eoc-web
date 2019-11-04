@@ -3,7 +3,16 @@ require 'rails_helper'
 RSpec.describe Category, type: :model do
   describe 'validations' do
     it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name) }
+    it { should validate_uniqueness_of(:name).case_insensitive }
+
+    it 'should not validate name uniqueness with deleted category' do
+      name = 'Animal'
+      category = create(:category, name: name)
+      category.destroy
+      create(:category, name: name)
+      expect(Category.count).to eq(1)
+      expect(Category.only_deleted.count).to eq(1)
+    end
   end
 
   describe 'association' do
@@ -18,7 +27,7 @@ RSpec.describe Category, type: :model do
     it 'should soft delete empty category' do
       @category.destroy
       expect(Category.count).to eq(0)
-      expect(Category.unscoped.count).to eq(1)
+      expect(Category.only_deleted.count).to eq(1)
     end
 
     it 'should not delete when has child category' do
@@ -49,7 +58,7 @@ RSpec.describe Category, type: :model do
       it 'should return false when has sub category' do
         child_category = FactoryBot.create :category
         child_category.move_to_child_of(@category)
- 
+
         expect(@category.is_empty?).to be false
       end
 
