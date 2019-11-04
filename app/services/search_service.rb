@@ -10,7 +10,7 @@ class SearchService
       size: size,
       from: from
     })
-  end 
+  end
 
   private
 
