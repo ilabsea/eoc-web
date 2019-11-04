@@ -3,7 +3,7 @@
     = f.input :name
     .form-group
       %label.form-control-label{ for: 'category[tags]'} Tags:
-      %input#category-tags{ name: 'category[tags]', value: @category.tags.join(' ') }
+      %input#category-tags.form-control{ name: 'category[tags]', value: @category.tags.join(' ') }
     = f.input :parent_id, as: :hidden, value: @category.parent_id
 
     .actions{style: 'margin-top: 30px'}

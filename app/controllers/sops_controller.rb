@@ -11,6 +11,7 @@ class SopsController < ApplicationController
 
   def new
     @sop = Sop.new
+    @sop.category_id = params[:category_id]
   end
 
   def create
