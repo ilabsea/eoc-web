@@ -35,4 +35,6 @@
           = link_to @sop.file.url, download: name(@sop.file.url) do
             = name(@sop.file.path)
             %i.fa.fa-download
-
+    %br
+    = link_to return_url, class: 'btn btn-secondary' do
+      Go Back

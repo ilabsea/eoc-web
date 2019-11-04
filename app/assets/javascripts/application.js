@@ -31,6 +31,9 @@ $(document).on('ready turbolinks:load', () => {
   if (EOC[currentPage]) {
     EOC[currentPage].init();
   }
+
+  $('[data-toggle="tooltip"]').tooltip()
+
   Rails.refreshCSRFTokens();
 });
 

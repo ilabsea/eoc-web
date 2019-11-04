@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root to: 'sops#index'
+  root to: 'categories#index'
 
   namespace :api do
     namespace :v1 do
@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sops do
+  resources :sops, except: [:index] do
     collection do
       get :download
       get :upload
