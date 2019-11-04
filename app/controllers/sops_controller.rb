@@ -15,7 +15,7 @@ class SopsController < ApplicationController
 
   def create
     data = sop_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     @sop = Sop.new(data)
     if @sop.save
@@ -33,7 +33,7 @@ class SopsController < ApplicationController
   def update
     @sop = Sop.find(params[:id])
     data = sop_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     if @sop.update_attributes(data)
       if params[:sop][:remove_file] == '1'

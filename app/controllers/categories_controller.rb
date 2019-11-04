@@ -12,7 +12,7 @@ class CategoriesController < ApplicationController
 
   def create
     data = category_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     @category = Category.new(data)
     if @category.save
@@ -36,7 +36,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     data = category_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     if @category.update_attributes(data)
       redirect_to category_path(@category)

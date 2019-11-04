@@ -2,7 +2,9 @@
   = simple_form_for @sop, html: { id: 'sop-form' } do |f|
     = f.input :name
     = f.input :description
-    %input#sop-tags{ name: 'sop[tags]', value: @sop.tags.join(',') }
+    .form-group
+      %label.form-control-label{ for: 'sop[tags]'} Tags:
+      %input#sop-tags{ name: 'sop[tags]', value: @sop.tags.join(' ') }
     = f.input :file, as: :file, input_html: { accept: '.pdf, .zip' }
 
     - unless @sop.file.file.nil?

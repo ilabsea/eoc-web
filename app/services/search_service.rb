@@ -4,7 +4,7 @@ class SearchService
     page = (params[:page] || 1).to_i
     from = (page - 1) * size
 
-    query = params[:q].blank? ? self.get_all_query : self.matching_query(params)
+    query = params[:q].blank? ? get_all_query : matching_query(params)
 
     Elasticsearch::Model.search(query, [Sop, Category], {
       size: size,
@@ -12,9 +12,7 @@ class SearchService
     })
   end
 
-  private
-
-  def self.get_all_query
+  private_class_method def self.get_all_query
     {
       query: {
         term: {
@@ -24,7 +22,7 @@ class SearchService
     }
   end
 
-  def self.matching_query(params)
+  private_class_method def self.matching_query(params)
     {
       query: {
         bool: {
@@ -42,11 +40,11 @@ class SearchService
           }
         }
       },
-      highlight: self.highligh_option
+      highlight: highlight_option
     }
   end
 
-  def self.highligh_option
+  private_class_method def self.highlight_option
     fragment_options = {
       fragment_size: 180,
       number_of_fragments: 2,
