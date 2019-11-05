@@ -11,7 +11,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :sops, except: [:index] do
+  # resources :sops, except: [:index] do
+  resources :sops do
     collection do
       get :download
       get :upload
