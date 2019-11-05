@@ -36,7 +36,7 @@ class Sop < ApplicationRecord
   end
 
   def with_attachment(path, file)
-    whitelist_files = /^[https?:\/\/]?[\S]+\.(?:pdf|zip)$/
+    whitelist_files = /^[https?:\/\/]?[\S]+\/\S+\.(?:pdf|zip)$/
 
     return if File.extname(file).blank? || file.blank?
     return self.remote_file_url = file if file.scan(whitelist_files).present?
