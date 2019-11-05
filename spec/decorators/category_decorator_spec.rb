@@ -9,7 +9,7 @@ RSpec.describe CategoryDecorator do
     obj = described_class.new(name: 'test', parent: parent.name)
     saved = obj.save 
 
-    expect(saved).to be_a(Category)
+    expect(saved).to be_an_instance_of(Category)
     expect(saved.parent.name).to eq(parent.name)
   end
 end

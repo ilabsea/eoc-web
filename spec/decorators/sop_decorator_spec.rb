@@ -8,7 +8,7 @@ RSpec.describe SopDecorator do
     obj = described_class.new(name: 'dengue', category: category.name, file: '')
     saved = obj.save 
 
-    expect(saved).to be_a(Sop)
+    expect(saved).to be_an_instance_of(Sop)
     expect(saved.category_name).to eq(category.name)
   end
 end
