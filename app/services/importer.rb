@@ -1,24 +1,25 @@
-class Importer < SpreadsheetService
+class Importer
   def initialize(f)
     @file = f
   end
 
   def load
-    sheet_index = 0
-    roo = Roo::Excelx.new(@file)
+    xlsx = Roo::Spreadsheet.open(@file)
 
-    sheet = roo.sheet(sheet_index)
-    rows = sheet.parse(@@COLS)
+    sheets = xlsx.sheets
+    sheets.each do |sheet_name|
+      sheet = xlsx.sheet(sheet_name)
+      klazz = sheet_name.classify
 
-    rows.each do |row|
-      sop = Sop.new(row)
-      sop.with_attachment(dest, row[:file].to_s) do |f|
-        sop.file = f
-      end
-
-      unless sop.save
-        msg = t('unprocessible', msg: sop.errors.full_messages.join(','))
-        Rails.logger.warn(msg) 
+      begin
+        columns = "#{klazz}Decorator::WHITELIST_COLUMNS".constantize
+        sheet.each(columns) do |hash|
+          decorator = "#{klazz}Decorator".constantize.new(hash)
+          decorator.save
+        end
+      rescue Exception => e
+        msg = t('unprocessible', msg: e.message)
+        Rails.logger.warn(msg)
       end
     end
   end
