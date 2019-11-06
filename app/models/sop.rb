@@ -25,8 +25,6 @@ class Sop < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: {case_sensitive: false, conditions: -> { where(is_deleted: false) }}
 
-  after_commit :remove_file!, on: :destroy
-
   delegate :identifier, to: :file, allow_nil: true
 
   def with_attachment(path, file)
