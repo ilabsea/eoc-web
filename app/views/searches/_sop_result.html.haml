@@ -2,9 +2,9 @@
   %td
     = link_to sop_path(id: result.id) do
       %i.far.fa-file
-      %span!= hilite_name(result)
+      %span= result.name
   %td
-    -# != hilite_tags(sop).join(', ')
+    = result.tags.join(' ')
 
   %td
     = link_to 'Edit', edit_sop_path(id: result.id), class: 'badge badge-info'

@@ -29,7 +29,7 @@ class SearchService
           must: {
             multi_match: {
               query: params[:q],
-              type: 'phrase_prefix',
+              type: 'bool_prefix',
               fields: ['name', 'tags', 'description']
             }
           },

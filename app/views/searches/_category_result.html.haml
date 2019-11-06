@@ -2,8 +2,8 @@
   %td
     = link_to category_path(id: result.id) do
       %i.fa.fa-folder
-      %span!= hilite_name(result)
+      %span!= result.name
   %td
-    -# != hilite_tags(sop).join(', ')
+    = result.tags.join(', ')
   %td
     = link_to 'Edit', edit_category_path(id: result.id), class: 'badge badge-info'
