@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  include Pagy::Backend
+
   def index
     @sub_categories = Category.roots
     @sops = Sop.where(category_id: nil)
@@ -9,7 +11,10 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(category_params)
+    data = category_params
+    data[:tags] = data[:tags].split(' ')
+
+    @category = Category.new(data)
     if @category.save
       redirect_to category_path(@category)
     else
@@ -30,7 +35,10 @@ class CategoriesController < ApplicationController
 
   def update
     @category = Category.find(params[:id])
-    if @category.update_attributes(category_params)
+    data = category_params
+    data[:tags] = data[:tags].split(' ')
+
+    if @category.update_attributes(data)
       redirect_to category_path(@category)
     else
       flash.now[:alert] = @category.errors.full_messages
@@ -69,7 +77,7 @@ class CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :parent_id)
+    params.require(:category).permit(:name, :parent_id, :tags)
   end
 
   def move_params

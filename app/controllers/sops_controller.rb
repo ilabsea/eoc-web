@@ -10,12 +10,12 @@ class SopsController < ApplicationController
   end
 
   def new
-    @sop = Sop.new
+    @sop = Sop.new(category_id: params[:category_id])
   end
 
   def create
     data = sop_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     @sop = Sop.new(data)
     if @sop.save
@@ -33,7 +33,7 @@ class SopsController < ApplicationController
   def update
     @sop = Sop.find(params[:id])
     data = sop_params
-    data[:tags] = data[:tags].split(',')
+    data[:tags] = data[:tags].split(' ')
 
     if @sop.update_attributes(data)
       if params[:sop][:remove_file] == '1'
@@ -78,15 +78,6 @@ class SopsController < ApplicationController
       redirect_to sops_path, notice: 'Import success!'
     else
       render :upload
-    end
-  end
-
-  def search
-    @sop_highlights = Sop.search_highlight(params)
-
-    respond_to do |format|
-      format.html
-      format.js
     end
   end
 

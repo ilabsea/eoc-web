@@ -46,7 +46,7 @@ class FileUploader < CarrierWave::Uploader::Base
   def filename
     if original_filename
       # "#{SecureRandom.hex(4)}-#{original_filename}"
-      "#{secure_token(10)}.#{file.extension}"
+      "#{secure_token(10)}-#{original_filename}"
     end
   end
 

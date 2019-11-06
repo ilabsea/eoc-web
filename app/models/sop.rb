@@ -15,15 +15,15 @@
 
 class Sop < ApplicationRecord
   include ::SoftDeletable
-  include Sops::Searchable
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   mount_uploader :file, FileUploader
 
   belongs_to :category, optional: true
 
-  validates :name, presence: true, 
-            uniqueness: { message: "`%{value}` already taken!" }, 
-            if: :exist?
+  validates :name, presence: true
+  validates :name, uniqueness: {case_sensitive: false, conditions: -> { where(is_deleted: false) }}
 
   after_commit :remove_file!, on: :destroy
 
@@ -44,11 +44,5 @@ class Sop < ApplicationRecord
 
   def category_name
     category.try(:name) || ''
-  end
-
-  private 
-
-  def exist?
-    self.class.find_by(name: name)
   end
 end

@@ -12,7 +12,7 @@ EOC.SopsNew = EOC.SopsEdit = EOC.SopsCreate = EOC.SopsUpdate = (() => {
 
   function initTagEditor() {
     const input = document.querySelector('input[name="sop[tags]"]');
-    new Tagify(input);
+    new Tagify(input, {delimiters: ' '});
   }
 
   function onClickRemoveFile() {
@@ -66,7 +66,7 @@ EOC.SopsNew = EOC.SopsEdit = EOC.SopsCreate = EOC.SopsUpdate = (() => {
       const tags = $('#sop-tags').val();
       if (tags.length) {
         const transformValue = JSON.parse(tags).map(x => x.value);
-        $('#sop-tags').val(transformValue.join(','));
+        $('#sop-tags').val(transformValue.join(' '));
       }
     });
   }

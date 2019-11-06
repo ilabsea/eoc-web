@@ -1,0 +1,9 @@
+%tr
+  %td
+    = link_to category_path(id: result.id) do
+      %i.fa.fa-folder
+      %span!= result.name
+  %td
+    = result.tags.join(', ')
+  %td
+    = link_to 'Edit', edit_category_path(id: result.id), class: 'badge badge-info'

@@ -1,0 +1,6 @@
+%form{action: searches_path, method: :get}
+  .row
+    .col-sm-10
+      %input.form-control{name: :q, value: params[:q]}
+    .col-sm-2
+      %button.btn.btn-light{type: :submit} Search

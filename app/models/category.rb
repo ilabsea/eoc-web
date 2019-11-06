@@ -10,15 +10,18 @@
 #  depth          :integer          default(0), not null
 #  children_count :integer          default(0), not null
 #  is_deleted     :boolean          default(FALSE)
+#  tags           :text             default([]), is an Array
 #
 
 class Category < ApplicationRecord
   include ::SoftDeletable
-  include Sops::Searchable
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   has_many :sops, class_name: 'Sop'
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
+  validates :name, uniqueness: { case_sensitive: false, conditions: -> { where(is_deleted: false) } }
 
   before_destroy :check_category
 
