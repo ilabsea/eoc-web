@@ -5,13 +5,18 @@ RSpec.describe Category, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name).case_insensitive }
 
-    it 'should not validate name uniqueness with deleted category' do
-      name = 'Animal'
-      category = create(:category, name: name)
-      category.destroy
-      create(:category, name: name)
-      expect(Category.count).to eq(1)
-      expect(Category.only_deleted.count).to eq(1)
+    context 'uniquness name with scope' do
+      let!(:category) { create :category, name: 'Animal' }
+      let(:new_category) { build :category, name: 'Animal' }
+
+      it 'should not allow duplicate name' do
+        expect(new_category).to be_invalid
+      end
+
+      it 'should not check with deleted record' do
+        category.destroy
+        expect(new_category).to be_valid
+      end
     end
   end
 
