@@ -6,8 +6,17 @@ module SoftDeletable
     scope :only_deleted, -> { unscope(where: :is_deleted).where(is_deleted: true) }
   end
 
+  class_methods do
+    def clear_all
+      self.destroy_all
+      self.__elasticsearch__.create_index! force: true
+      self.connection.execute("DELETE FROM #{self.table_name};")
+    end
+  end
+  
   def delete
     update_column :is_deleted, true if has_attribute? :is_deleted
+    remove_file!
   end
 
   def destroy
