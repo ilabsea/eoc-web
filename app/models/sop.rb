@@ -15,7 +15,8 @@
 
 class Sop < ApplicationRecord
   include ::SoftDeletable
-  include Sops::Searchable
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   mount_uploader :file, FileUploader
 

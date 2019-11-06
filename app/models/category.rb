@@ -15,7 +15,8 @@
 
 class Category < ApplicationRecord
   include ::SoftDeletable
-  include Sops::Searchable
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
 
   has_many :sops, class_name: 'Sop'
 
