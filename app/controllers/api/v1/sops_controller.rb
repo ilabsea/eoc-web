@@ -1,7 +1,7 @@
 module Api::V1
   class SopsController < ApiController
     def index
-      @search = Sop.text_search(sop_params).results.results
+      @search = SearchService.text_search(sop_params)
       respond_to do |format|
         format.json { render json: @search }
       end
