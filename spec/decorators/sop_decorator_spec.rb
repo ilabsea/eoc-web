@@ -2,13 +2,9 @@ require 'rails_helper'
 
 RSpec.describe SopDecorator do
   let(:category) { create(:category) }
+  let(:decorator) { described_class.new(name: 'dengue', category: category.name, file: '') }
+  
   it { have_const_defined(:WHITELIST_COLUMNS) }
-
-  it '#save' do
-    obj = described_class.new(name: 'dengue', category: category.name, file: '')
-    saved = obj.save 
-
-    expect(saved).to be_an_instance_of(Sop)
-    expect(saved.category_name).to eq(category.name)
-  end
+  it { expect(decorator.save).to be_an_instance_of(Sop) }
+  it { expect(decorator.save.category_name).to eq(category.name) }
 end
