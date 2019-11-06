@@ -29,12 +29,6 @@ class Sop < ApplicationRecord
 
   delegate :identifier, to: :file, allow_nil: true
 
-  def self.search_highlight(params)
-    response = self.search(params)
-
-    SopSearchResultPresenter.new(response).results
-  end
-
   def with_attachment(path, file)
     whitelist_files = /^[https?:\/\/]?[\S]+\/\S+\.(?:pdf|zip)$/
 
