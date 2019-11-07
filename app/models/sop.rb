@@ -25,19 +25,13 @@ class Sop < ApplicationRecord
   validates :name, presence: true
   validates :name, uniqueness: {case_sensitive: false, conditions: -> { where(is_deleted: false) }}
 
-  after_commit :remove_file!, on: :destroy
-
   delegate :identifier, to: :file, allow_nil: true
 
-  def self.search_highlight(params)
-    response = self.search(params)
-
-    SopSearchResultPresenter.new(response).results
-  end
-
   def with_attachment(path, file)
-    return if file.blank?
-    return self.remote_file_url = file if URI.parse(file).absolute?
+    whitelist_files = /^[https?:\/\/]?[\S]+\/\S+\.(?:pdf|zip)$/
+
+    return if File.extname(file).blank? || file.blank?
+    return self.remote_file_url = file if file.scan(whitelist_files).present?
 
     File.open("#{path}/#{file}") { |f| yield f } if File.exist?("#{path}/#{file}")
   end

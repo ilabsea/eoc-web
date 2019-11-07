@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Sop, type: :model do
-  it { expect(subject.class).to respond_to(:search_highlight) }
   it { is_expected.to respond_to(:with_attachment) }
 
   describe 'validations' do
