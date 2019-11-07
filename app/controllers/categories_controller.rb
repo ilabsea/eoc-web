@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CategoriesController < ApplicationController
   include Pagy::Backend
 
@@ -12,7 +14,7 @@ class CategoriesController < ApplicationController
 
   def create
     data = category_params
-    data[:tags] = data[:tags].split(' ')
+    data[:tags] = data[:tags].split(" ")
 
     @category = Category.new(data)
     if @category.save
@@ -36,7 +38,7 @@ class CategoriesController < ApplicationController
   def update
     @category = Category.find(params[:id])
     data = category_params
-    data[:tags] = data[:tags].split(' ')
+    data[:tags] = data[:tags].split(" ")
 
     if @category.update_attributes(data)
       redirect_to category_path(@category)
@@ -75,17 +77,15 @@ class CategoriesController < ApplicationController
   end
 
   private
+    def category_params
+      params.require(:category).permit(:name, :parent_id, :tags)
+    end
 
-  def category_params
-    params.require(:category).permit(:name, :parent_id, :tags)
-  end
+    def move_params
+      params.require(:category).permit(:parent_id, :category_id, :sop_id)
+    end
 
-  def move_params
-    params.require(:category).permit(:parent_id, :category_id, :sop_id)
-  end
-
-  def redirect_url
-    move_params[:parent_id].present? ? category_path(move_params[:parent_id]) : categories_path
-  end
+    def redirect_url
+      move_params[:parent_id].present? ? category_path(move_params[:parent_id]) : categories_path
+    end
 end
-

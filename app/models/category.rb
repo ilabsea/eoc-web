@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: categories
@@ -18,7 +20,7 @@ class Category < ApplicationRecord
   include Elasticsearch::Model
   include Elasticsearch::Model::Callbacks
 
-  has_many :sops, class_name: 'Sop'
+  has_many :sops, class_name: "Sop"
 
   validates :name, presence: true
   validates :name, uniqueness: { case_sensitive: false, conditions: -> { where(is_deleted: false) } }
@@ -32,11 +34,10 @@ class Category < ApplicationRecord
   end
 
   private
-
-  def check_category
-    unless is_empty?
-      errors[:base] << 'category is not empty'
-      throw :abort
+    def check_category
+      unless is_empty?
+        errors[:base] << "category is not empty"
+        throw :abort
+      end
     end
-  end
 end

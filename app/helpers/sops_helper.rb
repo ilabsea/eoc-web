@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module SopsHelper
-  def name fileurl
-    File.basename(fileurl).split('-', 2)[1]
+  def name(fileurl)
+    File.basename(fileurl).split("-", 2)[1]
   end
 
   def return_url

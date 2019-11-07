@@ -80,7 +80,8 @@ group :development do
   gem 'annotate'
 
   gem 'guard-rspec', require: false
-
+  gem 'rubocop-rails'
+  gem 'rubocop-performance'
 end
 
 group :test do

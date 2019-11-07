@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_action :authenticate_user!
@@ -5,8 +7,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   private
-
-  def layout_by_resource
-    devise_controller? ? 'minimal' : 'application'
-  end
+    def layout_by_resource
+      devise_controller? ? "minimal" : "application"
+    end
 end

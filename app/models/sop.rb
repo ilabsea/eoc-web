@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: sops
@@ -23,7 +25,7 @@ class Sop < ApplicationRecord
   belongs_to :category, optional: true
 
   validates :name, presence: true
-  validates :name, uniqueness: {case_sensitive: false, conditions: -> { where(is_deleted: false) }}
+  validates :name, uniqueness: { case_sensitive: false, conditions: -> { where(is_deleted: false) } }
 
   delegate :identifier, to: :file, allow_nil: true
 
@@ -37,6 +39,6 @@ class Sop < ApplicationRecord
   end
 
   def category_name
-    category.try(:name) || ''
+    category.try(:name) || ""
   end
 end

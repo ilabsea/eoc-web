@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SopsController < ApplicationController
   include Pagy::Backend
 
@@ -15,7 +17,7 @@ class SopsController < ApplicationController
 
   def create
     data = sop_params
-    data[:tags] = data[:tags].split(' ')
+    data[:tags] = data[:tags].split(" ")
 
     @sop = Sop.new(data)
     if @sop.save
@@ -33,10 +35,10 @@ class SopsController < ApplicationController
   def update
     @sop = Sop.find(params[:id])
     data = sop_params
-    data[:tags] = data[:tags].split(' ')
+    data[:tags] = data[:tags].split(" ")
 
     if @sop.update_attributes(data)
-      if params[:sop][:remove_file] == '1'
+      if params[:sop][:remove_file] == "1"
         @sop.remove_file!
         @sop.save
       end
@@ -56,7 +58,7 @@ class SopsController < ApplicationController
   end
 
   def download
-    send_file "#{Rails.root}/public/#{params[:file]}", disposition: 'attachment'
+    send_file "#{Rails.root}/public/#{params[:file]}", disposition: "attachment"
   end
 
   def upload
@@ -75,17 +77,16 @@ class SopsController < ApplicationController
         end
       end
 
-      redirect_to sops_path, notice: 'Import success!'
+      redirect_to sops_path, notice: "Import success!"
     else
       render :upload
     end
   end
 
   private
-
-  def sop_params
-    params.require(:sop).permit(
-      :name, :category_id, :file, :tags, :description, :remove_file
-    )
-  end
+    def sop_params
+      params.require(:sop).permit(
+        :name, :category_id, :file, :tags, :description, :remove_file
+      )
+    end
 end
