@@ -26,36 +26,36 @@ RSpec.describe Category, type: :model do
     it { should have_many(:sops) }
   end
 
-  describe 'destroy' do
-    context 'emptry category' do
+  describe "destroy" do
+    context "emptry category" do
       let!(:category) { create(:category) }
 
-      it 'should delete category' do
+      it "should delete category" do
         category.destroy
         expect(Category.count).to eq(0)
       end
 
-      it 'should should delete' do
+      it "should should delete" do
         category.destroy
         expect(Category.only_deleted.count).to eq(1)
       end
     end
 
-    context 'category with child' do
+    context "category with child" do
       let!(:category) { create(:category) }
       let!(:child_category) { create(:category, parent_id: category.id) }
 
-      it 'should not be deleted' do
+      it "should not be deleted" do
         category.destroy
         expect(Category.find(category.id)).to be_present
       end
     end
 
-    context 'category with sop' do
+    context "category with sop" do
       let!(:category) { create(:category) }
       let!(:sop) { create(:sop, category_id: category.id) }
 
-      it 'should not be deleted' do
+      it "should not be deleted" do
         category.destroy
         expect(Category.find(category.id)).to be_present
       end
@@ -65,21 +65,21 @@ RSpec.describe Category, type: :model do
   describe :is_empty? do
     let!(:category) { create :category }
 
-    context 'empty' do
-      it 'should return true' do
+    context "empty" do
+      it "should return true" do
         expect(category.is_empty?).to be true
       end
     end
 
-    context 'is not empty' do
+    context "is not empty" do
       let!(:child_category) { create :category, parent_id: category.id }
       let!(:sop) { create :sop, category_id: category.id }
 
-      it 'should return false when has sub category' do
+      it "should return false when has sub category" do
         expect(category.is_empty?).to be false
       end
 
-      it 'should not delete when has sop' do
+      it "should not delete when has sop" do
         expect(category.is_empty?).to be false
       end
     end

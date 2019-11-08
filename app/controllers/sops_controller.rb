@@ -77,7 +77,7 @@ class SopsController < ApplicationController
         end
       end
 
-      redirect_to upload_sops_path, notice: 'Import success!'
+      redirect_to upload_sops_path, notice: "Import success!"
     else
       render :upload
     end
