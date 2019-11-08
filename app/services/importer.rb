@@ -19,7 +19,7 @@ class Importer
           decorator.save
         end
       rescue Exception => e
-        Rails.logger.warn(t("unprocessible", msg: e.message))
+        Rails.logger.warn("unprocessible #{e.message}")
       end
     end
   end

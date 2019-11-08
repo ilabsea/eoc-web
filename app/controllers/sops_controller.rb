@@ -67,7 +67,7 @@ class SopsController < ApplicationController
   def import
     if params[:zip_file]
       file = File.open(params[:zip_file].path)
-      uploader = FileUploader.new
+      uploader = ZipUploader.new
       uploader.store! file
 
       service = SpreadsheetService.new uploader.path
@@ -77,7 +77,7 @@ class SopsController < ApplicationController
         end
       end
 
-      redirect_to sops_path, notice: "Import success!"
+      redirect_to upload_sops_path, notice: 'Import success!'
     else
       render :upload
     end

@@ -75,7 +75,7 @@ RSpec.describe SopsController, type: :controller do
       @file_path = Rails.root.join("spec", "fixtures", "files", "Archive.zip")
       post :import, params: { zip_file: fixture_file_upload(@file_path, "application/zip") }
 
-      expect(subject).to redirect_to(sops_path)
+      expect(subject).to redirect_to(upload_sops_path)
       expect(subject.request.flash[:notice]).to eq "Import success!"
     end
   end

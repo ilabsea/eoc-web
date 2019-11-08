@@ -7,15 +7,14 @@
     %i.fas.fa-align-left
 
   %ul.list-unstyled.components
-    -# %li
-      -# = link_to root_path do
-        -# %i.fas.fa-book
-        -# SOP
     %li
       = link_to root_path do
-        %i.fas.fa-book
-        Home
-
+        %i.fas.fa-home
+        = t('sidebar.home')
+    %li
+      = link_to upload_sops_path do
+        %i.fas.fa-file-import
+        = t('sidebar.import_sop')
     %li
       = link_to destroy_user_session_path, method: :delete do
         %i.fas.fa-key
