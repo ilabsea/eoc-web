@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Importer
   def initialize(f)
     @file = f
@@ -17,7 +19,7 @@ class Importer
           decorator.save
         end
       rescue Exception => e
-        Rails.logger.warn( t('unprocessible', msg: e.message) )
+        Rails.logger.warn(t("unprocessible", msg: e.message))
       end
     end
   end

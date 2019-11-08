@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchService
   def self.text_search(params)
     size = params[:items] || 10
@@ -29,8 +31,8 @@ class SearchService
           must: {
             multi_match: {
               query: params[:q],
-              type: 'bool_prefix',
-              fields: ['name', 'tags', 'description']
+              type: "bool_prefix",
+              fields: ["name", "tags", "description"]
             }
           },
           filter: {

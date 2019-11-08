@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class CategoryDecorator < BaseDecorator
   WHITELIST_COLUMNS = {
-    name: 'name', 
-    parent: 'parent'
+    name: "name",
+    parent: "parent"
   }
-  
+
   def initialize(attr)
     @attr ||= attr
   end

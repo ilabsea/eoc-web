@@ -9,6 +9,7 @@ AllCops:
   DisabledByDefault: true
   Exclude:
     - '**/tmp/**/*'
+    - '**/bin/**/*'
     - '**/vendor/**/*'
     - '**/node_modules/**/*'
 
