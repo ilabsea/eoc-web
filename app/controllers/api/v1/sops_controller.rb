@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api::V1
   class SopsController < ApiController
     def index
@@ -8,9 +10,8 @@ module Api::V1
     end
 
     private
-
-    def sop_params
-      params.permit(:q, :page)
-    end
+      def sop_params
+        params.permit(:q, :page)
+      end
   end
 end

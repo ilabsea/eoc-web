@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class FCMFake < FCM
-  def initialize key
+  def initialize(key)
     super(key)
   end
 
-  def send ids, options
-    { action: 'send', status: 200 }
+  def send(ids, options)
+    { action: "send", status: 200 }
   end
 end

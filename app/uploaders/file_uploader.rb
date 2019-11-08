@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FileUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
@@ -10,7 +12,7 @@ class FileUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    return 'uploads/carrierwave' unless model.present?
+    return "uploads/carrierwave" unless model.present?
 
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
@@ -51,8 +53,8 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   protected
-  def secure_token(length=16)
-    var = :"@#{mounted_as}_secure_token"
-    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.hex(length/2))
-  end
+    def secure_token(length = 16)
+      var = :"@#{mounted_as}_secure_token"
+      model.instance_variable_get(var) || model.instance_variable_set(var, SecureRandom.hex(length/2))
+    end
 end

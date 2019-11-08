@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SoftDeletable
   extend ActiveSupport::Concern
 
@@ -65,7 +67,7 @@ module SoftDeletable
           end
         end
       end
-      if association_data.nil? && association.macro.to_s == 'has_one'
+      if association_data.nil? && association.macro.to_s == "has_one"
         association_class_name = association.options[:class_name].present? ? association.options[:class_name] : association.name.to_s.camelize
         association_foreign_key = association.options[:foreign_key].present? ? association.options[:foreign_key] : "#{self.class.name.to_s.underscore}_id"
         Object.const_get(association_class_name).only_deleted.where(association_foreign_key, self.id).first.try(:restore, recursive: true)
@@ -74,4 +76,3 @@ module SoftDeletable
     clear_association_cache if destroyed_associations.present?
   end
 end
-

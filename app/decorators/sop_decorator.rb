@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 class SopDecorator < BaseDecorator
   WHITELIST_COLUMNS = {
-    name: 'name', 
-    description: 'description', 
-    file: 'file', 
-    tags: 'tags', 
-    category: 'category'
+    name: "name",
+    description: "description",
+    file: "file",
+    tags: "tags",
+    category: "category"
   }
 
   def initialize(attr)
@@ -12,7 +14,7 @@ class SopDecorator < BaseDecorator
   end
 
   def save
-    path = Rails.root.join('public', 'samples', 'pdf').to_s
+    path = Rails.root.join("public", "samples", "pdf").to_s
     Sop.create do |sop|
       sop.name = @attr[:name]
       sop.description = @attr[:description]

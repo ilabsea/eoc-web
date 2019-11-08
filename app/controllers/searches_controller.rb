@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchesController < ApplicationController
   include Pagy::Backend
 
@@ -6,4 +8,3 @@ class SearchesController < ApplicationController
     @pagy = Pagy.new_from_elasticsearch_rails(@results)
   end
 end
-

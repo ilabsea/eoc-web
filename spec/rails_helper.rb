@@ -1,14 +1,16 @@
-require 'spec_helper'
-require 'database_cleaner'
-require 'support/util'
+# frozen_string_literal: true
 
-ENV['RAILS_ENV'] ||= 'test'
-require File.expand_path('../../config/environment', __FILE__)
+require "spec_helper"
+require "database_cleaner"
+require "support/util"
+
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path("../../config/environment", __FILE__)
 
 abort("The Rails environment is running in production mode!") if Rails.env.production?
-require 'rspec/rails'
-require 'ffaker'
-require 'devise'
+require "rspec/rails"
+require "ffaker"
+require "devise"
 
 begin
   ActiveRecord::Migration.maintain_test_schema!
@@ -19,7 +21,7 @@ end
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Util::Methods
-  config.include Devise::Test::ControllerHelpers, :type => :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

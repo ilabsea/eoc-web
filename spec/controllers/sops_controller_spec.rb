@@ -1,4 +1,6 @@
-require 'rails_helper'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 # test only Active Record
 RSpec.describe SopsController, type: :controller do
@@ -6,72 +8,72 @@ RSpec.describe SopsController, type: :controller do
     sign_in FactoryBot.create(:user)
   end
 
-  describe 'GET new' do
-    it 'shows new' do
+  describe "GET new" do
+    it "shows new" do
       expect(response.status).to eq 200
     end
   end
 
-  describe 'POST create' do
-    it 'create new sop' do
-      post :create, params: { sop: { name: 'test', category_id: nil, tags: 'tags', file: nil } }
+  describe "POST create" do
+    it "create new sop" do
+      post :create, params: { sop: { name: "test", category_id: nil, tags: "tags", file: nil } }
       expect(subject).to redirect_to(sop_path(assigns(:sop)))
     end
 
-    it 'cannot create SOP with duplicate name' do
-      sop = create(:sop, name: 'dup')
-      post :create, params: { sop: { name: 'dup', category_id: nil, tags: 'tags', file: nil } }
+    it "cannot create SOP with duplicate name" do
+      create(:sop, name: "dup")
+      post :create, params: { sop: { name: "dup", category_id: nil, tags: "tags", file: nil } }
 
       expect(subject).to render_template(:new)
     end
   end
 
-  describe 'GET edit' do
-    it 'shows edit' do
+  describe "GET edit" do
+    it "shows edit" do
       expect(response.status).to eq 200
     end
   end
 
-  describe 'PUT update' do
-    it 'updates sop' do
-      sop = create(:sop, name: 'old sop')
-      new_sop = { name: 'new sop' }
+  describe "PUT update" do
+    it "updates sop" do
+      sop = create(:sop, name: "old sop")
+      new_sop = { name: "new sop" }
 
-      put :update, params: { id: sop.id, sop: { name: 'new sop', tags: '' } }
+      put :update, params: { id: sop.id, sop: { name: "new sop", tags: "" } }
 
-      expect( assigns(:sop).name ).to eq( new_sop[:name] )
+      expect(assigns(:sop).name).to eq(new_sop[:name])
     end
 
-    it 'cannot update duplicate sop' do
-      sop1 = create(:sop, name: 'sop 1')
-      sop2 = create(:sop, name: 'sop 2')
+    it "cannot update duplicate sop" do
+      sop1 = create(:sop, name: "sop 1")
+      sop2 = create(:sop, name: "sop 2")
 
-      put :update, params: { id: sop1.id, sop: { name: sop2.name, tags: '' } }
+      put :update, params: { id: sop1.id, sop: { name: sop2.name, tags: "" } }
 
-      expect( subject ).to render_template(:edit)
+      expect(subject).to render_template(:edit)
     end
   end
 
-  it 'deletes sop' do
-    sop = create(:sop, name: 'unwanted sop')
+  it "deletes sop" do
+    sop = create(:sop, name: "unwanted sop")
     delete :destroy, params: { id: sop.id }
     expect(subject).to redirect_to(sops_path)
   end
 
-  it 'GET upload' do
+  it "GET upload" do
     get :upload
     expect(response.status).to eq 200
   end
 
-  describe 'POST import' do
-    it 'renders upload when no attach file' do
+  describe "POST import" do
+    it "renders upload when no attach file" do
       post :import
       expect(subject).to render_template(:upload)
     end
 
-    it 'import zip file' do
-      @file_path = Rails.root.join('spec', 'fixtures', 'files', 'Archive.zip')
-      post :import, params: { zip_file: fixture_file_upload(@file_path, 'application/zip') }
+    it "import zip file" do
+      @file_path = Rails.root.join("spec", "fixtures", "files", "Archive.zip")
+      post :import, params: { zip_file: fixture_file_upload(@file_path, "application/zip") }
 
       expect(subject).to redirect_to(sops_path)
       expect(subject.request.flash[:notice]).to eq "Import success!"

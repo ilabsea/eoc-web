@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api::V1
   class TokensController < ApiController
     def create
@@ -10,9 +12,8 @@ module Api::V1
     end
 
     private
-
-    def firebase_token_params
-      params.require(:firebase).permit(:token)
-    end
+      def firebase_token_params
+        params.require(:firebase).permit(:token)
+      end
   end
 end
