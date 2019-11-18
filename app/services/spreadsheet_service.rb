@@ -27,7 +27,7 @@ class SpreadsheetService
 
     Zip::File.open(@zip_file) do |zip_file|
       num_files = 0
-      base_name = File.basename(zip_file.name, ".zip")
+      base_name = SecureRandom.hex(4)
       self.dest = FileUtils.mkdir_p("#{@store_dir}/#{base_name}").first
 
       zip_file.each do |entry|
@@ -39,7 +39,8 @@ class SpreadsheetService
 
     spreadsheets = Dir.glob("#{dest}/**/*.xlsx")
     checker.no_spreadsheet!(spreadsheets)
-    yield spreadsheets.map { |f| Importer.new(f) } if block_given?
+    importer = Importer.new(spreadsheets.first)
+    importer.load
   end
 
   protected
