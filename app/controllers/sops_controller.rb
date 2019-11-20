@@ -66,7 +66,7 @@ class SopsController < ApplicationController
 
   def import
     if params[:zip_file] && params[:zip_file].content_type == "application/zip"
-      service = SpreadsheetService.new(params[:zip_file])
+      service = SopImportService.new(params[:zip_file])
 
       begin
         service.process

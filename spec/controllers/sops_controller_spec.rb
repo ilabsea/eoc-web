@@ -68,12 +68,26 @@ RSpec.describe SopsController, type: :controller do
   describe "POST import" do
     it "renders upload when no attach file" do
       post :import
-      expect(subject).to render_template(:upload)
+      expect(subject).to redirect_to(upload_sops_path)
+      expect(subject.request.flash[:alert]).to eq "Invalid import file!"
+    end
+
+    it "renders upload when no wrong attachment type" do
+      post :import, params: { zip_file: fixture_file_upload(file_path("test.xlsx"), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") }
+
+      expect(subject).to redirect_to(upload_sops_path)
+      expect(subject.request.flash[:alert]).to eq "Invalid import file!"
+    end
+
+    it "renders upload when no excel file in zip" do
+      post :import, params: { zip_file: fixture_file_upload(file_path("archive-no-excel.zip"), "application/zip") }
+
+      expect(subject).to redirect_to(upload_sops_path)
+      expect(subject.request.flash[:alert]).to eq I18n.t(".sop_import_service.not_found")
     end
 
     it "import zip file" do
-      @file_path = Rails.root.join("spec", "fixtures", "files", "Archive.zip")
-      post :import, params: { zip_file: fixture_file_upload(@file_path, "application/zip") }
+      post :import, params: { zip_file: fixture_file_upload(file_path("Archive.zip"), "application/zip") }
 
       expect(subject).to redirect_to(categories_path)
       expect(subject.request.flash[:notice]).to eq "Import success!"
