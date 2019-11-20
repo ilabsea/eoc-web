@@ -6,39 +6,17 @@ class SpreadsheetService
   @@MAX_FILE_SIZE = 10 * 1024**2 # 10MiB
   @@MAX_FILES = 100
   @@WHITELIST = %w(.zip)
-  @@COLS = {  name: "Name",
-              tags: "Tags",
-              file: "File" }
 
   def initialize(zip_file)
     @zip_file = zip_file
-    @uploader = FileUploader.new
-    @store_dir = Rails.root.join("public", @uploader.store_dir).to_path
+    @dest = Rails.root.join("public", "import", SecureRandom.hex(4)).to_path
   end
 
-  def unzip
-    checker = FileChecker.new(@zip_file)
-    checker.exist!
-    checker.blacklist!
+  def process
+    extract_zip
 
-    # Dealing with existing file
-    Zip.on_exists_proc = true
-    Zip.continue_on_exists_proc = true
-
-    Zip::File.open(@zip_file) do |zip_file|
-      num_files = 0
-      base_name = SecureRandom.hex(4)
-      self.dest = FileUtils.mkdir_p("#{@store_dir}/#{base_name}").first
-
-      zip_file.each do |entry|
-        checker.too_many!(++num_files)
-        checker.too_large!(entry.size)
-        entry.extract "#{dest}/#{entry.name}"
-      end
-    end
-
-    spreadsheets = Dir.glob("#{dest}/**/*.xlsx")
-    checker.no_spreadsheet!(spreadsheets)
+    spreadsheets = Dir.glob("#{@dest}/**/*.xlsx")
+    raise t("not_found") if spreadsheets.empty?
     importer = Importer.new(spreadsheets.first)
     importer.load
   end
@@ -50,5 +28,14 @@ class SpreadsheetService
 
     def t(key, placeholder = {})
       I18n.t(".spreadsheet_service.#{key}", { default: "" }.merge(placeholder))
+    end
+
+  private
+    def extract_zip
+      Zip::File.open(@zip_file) do |zip_file|
+        zip_file.each do |entry|
+          entry.extract "#{@dest}/#{entry.name}"
+        end
+      end
     end
 end
