@@ -12,18 +12,12 @@ class SopImportService
     spreadsheets = Dir.glob("#{@dest}/**/*.xlsx")
     raise I18n.t(".sop_import_service.not_found") if spreadsheets.empty?
 
-
     xlsx = Roo::Spreadsheet.open(spreadsheets.first)
     create_categories(xlsx)
 
     dir_path = File.dirname(spreadsheets.first) + "/attachment"
     create_sops(xlsx, dir_path)
   end
-
-  protected
-    def log(type = :warn, msg)
-      Rails.logger.send(type, msg)
-    end
 
   private
     def extract_zip

@@ -6,7 +6,6 @@ class CreateSops < ActiveRecord::Migration[5.1]
       t.string   :name
       t.text     :description
       t.string   :file
-      t.text     :tags
       t.integer  :category_id
       t.integer  :author_id
 
