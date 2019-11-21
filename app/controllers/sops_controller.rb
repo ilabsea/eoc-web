@@ -71,7 +71,7 @@ class SopsController < ApplicationController
       begin
         service.process
         redirect_to categories_path, notice: "Import success!"
-      rescue RuntimeError => e
+      rescue RuntimeError, Zip::Error => e
         flash[:alert] = e.message
         redirect_to upload_sops_path
       end
