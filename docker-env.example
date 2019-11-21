@@ -12,3 +12,11 @@ SERVER_SECRET_KEY_BASE=your_random_uuid
 
 # Shell with unicode support
 LANG=C.UTF-8
+
+# Mandrill
+SETTINGS__SMTP__ADDRESS=smtp.mandrillapp.com
+SETTINGS__SMTP__DOMAIN=domain
+SETTINGS__SMTP__USER_NAME=email
+SETTINGS__SMTP__PASSWORD=api-key
+SETTINGS__SMTP__HOST=localhost:3000
+SETTINGS__SMTP__DEFAULT_FROM=notifications@example.org
