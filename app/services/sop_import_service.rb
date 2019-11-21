@@ -3,7 +3,7 @@
 class SopImportService
   def initialize(zip_file)
     @zip_file = zip_file
-    @dest = Rails.root.join("public", "import", SecureRandom.hex(4)).to_path
+    @dest = Rails.root.join("tmp", "import", SecureRandom.hex(4)).to_path
   end
 
   def process
@@ -17,6 +17,8 @@ class SopImportService
 
     dir_path = File.dirname(spreadsheets.first) + "/attachment"
     create_sops(xlsx, dir_path)
+
+    FileUtils.remove_dir(@dest, true)
   end
 
   private
