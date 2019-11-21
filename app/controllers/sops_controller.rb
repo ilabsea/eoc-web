@@ -37,7 +37,7 @@ class SopsController < ApplicationController
     data = sop_params
     data[:tags] = data[:tags].split(" ")
 
-    if @sop.update_attributes(data)
+    if @sop.update(data)
       if params[:sop][:remove_file] == "1"
         @sop.remove_file!
         @sop.save
