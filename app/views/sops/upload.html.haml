@@ -2,6 +2,10 @@
   %nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container-fluid
       %h3= t("sidebar.import_sop")
+      %ul.navbar-nav.ml-auto
+        = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: 'Download sample' do
+          %i.fas.fa-download
+
   = form_with(url: import_sops_path, method: :post, multipart: true) do |f|
     .col-auto
       .form-group
