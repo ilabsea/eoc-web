@@ -49,6 +49,7 @@ gem "devise", "~> 4.7.1"
 
 gem "elasticsearch-model",        "~> 7.0.0"
 gem "elasticsearch-rails",        "~> 7.0.0"
+gem "searchkick", "~> 4.1.1"
 
 gem "roo", "~> 2.8.0"
 gem "roo-xls"

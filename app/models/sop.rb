@@ -17,8 +17,9 @@
 
 class Sop < ApplicationRecord
   include ::SoftDeletable
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  searchkick \
+    word_middle: [:name, :tags, :description],
+    text_middle: [:name, :tags, :description]
 
   mount_uploader :file, FileUploader
 
