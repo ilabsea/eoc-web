@@ -12,6 +12,10 @@ RSpec.configure do |config|
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
   config.before(:suite) do
+    # reindex models
+    Sop.reindex
+    Category.reindex
+
     # and disable callbacks
     Searchkick.disable_callbacks
   end

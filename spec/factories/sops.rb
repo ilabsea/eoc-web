@@ -18,5 +18,13 @@ FactoryBot.define do
   factory :sop do
     name { FFaker::Name.name }
     tags { FFaker::Tweet.tags }
+
+    # Note: This should be the last trait in the list so `reindex` is called
+    # after all the other callbacks complete.
+    trait :reindex do
+      after(:create) do |sop, _evaluator|
+        sop.reindex(refresh: true)
+      end
+    end
   end
 end
