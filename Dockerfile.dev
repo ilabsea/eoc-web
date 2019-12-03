@@ -2,9 +2,8 @@ FROM ruby:2.6.3
 
 LABEL maintainer="Sokly <sokly@instedd.org>"
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x  | bash -
-
-RUN apt-get update -qq && \
+RUN curl -sL https://deb.nodesource.com/setup_10.x  | bash - && \
+  apt-get update -qq && \
   apt-get install -y vim nodejs postgresql-client && \
   apt-get clean && \
   npm install -g yarn && \
@@ -13,13 +12,10 @@ RUN apt-get update -qq && \
 RUN mkdir /app
 WORKDIR /app
 
-RUN gem install bundler -v 2.0.2
+COPY Gemfile* package.json yarn.lock /app/
 
-COPY Gemfile* /app/
-RUN bundle install
-
-# Install yarn packages
-COPY package.json yarn.lock /app/
-RUN yarn install --check-files
+RUN gem install bundler -v 2.0.2 && \
+  bundle install && \
+  yarn install --check-files
 
 COPY . /app
