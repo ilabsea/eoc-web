@@ -32,6 +32,11 @@ services:
   redis:
     image: redis
 
+  sidekiq:
+    <<: *rails
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    ports: []
+
   elasticsearch:
     image: elasticsearch:7.3.1
     environment:
