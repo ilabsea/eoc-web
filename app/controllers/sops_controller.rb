@@ -21,6 +21,7 @@ class SopsController < ApplicationController
 
     @sop = Sop.new(data)
     if @sop.save
+      PushNotificationJob.perform_later("all", sop_notification_data)
       redirect_to sop_path(@sop)
     else
       flash.now[:alert] = @sop.errors.full_messages
@@ -70,6 +71,7 @@ class SopsController < ApplicationController
 
       begin
         service.process
+        PushNotificationJob.perform_later("all", notification_data)
         redirect_to categories_path, notice: "Import success!"
       rescue RuntimeError, Zip::Error => e
         flash[:alert] = e.message
@@ -86,5 +88,20 @@ class SopsController < ApplicationController
       params.require(:sop).permit(
         :name, :category_id, :file, :tags, :description, :remove_file
       )
+    end
+
+    def sop_notification_data
+      {
+        title: "New Sop available for download",
+        body: "Now you can download \"#{@sop.name}\"",
+        data: { item: @sop.id }
+      }
+    end
+
+    def notification_data
+      {
+        title: "New Sop available for download",
+        body: "Many new sops are available for download."
+      }
     end
 end
