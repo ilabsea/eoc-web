@@ -27,53 +27,60 @@ RSpec.describe Category, type: :model do
   end
 
   describe "destroy" do
-    before(:each) do
-      @category = FactoryBot.create :category
-    end
+    context "emptry category" do
+      let!(:category) { create(:category) }
 
-    it "should soft delete empty category" do
-      @category.destroy
-      expect(Category.count).to eq(0)
-      expect(Category.only_deleted.count).to eq(1)
-    end
-
-    it "should not delete when has child category" do
-      child_category = FactoryBot.create :category
-      child_category.move_to_child_of(@category)
-
-      @category.destroy
-      expect(Category.count).to eq(2)
-    end
-
-    it "should not delete when has sop" do
-      sop = FactoryBot.create :sop
-      sop.update(category_id: @category.id)
-
-      @category.destroy
-      expect(Category.count).to eq(1)
-    end
-
-    describe :is_empty? do
-      before(:each) do
-        @category = FactoryBot.create :category
+      it "should delete category" do
+        category.destroy
+        expect(Category.count).to eq(0)
       end
 
+      it "should should delete" do
+        category.destroy
+        expect(Category.only_deleted.count).to eq(1)
+      end
+    end
+
+    context "category with child" do
+      let!(:category) { create(:category) }
+      let!(:child_category) { create(:category, parent_id: category.id) }
+
+      it "should not be deleted" do
+        category.destroy
+        expect(Category.find(category.id)).to be_present
+      end
+    end
+
+    context "category with sop" do
+      let!(:category) { create(:category) }
+      let!(:sop) { create(:sop, category_id: category.id) }
+
+      it "should not be deleted" do
+        category.destroy
+        expect(Category.find(category.id)).to be_present
+      end
+    end
+  end
+
+  describe :is_empty? do
+    let!(:category) { create :category }
+
+    context "empty" do
       it "should return true" do
-        expect(@category.is_empty?).to be true
+        expect(category.is_empty?).to be true
       end
+    end
+
+    context "is not empty" do
+      let!(:child_category) { create :category, parent_id: category.id }
+      let!(:sop) { create :sop, category_id: category.id }
 
       it "should return false when has sub category" do
-        child_category = FactoryBot.create :category
-        child_category.move_to_child_of(@category)
-
-        expect(@category.is_empty?).to be false
+        expect(category.is_empty?).to be false
       end
 
       it "should not delete when has sop" do
-        sop = FactoryBot.create :sop
-        sop.update(category_id: @category.id)
-
-        expect(@category.is_empty?).to be false
+        expect(category.is_empty?).to be false
       end
     end
   end

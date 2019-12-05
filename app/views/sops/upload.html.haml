@@ -1,10 +1,18 @@
 #content
-  %h3 Upload SOP
-  = form_with(url: import_sops_path, method: "post", multipart: true) do
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %h3= t("sidebar.import_sop")
+      %ul.navbar-nav.ml-auto
+        = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: 'Download sample' do
+          %i.fas.fa-download
+
+  = form_with(url: import_sops_path, method: :post, multipart: true) do |f|
     .col-auto
       .form-group
-        %label.btn.btn-primary
-          = file_field_tag(:zip_file, class: 'hidden')
-          Import
+        %label{ for: :zip_file } Please select .zip file to import
+        = f.file_field(:zip_file, class: "form-control-file", accept: "application/zip")
+        - if flash[:alert].present?
+          .text-danger= flash[:alert]
+    %br
     .col-auto
-      = submit_tag("Import", class: 'btn btn-light')
+      = f.submit "Import", class: 'btn btn-primary'
