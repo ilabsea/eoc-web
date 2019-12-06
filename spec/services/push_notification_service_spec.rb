@@ -24,7 +24,7 @@ RSpec.describe PushNotificationService do
 
   describe "#subscribe_to_topic" do
     let(:service) { described_class.new }
-    let(:token) { FFaker::DizzleIpsum::characters }
+    let(:token) { FFaker::DizzleIpsum.characters }
     let(:topic) { "all" }
 
     it "subscribe to topic with provided token" do
