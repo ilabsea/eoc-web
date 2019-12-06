@@ -4,13 +4,12 @@ module Api::V1
   class SopsController < ApiController
     def index
       @search = SearchService.text_search(sop_params)
-      if token == ENV["SERVER_SECRET_KEY_BASE"]
-        render json: @search
-      else
-        render json: {
-          error: "Unauthorize request",
-          status: :bad_request }
-      end
+      render json: @search.as_json(methods: [:model_name])
+    end
+
+    def show
+      @sop = Sop.find_by(id: params[:id])
+      render json: @sop
     end
 
     private
