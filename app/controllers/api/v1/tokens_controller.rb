@@ -5,6 +5,7 @@ module Api::V1
     def create
       @token = FirebaseDeviceToken.new(firebase_token_params)
       if @token.save
+        SubscribeNotificationTopicJob.perform_later("all", @token.token)
         render json: @token, status: :ok
       else
         render json: @token.errors, status: :unprocessable_entity

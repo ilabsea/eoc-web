@@ -2,7 +2,7 @@ class PushNotificationJob < ApplicationJob
   queue_as :default
 
   def perform(topic, data)
-    service = ::PushNotificationService.new(data)
-    service.send_to_all
+    service = ::PushNotificationService.new
+    service.send_to_topic(topic, data)
   end
 end

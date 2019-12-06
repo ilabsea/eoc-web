@@ -92,16 +92,20 @@ class SopsController < ApplicationController
 
     def sop_notification_data
       {
-        title: "New Sop available for download",
-        body: "Now you can download \"#{@sop.name}\"",
+        notification: {
+          title: "New Sop available for download",
+          body: "Now you can download \"#{@sop.name}\"",
+        },
         data: { item: @sop.id }
       }
     end
 
     def notification_data
       {
-        title: "New Sop available for download",
-        body: "Many new sops are available for download."
+        notification: {
+          title: "New Sop available for download",
+          body: "Many new sops are available for download."
+        }
       }
     end
 end
