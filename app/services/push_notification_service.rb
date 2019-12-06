@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class PushNotificationService
-  SEND_THRESHOLD = 500
-
   def initialize(options = {})
     @title = options[:title]
     @body = options[:body]
