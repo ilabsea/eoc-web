@@ -94,7 +94,7 @@ class SopsController < ApplicationController
 
     def sop_notification_data
       { 
-        item: @sop.id,
+        itemId: @sop.id,
         title: "New Sop available for download",
         body: "Now you can download \"#{@sop.name}\""
       }
