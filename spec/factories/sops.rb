@@ -19,6 +19,10 @@ FactoryBot.define do
     name { FFaker::Name.name }
     tags { FFaker::Tweet.tags }
 
+    trait :with_category do
+      category
+    end
+
     # Note: This should be the last trait in the list so `reindex` is called
     # after all the other callbacks complete.
     trait :reindex do

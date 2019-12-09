@@ -53,9 +53,11 @@ class SopsController < ApplicationController
 
   def destroy
     @sop = Sop.find(params[:id])
+    category = @sop.category
     @sop.destroy
 
-    redirect_to sops_url
+    url = category.present? ? category_path(category) : categories_path
+    redirect_to url
   end
 
   def download
