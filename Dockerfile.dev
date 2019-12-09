@@ -16,7 +16,6 @@ WORKDIR /app
 COPY Gemfile* package.json yarn.lock /app/
 
 RUN gem install bundler -v 2.0.2 && \
-  bundle install && \
-  yarn install --check-files
+  bundle install
 
 COPY . /app
