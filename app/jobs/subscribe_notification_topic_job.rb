@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SubscribeNotificationTopicJob < ApplicationJob
   queue_as :default
 
