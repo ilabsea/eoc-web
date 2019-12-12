@@ -27,7 +27,7 @@ require "pagy/extras/elasticsearch_rails"
 
 # Searchkick extra: Paginate `Searchkick::Results` objects
 # See https://ddnexus.github.io/pagy/extras/searchkick
-# require 'pagy/extras/searchkick'
+require "pagy/extras/searchkick"
 
 
 # Frontend Extras

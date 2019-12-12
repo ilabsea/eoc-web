@@ -25,7 +25,7 @@
 
       %tbody#body-content
         - @results.each do |result|
-          - if result._index == 'categories'
+          - if result.instance_of? Category
             = render 'category_result', result: result
           - else
             = render 'sop_result', result: result

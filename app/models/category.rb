@@ -17,8 +17,12 @@
 
 class Category < ApplicationRecord
   include ::SoftDeletable
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
+  searchkick \
+    text_middle: [:name, :tags],
+    word_middle: [:name, :tags]
+
+  # include Elasticsearch::Model
+  # include Elasticsearch::Model::Callbacks
 
   has_many :sops, class_name: "Sop"
 
