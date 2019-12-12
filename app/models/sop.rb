@@ -30,6 +30,8 @@ class Sop < ApplicationRecord
 
   delegate :identifier, to: :file, allow_nil: true
 
+  after_commit -> { EsFileIndexJob.perform_later(id) }, on: [:create, :update]
+
   def with_attachment(path, file)
     whitelist_files = /^[https?:\/\/]?[\S]+\/\S+\.(?:pdf|zip)$/
 
@@ -37,6 +39,14 @@ class Sop < ApplicationRecord
     return self.remote_file_url = file if file.scan(whitelist_files).present?
 
     File.open("#{path}/#{file}") { |f| yield f } if File.exist?("#{path}/#{file}")
+  end
+
+  def search_data
+    {
+      name: name,
+      tags: tags,
+      description: description
+    }
   end
 
   def category_name

@@ -3,7 +3,7 @@
 class SearchService
   def self.text_search(params)
     option = {
-      fields: ["name", "tags", "description"],
+      fields: ["name", "tags", "description", "content"],
       page: params[:page],
       per_page: params[:per_page] || 10,
       models: [Sop, Category],
