@@ -55,6 +55,18 @@ class Sop < ApplicationRecord
     category.try(:name) || ""
   end
 
+  def create_record(data, attachment_path)
+    category_id = Category.find_by(name: data[:category_name]).try(:id)
+    # tags = data[:tag].try(:split, " ") || []
+    # sop = new(name: data[:name], description: data[:description], tags: tags, category_id: category_id)
+
+    if data[:file].present? #&& File.exist?(attachment_path)
+      File.open(attachment_path) { |f| sop.file = f }
+    end
+
+    sop.save
+  end
+
   private
     def es_file_index?
       ENV["ES_FILE_INDEXABLE"] == "true"

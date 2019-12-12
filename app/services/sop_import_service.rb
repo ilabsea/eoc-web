@@ -12,11 +12,18 @@ class SopImportService
     spreadsheets = Dir.glob("#{@dest}/**/*.xlsx")
     raise I18n.t(".sop_import_service.not_found") if spreadsheets.empty?
 
-    xlsx = Roo::Spreadsheet.open(spreadsheets.first)
-    create_categories(xlsx)
+    attachment_path = File.dirname(spreadsheets.first) + "/attachment"
 
-    dir_path = File.dirname(spreadsheets.first) + "/attachment"
-    create_sops(xlsx, dir_path)
+    # xlsx = Roo::Spreadsheet.open(spreadsheets.first)
+    category_parser = ExcelParser::Parser.new(type: "category", file: spreadsheets.first)
+    importer = Importer.new(parser: category_parser, import_type: "category")
+    importer.import
+
+    sop_parser = ExcelParser::Parser.new(type: "sop", file: spreadsheets.first)
+    importer = Importer.new(parser: ExcelParser.new("sop"), import_type: "category")
+    importer.import
+
+    # create_sops(xlsx, dir_path)
 
     FileUtils.remove_dir(@dest, true)
   end
@@ -35,8 +42,9 @@ class SopImportService
       records = sheet.parse(name: "name", parent_name: "parent")
       records.each do |record|
         next if Category.find_by(name: record[:name]).present?
-        parent_category = Category.find_by(name: record[:parent_name])
-        Category.create(name: record[:name], parent_id: parent_category.try(:id))
+        Category.create_record(record)
+        # parent_category = Category.find_by(name: record[:parent_name])
+        # Category.create(name: record[:name], parent_id: parent_category.try(:id))
       end
     end
 
@@ -47,17 +55,18 @@ class SopImportService
       records.each do |record|
         record.each_value { |v| v.try(:strip!) }
         next if Sop.find_by(name: record[:name]).present?
+        Sop.create_record(record)
 
-        category = Category.find_by(name: record[:category_name])
-        tags = record[:tag].present? ? record[:tag].split(" ") : []
-        attachment_path = "#{dir_path}/#{record[:file]}"
-        sop = Sop.new(name: record[:name], description: record[:description], tags: tags, category_id: category.try(:id))
+        # category = Category.find_by(name: record[:category_name])
+        # tags = record[:tag].present? ? record[:tag].split(" ") : []
+        # attachment_path = "#{dir_path}/#{record[:file]}"
+        # sop = Sop.new(name: record[:name], description: record[:description], tags: tags, category_id: category.try(:id))
 
-        if record[:file].present? && File.exist?(attachment_path)
-          File.open(attachment_path) { |f| sop.file = f }
-        end
+        # if record[:file].present? && File.exist?(attachment_path)
+          # File.open(attachment_path) { |f| sop.file = f }
+        # end
 
-        sop.save
+        # sop.save
       end
     end
 end
