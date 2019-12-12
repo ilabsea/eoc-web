@@ -13,6 +13,7 @@
 
 
     = f.input :file, as: :file, input_html: { accept: '.pdf, .zip' }
+    = f.input :indexable, as: :boolean
 
     - unless @sop.file.file.nil?
       .flex-row
