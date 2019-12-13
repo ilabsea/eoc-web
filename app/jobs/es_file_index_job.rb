@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EsFileIndexJob < ApplicationJob
   queue_as :default
 
@@ -6,15 +8,14 @@ class EsFileIndexJob < ApplicationJob
     index = Sop.search_index.name
 
     Searchkick.client.update index: index, id: sop_id, \
-                              body: { doc: { content: content }}
+                              body: { doc: { content: content } }
   end
 
   private
-
     def content
       return "" unless  File.exist?(@sop.file.path.to_s) && \
                         @sop.file.content_type == "application/pdf"
-      
+
       @content ||= ""
 
       @reader = PDF::Reader.new(@sop.file.path)

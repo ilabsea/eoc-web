@@ -63,7 +63,7 @@ gem "pagy", "~> 3.6.0"
 
 gem "webpacker"
 gem "sidekiq", "~> 6.0.3"
-gem "pdf-reader", '~> 2.4'
+gem "pdf-reader", "~> 2.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

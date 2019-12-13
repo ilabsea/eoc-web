@@ -32,7 +32,7 @@ class Sop < ApplicationRecord
 
   delegate :identifier, to: :file, allow_nil: true
 
-  after_commit  ->  { EsFileIndexJob.perform_later(id) }, \
+  after_commit ->  { EsFileIndexJob.perform_later(id) }, \
                       on: [:create, :update],
                       if: :indexable
 

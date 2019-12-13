@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe EsFileIndexJob, type: :job do
   ActiveJob::Base.queue_adapter = :test
-  let(:sop){ create(:sop) }
+  let(:sop) { create(:sop) }
 
   it "enqueues the job" do
     expect {
