@@ -17,6 +17,7 @@ install:
   - docker-compose pull
 
 before_script:
+  - cp docker-env.example docker-env
   - docker-compose build
   - docker-compose run --rm web yarn install --check-files
   - docker-compose run --rm web rails db:prepare
