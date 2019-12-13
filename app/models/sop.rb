@@ -16,8 +16,6 @@
 #
 
 class Sop < ApplicationRecord
-  attr_accessor :indexable
-
   include ::SoftDeletable
   searchkick \
     word_middle: [:name, :tags, :description],
@@ -33,8 +31,8 @@ class Sop < ApplicationRecord
   delegate :identifier, to: :file, allow_nil: true
 
   after_commit ->  { EsFileIndexJob.perform_later(id) }, \
-                      on: [:create, :update],
-                      if: :indexable
+                      if: :enabled?,
+                      on: [:create, :update]
 
   def with_attachment(path, file)
     whitelist_files = /^[https?:\/\/]?[\S]+\/\S+\.(?:pdf|zip)$/
@@ -56,4 +54,9 @@ class Sop < ApplicationRecord
   def category_name
     category.try(:name) || ""
   end
+
+  private
+    def enabled?
+      ENV["ES_FILE_INDEXABLE"] == "true"
+    end
 end

@@ -16,11 +16,11 @@ class EsFileIndexJob < ApplicationJob
       return "" unless  File.exist?(@sop.file.path.to_s) && \
                         @sop.file.content_type == "application/pdf"
 
-      @content ||= ""
+      @content ||= +""
 
       @reader = PDF::Reader.new(@sop.file.path)
       @reader.pages.each do |page|
-        @content.concat(page.text)
+        @content << page.text
       end
 
       @content.force_encoding("UTF-8")
