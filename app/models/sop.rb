@@ -59,7 +59,7 @@ class Sop < ApplicationRecord
     category_id = Category.find_by(name: data[:category_name]).try(:id)
     sop = new(name: data[:name], description: data[:description], tags: data[:tags], category_id: category_id)
 
-    if data[:file].present? #&& File.exist?(attachment_path)
+    if data[:file].present?
       File.open(data[:file]) { |f| sop.file = f }
     end
 

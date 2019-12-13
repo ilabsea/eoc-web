@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Importer
   include ActiveModel::Validations
   include ActiveModel::Conversion
@@ -8,7 +10,7 @@ class Importer
 
   attr_reader :parser, :type
 
-  def initialize(attributes={})
+  def initialize(attributes = {})
     @parser = attributes[:parser]
     @type = attributes[:type]
   end
