@@ -16,7 +16,7 @@ class Importer
   def import
     if valid?
       rows.each do |row|
-        next if import_factory.find_by(name: row.name).present?
+        next if import_factory.find_by(name: row[:name]).present?
         import_factory.create_record(row)
       end
     end
@@ -28,6 +28,6 @@ class Importer
     end
 
     def import_factory
-      @type ||= type.to_s.capitalize.constantize
+      @import_factory ||= type.to_s.capitalize.constantize
     end
 end
