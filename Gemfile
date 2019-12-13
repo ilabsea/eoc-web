@@ -88,6 +88,7 @@ group :development do
   gem "guard-rspec", require: false
   gem "rubocop-rails"
   gem "rubocop-performance"
+  gem "pry-rails"
 end
 
 group :test do
