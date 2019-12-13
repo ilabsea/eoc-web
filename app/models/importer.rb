@@ -1,16 +1,16 @@
 class Importer
-  include ActiveModel::Validation
+  include ActiveModel::Validations
   include ActiveModel::Conversion
 
-  VALID_IMPORT_TYPE = %(sop category)
+  VALID_IMPORT_TYPE = ["sop", "category"]
 
-  validates :import_type, inclusion: { in: VALID_IMPORT_TYPE }
+  validates :type, inclusion: { in: VALID_IMPORT_TYPE }
 
-  attr_reader :parser, :import_type
+  attr_reader :parser, :type
 
   def initialize(attributes={})
     @parser = attributes[:parser]
-    @import_type = attributes[:import_type]
+    @type = attributes[:type]
   end
 
   def import
@@ -28,6 +28,6 @@ class Importer
     end
 
     def import_factory
-      @import_type ||= import_type.to_s.constantize
+      @type ||= type.to_s.capitalize.constantize
     end
 end

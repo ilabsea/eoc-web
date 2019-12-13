@@ -1,22 +1,14 @@
 # frozen_string_literal: true
 
-class ExcelParser::SopParser < ExcelParser::Parser
-  def generate
-    xlsx = Roo::Spreadsheet.open(@excel_file)
+class ExcelParser::SopParser
+  def self.generate(file)
+    xlsx = Roo::Spreadsheet.open(file)
     sheet = xlsx.sheet("sops")
     records = sheet.parse(name: "name", description: "description", file: "file", tag: "tags", category_name: "category")
     records.map { |record|
-      
+      attachment_path = File.dirname(@excel_file) + "/attachment/" + record[:file]
+      record[:file] = record[:file].present? && File.exist?(attachment_path) ? attachment_path : ""
+      record[:tags] = record[:tag].try(:split, " ") || []
     }
   end
-
-  private
-    def attachment_path(record)
-      attachment_path = attachment_dir + record[:file]
-      record[:file].present? && File.exist?(attachment_path) ? attachment_path : ""
-    end
-
-    def attachment_dir
-      @attachment_dir ||= File.dirname(@excel_file) + "/attachment/"
-    end
 end

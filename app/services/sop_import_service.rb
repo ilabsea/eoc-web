@@ -20,7 +20,7 @@ class SopImportService
     importer.import
 
     sop_parser = ExcelParser::Parser.new(type: "sop", file: spreadsheets.first)
-    importer = Importer.new(parser: ExcelParser.new("sop"), import_type: "category")
+    importer = Importer.new(parser: sop_parser, import_type: "category")
     importer.import
 
     # create_sops(xlsx, dir_path)
