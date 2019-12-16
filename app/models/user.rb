@@ -22,4 +22,11 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :confirmable,
          :recoverable, :rememberable, :validatable
+
+  enum role: {
+    admin: 1,
+    user: 2
+  }
+
+  attribute :role, :integer, default: "user"
 end
