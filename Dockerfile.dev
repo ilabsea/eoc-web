@@ -2,24 +2,20 @@ FROM ruby:2.6.3
 
 LABEL maintainer="Sokly <sokly@instedd.org>"
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x  | bash -
-
-RUN apt-get update -qq && \
-  apt-get install -y vim nodejs postgresql-client && \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+  echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+  curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+  apt-get update -qq && \
+  apt-get install -y vim nodejs yarn postgresql-client && \
   apt-get clean && \
-  npm install -g yarn && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN mkdir /app
 WORKDIR /app
 
-RUN gem install bundler -v 2.0.2
+COPY Gemfile* package.json yarn.lock /app/
 
-COPY Gemfile* /app/
-RUN bundle install
-
-# Install yarn packages
-COPY package.json yarn.lock /app/
-RUN yarn install --check-files
+RUN gem install bundler -v 2.0.2 && \
+  bundle install --jobs 4
 
 COPY . /app

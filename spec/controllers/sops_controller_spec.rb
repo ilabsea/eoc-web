@@ -54,10 +54,24 @@ RSpec.describe SopsController, type: :controller do
     end
   end
 
-  it "deletes sop" do
-    sop = create(:sop, name: "unwanted sop")
-    delete :destroy, params: { id: sop.id }
-    expect(subject).to redirect_to(sops_path)
+  describe "#destroy" do
+    it "delete record" do
+      sop = create(:sop)
+      delete :destroy, params: { id: sop.id }
+      expect(Sop.count).to eq(0)
+    end
+
+    it "redirect to root category after destroy" do
+      sop = create(:sop)
+      delete :destroy, params: { id: sop.id }
+      expect(subject).to redirect_to(categories_path)
+    end
+
+    it "redirect to specific category page" do
+      sop = create(:sop, :with_category)
+      delete :destroy, params: { id: sop.id }
+      expect(subject).to redirect_to(category_path(sop.category_id))
+    end
   end
 
   it "GET upload" do

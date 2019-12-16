@@ -4,21 +4,32 @@ require "rails_helper"
 require_relative "../support/fcm_fake"
 
 RSpec.describe PushNotificationService do
-  context "send" do
-    let(:options) { { title: "Attention!", body: "H1N1 has new symptom!" } }
-    let(:fake) { FCMFake.new("xxx") }
-    let(:notification) { described_class.new(options) }
-    let(:token_ids) { %w(a1 b2 c3 d4 e5) }
+  context "initialize" do
+    it "should have fcm key" do
+      expect(FCM).to receive(:new).with(ENV["FIREBASE_SERVER_KEY"])
+      described_class.new
+    end
+  end
 
-    before(:each) {
-      allow(notification).to receive(:fcm).and_return(fake)
-      stub_const("#{described_class}::SEND_THRESHOLD", 2)
-    }
+  context "send to all topic" do
+    let(:service) { described_class.new }
+    let(:data) { { notification: { title: "Attention!", body: "H1N1 has new symptom!" }, data: { item: 1 } } }
+    let(:topic) { "all" }
 
-    it "chunks senders #prepare" do
-      expect(notification).to receive(:send).exactly(3).times
+    it "send notification to topic" do
+      expect_any_instance_of(FCM).to receive(:send_to_topic).with(topic, data)
+      service.send_to_topic(topic, data)
+    end
+  end
 
-      notification.notify token_ids
+  describe "#subscribe_to_topic" do
+    let(:service) { described_class.new }
+    let(:token) { FFaker::DizzleIpsum.characters }
+    let(:topic) { "all" }
+
+    it "subscribe to topic with provided token" do
+      expect_any_instance_of(FCM).to receive(:topic_subscription).with(topic, token)
+      service.subscribe_to_topic(topic, token)
     end
   end
 end

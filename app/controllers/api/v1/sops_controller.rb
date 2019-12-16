@@ -7,7 +7,7 @@ module Api::V1
       if token == ENV["SERVER_SECRET_KEY_BASE"]
         render json: @search
       else
-        render json: { 
+        render json: {
           error: "Unauthorize request",
           status: :bad_request }
       end
