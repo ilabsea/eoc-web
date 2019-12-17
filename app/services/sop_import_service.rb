@@ -8,12 +8,10 @@ class SopImportService
 
   def process
     extract_zip
-
     spreadsheet = Dir.glob("#{@dest}/**/*.xlsx").first
     raise I18n.t(".sop_import_service.not_found") if spreadsheet.nil?
 
-    import_category(spreadsheet)
-    import_sop(spreadsheet)
+    import_data(["category", "sop"], spreadsheet)
 
     FileUtils.remove_dir(@dest, true)
   end
@@ -27,15 +25,11 @@ class SopImportService
       end
     end
 
-    def import_category(file)
-      parser = ExcelParser::Parser.new(type: "category", file: file)
-      importer = Importer.new(parser: parser, type: "category")
-      importer.import
-    end
-
-    def import_sop(file)
-      parser = ExcelParser::Parser.new(type: "sop", file: file)
-      importer = Importer.new(parser: parser, type: "sop")
-      importer.import
+    def import_data(types, spreadsheet)
+      types.each do |type|
+        parser = ExcelParser::Parser.new(type: type, file: spreadsheet)
+        importer = Importer.new(parser: parser, type: type)
+        importer.import
+      end
     end
 end
