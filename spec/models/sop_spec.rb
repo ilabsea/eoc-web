@@ -14,6 +14,25 @@ RSpec.describe Sop, type: :model do
     it { should belong_to(:category).optional }
   end
 
+  describe "callback" do
+    context "after_commit" do
+      let(:sop) { create(:sop) }
+      ActiveJob::Base.queue_adapter = :test
+
+      it "does not enqueues any job when ES_FILE_INDEXABLE=false" do
+        ENV["ES_FILE_INDEXABLE"] = "false"
+        expect { sop }.not_to have_enqueued_job
+      end
+
+      it "enqueues a job when ES_FILE_INDEXABLE=true" do
+        ENV["ES_FILE_INDEXABLE"] = "true"
+
+        expect { sop }.to have_enqueued_job.on_queue("default")\
+                                            .at_least(1).times
+      end
+    end
+  end
+
   describe "destroy" do
     before(:each) do
       @sop = FactoryBot.create :sop

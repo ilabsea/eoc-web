@@ -31,7 +31,7 @@ class Sop < ApplicationRecord
   delegate :identifier, to: :file, allow_nil: true
 
   after_commit ->  { EsFileIndexJob.perform_later(id) }, \
-                      if: :enabled?,
+                      if: :es_file_index?,
                       on: [:create, :update]
 
   def with_attachment(path, file)
@@ -56,7 +56,7 @@ class Sop < ApplicationRecord
   end
 
   private
-    def enabled?
+    def es_file_index?
       ENV["ES_FILE_INDEXABLE"] == "true"
     end
 end
