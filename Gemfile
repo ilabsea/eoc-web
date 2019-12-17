@@ -89,6 +89,7 @@ group :development do
   gem "rubocop-rails"
   gem "rubocop-performance"
   gem "pry-rails", "~> 0.3.9"
+  gem "solargraph"
 end
 
 group :test do
