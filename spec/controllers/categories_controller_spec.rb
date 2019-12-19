@@ -147,4 +147,46 @@ RSpec.describe CategoriesController, type: :controller do
       end
     end
   end
+
+  describe "#move" do
+    context "when move to other category" do
+      let!(:category_1) { create(:category, name: "cate 1") }
+      let!(:category_2) { create(:category, name: "cate 2") }
+
+      it "redirect to parent category" do
+         put :move, params: { category: { category_id: category_1.id, parent_id: category_2.id } }
+         expect(subject).to redirect_to(category_path(category_2))
+         expect(Category.find(category_1.id).parent_id).to eq(category_2.id)
+       end
+    end
+
+    context "when move to root category" do
+      let!(:category_1) { create(:category) }
+
+      it "redirect to root category" do
+        put :move, params: { category: { category_id: category_1.id, parent_id: nil } }
+        expect(subject).to redirect_to(categories_path)
+        expect(Category.find(category_1.id).parent_id).to be_nil
+      end
+    end
+  end
+
+  describe "#move_sop" do
+    context "when valid" do
+      let!(:category) { create(:category) }
+      let!(:sop) { create(:sop) }
+
+      it "should move category" do
+         put :move_sop, params: { category: { sop_id: sop.id, parent_id: category.id } }
+         expect(subject).to redirect_to(category_path(category))
+         expect(Sop.find(sop.id).category_id).to eq(category.id)
+       end
+
+      it "redirect to root category" do
+        put :move_sop, params: { category: { sop_id: sop.id, parent_id: nil } }
+        expect(subject).to redirect_to(categories_path)
+        expect(Sop.find(sop.id).category_id).to be_nil
+      end
+    end
+  end
 end
