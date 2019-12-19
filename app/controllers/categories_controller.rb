@@ -40,7 +40,7 @@ class CategoriesController < ApplicationController
     data = category_params
     data[:tags] = data[:tags].split(" ")
 
-    if @category.update_attributes(data)
+    if @category.update(data)
       redirect_to category_path(@category)
     else
       flash.now[:alert] = @category.errors.full_messages
