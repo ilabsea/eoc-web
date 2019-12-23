@@ -1,7 +1,7 @@
 #content
   %nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container-fluid
-      %h3 Sop
+      %h3= t(:sop)
       .ml-auto
         = render 'shared/search_form'
       %ul.navbar-nav.ml-auto
@@ -17,10 +17,10 @@
     %table.table.table-hover.medium-width
       %thead
         %tr
-          %th Name
-          %th Tags
-          %th File
-          %th Category
+          %th= t(:name)
+          %th= t(:tags)
+          %th= t(:file)
+          %th= t(:category)
           %th
 
       %tbody#body-content

@@ -1,33 +1,35 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
-  hello: "Hello world"
+  import: "Import"
+  import_success: "Import success!"
+  import_invalid: "Invalid import file!"
+  import_option: "Please select .zip file to import"
+  sop: "Sop"
+  sop_edit: "Edit Sop"
+  sop_new: "New Sop"
+  notif_title: "New Sop available for download"
+  notif_body_with_name: "Now you can download \"%{sop_name}\""
+  notif_body: "Many new sops are available for download."
+  category: "Category"
+  category_present: "category is not empty"
+  category_move: "Move Category/Sop"
+  category_parent: "Parent Category"
+  category_new: "New Category"
+  category_edit: "Edit Category"
+  download: "Download"
+  close: "Close"
+  move: "Move"
+  tags: "Tags"
+  cancel: "Cancel"
+  name: "Name"
+  edit: "Edit"
+  delete: "Delete"
+  confirm_delete: "Are you sure to delete this %{resource}?"
+  new: "New"
+  home: "Home"
+  unauthorize: "Unauthorize request"
+  disabled: "Disabled"
+  search: "Search"
+  file: "File"
+  description: "Description"
+  go_back: "Go Back"
+  

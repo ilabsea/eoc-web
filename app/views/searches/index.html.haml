@@ -1,7 +1,7 @@
 #content
   %nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container-fluid
-      %h3 Search
+      %h3= t(:search)
       .ml-auto
         = render 'shared/search_form'
       .ml-auto
@@ -17,8 +17,8 @@
     %table.table.table-hover.medium-width
       %thead
         %tr
-          %th Name
-          %th Tags
+          %th= t(:name)
+          %th= t(:tags)
           -# %th File
           -# %th Category
           %th

@@ -1,7 +1,7 @@
 #content
   %nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container-fluid
-      %h3 New Category
+      %h3= t(:category_new)
 
   - url = @category.parent_id ? category_path(@category.parent_id) : categories_path
   = render 'form', url: url

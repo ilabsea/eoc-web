@@ -26,7 +26,7 @@ module Api::V1
 
       def check_secret_key
         if token != ENV["SERVER_SECRET_KEY_BASE"]
-          render json: { error: "Unauthorize request", status: :bad_request }
+          render json: { error: t(:unauthorize), status: :bad_request }
         end
       end
   end

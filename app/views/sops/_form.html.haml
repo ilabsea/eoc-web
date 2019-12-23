@@ -3,10 +3,10 @@
     = f.input :name
     = f.input :description
     .form-group
-      %label.form-control-label{ for: 'sop[tags]'} Tags:
+      %label.form-control-label{ for: 'sop[tags]'}= "#{t(:tags)}:"
       %input#sop-tags.form-control{ name: 'sop[tags]', value: @sop.tags.join(' ') }
     .form-group
-      %label.form-control-label{ for: 'sop[category_id]' } Category
+      %label.form-control-label{ for: 'sop[category_id]' }= t(:category)
       %select.form-control{ disabled: true }
         %option= @sop.category.try(:name)
       = f.hidden_field :category_id, type: :hidden

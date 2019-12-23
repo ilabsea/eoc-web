@@ -74,13 +74,13 @@ class SopsController < ApplicationController
       begin
         service.process
         PushNotificationJob.perform_later("all", data: notification_data)
-        redirect_to categories_path, notice: "Import success!"
+        redirect_to categories_path, notice: t(:import_success)
       rescue RuntimeError, Zip::Error => e
         flash[:alert] = e.message
         redirect_to upload_sops_path
       end
     else
-      flash[:alert] = "Invalid import file!"
+      flash[:alert] = t(:import_invalid)
       redirect_to upload_sops_path
     end
   end
@@ -95,15 +95,15 @@ class SopsController < ApplicationController
     def sop_notification_data
       {
         itemId: @sop.id,
-        title: "New Sop available for download",
-        body: "Now you can download \"#{@sop.name}\""
+        title: t(:notif_title),
+        body: t(:notif_body_with_name, sop_name: @sop.name)
       }
     end
 
     def notification_data
       {
-        title: "New Sop available for download",
-        body: "Many new sops are available for download."
+        title: t(:notif_title),
+        body: t(:notif_body)
       }
     end
 end

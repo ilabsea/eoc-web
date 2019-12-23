@@ -1,21 +1,21 @@
 #content
   %nav.navbar.navbar-expand-lg.navbar-light.bg-light
     .container-fluid
-      %h3 Home
+      %h3= t(:home)
       .ml-auto
         = render 'shared/search_form'
       %ul.navbar-nav.ml-auto
         %li.nav-item
           .dropdown
             %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{ type: :button, 'data-toggle' => :dropdown, 'aria-haspopup' => 'true', 'aria-expanded' => 'false' }
-              New
+              = t(:new)
             .dropdown-menu{ 'aria-labelledby' => 'dropdownMenuButton' }
               = link_to new_category_path, class: 'dropdown-item' do
                 %i.fa.fa-folder
-                Category
+                = t(:category)
               = link_to new_sop_path, class: 'dropdown-item' do
                 %i.far.fa-file
-                Sop
+                = t(:sop)
       .col-md-1
 
   = render 'breadcrumb'
