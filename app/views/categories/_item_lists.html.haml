@@ -16,7 +16,7 @@
         %td
           = link_to t(:move), "#", class: 'badge badge-info', 'data-toggle' => :modal, 'data-target' => "#category-modal", 'data-id' => category.id, 'data-type' => 'category'
           \/
-          = link_to 'Edit', edit_category_path(id: category.id), class: 'badge badge-info'
+          = link_to t(:edit), edit_category_path(id: category.id), class: 'badge badge-info'
     - @sops.each do |sop|
       %tr
         %td
