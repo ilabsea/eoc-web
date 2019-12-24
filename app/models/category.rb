@@ -45,7 +45,7 @@ class Category < ApplicationRecord
   private
     def check_category
       unless is_empty?
-        errors[:base] << t(:category_present)
+        errors[:base] << I18n.t(:category_present)
         throw :abort
       end
     end
