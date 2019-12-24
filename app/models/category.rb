@@ -37,6 +37,11 @@ class Category < ApplicationRecord
     children.count.zero? && sops.count.zero?
   end
 
+  def self.create_record(data, attachment_path = nil)
+    parent_id = Category.find_by(name: data[:parent_name]).try(:id)
+    create(name: data[:name], parent_id: parent_id)
+  end
+
   private
     def check_category
       unless is_empty?
