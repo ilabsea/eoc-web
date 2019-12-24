@@ -1,5 +1,5 @@
 en:
   sidebar:
     home: 'Home'
-    import_sop: 'Import Sop'
+    import_wizard: 'Import Wizard'
     logout: 'Logout'

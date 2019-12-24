@@ -1,0 +1,25 @@
+#content
+  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
+    .container-fluid
+      %h3= t("sidebar.import_wizard")
+      %ul.navbar-nav.ml-auto
+        = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: 'Download sample' do
+          %i.fas.fa-download
+
+  .card
+    %ul
+      %li Download sample file
+      %li update spreadsheet
+      %li copy all attachment to "attachment" folder
+      %li Upload compress file (.zip)
+
+  = form_with(url: import_sops_path, method: :post, multipart: true) do |f|
+    .col-auto
+      .form-group
+        %label{ for: :zip_file } Please select .zip file to import
+        = f.file_field(:zip_file, class: "form-control-file", accept: "application/zip")
+        - if flash[:alert].present?
+          .text-danger= flash[:alert]
+    %br
+    .col-auto
+      = f.submit t("views.uploads.validate"), class: 'btn btn-primary'
