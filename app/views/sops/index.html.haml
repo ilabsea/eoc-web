@@ -1,32 +1,31 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3= t(:sop)
-      .ml-auto
-        = render 'shared/search_form'
-      %ul.navbar-nav.ml-auto
-        %li.nav-item.mr-sm-2
-          = link_to new_sop_path, class: 'btn btn-primary' do
-            %i.fas.fa-plus
-        %li.nav-item
-          = link_to upload_sops_path, class: 'btn btn-primary' do
-            %i.fas.fa-file-archive
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t(:sop)
+    .ml-auto
+      = render 'shared/search_form'
+    %ul.navbar-nav.ml-auto
+      %li.nav-item.mr-sm-2
+        = link_to new_sop_path, class: 'btn btn-primary' do
+          %i.fas.fa-plus
+      %li.nav-item
+        = link_to upload_sops_path, class: 'btn btn-primary' do
+          %i.fas.fa-file-archive
 
 
-  - if @sops.present?
-    %table.table.table-hover.medium-width
-      %thead
-        %tr
-          %th= t(:name)
-          %th= t(:tags)
-          %th= t(:file)
-          %th= t(:category)
-          %th
+- if @sops.present?
+  %table.table.table-hover.medium-width
+    %thead
+      %tr
+        %th= t(:name)
+        %th= t(:tags)
+        %th= t(:file)
+        %th= t(:category)
+        %th
 
-      %tbody#body-content
-        = render 'sops'
+    %tbody#body-content
+      = render 'sops'
 
-  - if @pagy.pages > 1
-    .pagy-wrapper.d-flex.justify-content-center
-      != pagy_bootstrap_nav(@pagy)
+- if @pagy.pages > 1
+  .pagy-wrapper.d-flex.justify-content-center
+    != pagy_bootstrap_nav(@pagy)
 

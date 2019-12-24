@@ -1,6 +1,5 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3= t(:sop_edit)
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t(:sop_edit)
 
-  = render 'form', cancel_url: sop_path(@sop)
+= render 'form', cancel_url: sop_path(@sop)

@@ -16,6 +16,9 @@
     = render 'shared/notify_message'
     .wrapper
       = render 'shared/sidebar'
-      = render 'shared/lang_switch'
-      = yield
+      #content
+        .float-right
+          = render 'shared/lang_switch'
+        .clearfix
+        = yield
 
