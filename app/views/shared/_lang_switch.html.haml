@@ -1,0 +1,6 @@
+.dropdown
+  %button#dropdownMenuButton.btn.btn-light.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+    = lang.name
+  .dropdown-menu{"aria-labelledby" => "dropdownMenuButton"}
+    - lang.choices.each do |l|
+      = link_to l[:name], l[:url], class: 'dropdown-item'
