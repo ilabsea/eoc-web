@@ -2,7 +2,9 @@
 
 return unless Rails.env === "development"
 
-user = User.create(email: "admin@instedd.org", password: "password")
+user = User.create_or_find_by(email: "admin@instedd.org") do |u|
+  u.password = "password"
+end
 user.confirm
 
 Category.destroy_all

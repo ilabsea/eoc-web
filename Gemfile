@@ -63,6 +63,7 @@ gem "pagy", "~> 3.6.0"
 
 gem "webpacker"
 gem "sidekiq", "~> 6.0.3"
+gem "pdf-reader", "~> 2.4.0"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -87,6 +88,7 @@ group :development do
   gem "guard-rspec", require: false
   gem "rubocop-rails"
   gem "rubocop-performance"
+  gem "pry-rails", "~> 0.3.9"
 end
 
 group :test do

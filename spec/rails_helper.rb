@@ -3,6 +3,7 @@
 require "spec_helper"
 require "database_cleaner"
 require "support/util"
+require "support/matchers"
 
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../../config/environment", __FILE__)
