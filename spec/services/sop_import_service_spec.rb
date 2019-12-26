@@ -9,7 +9,7 @@ RSpec.describe SopImportService do
 
   describe "#process" do
     context "missing excel file" do
-      let(:service) { described_class.new(file_path("archive-no-excel.zip")) }
+      let(:service) { described_class.new({ compress_file: file_path("archive-no-excel.zip") }) }
 
       it "raise file not found message" do
         expect { service.process }.to raise_error(RuntimeError, I18n.t(".sop_import_service.not_found"))
@@ -18,7 +18,7 @@ RSpec.describe SopImportService do
 
     context "import categories" do
       before(:all) do
-        @service = described_class.new(file_path("Archive.zip"))
+        @service = described_class.new({ compress_file: file_path("Archive.zip") })
         @service.process
       end
 
@@ -45,7 +45,7 @@ RSpec.describe SopImportService do
 
     context "import sops" do
       before(:all) do
-        @service = described_class.new(file_path("Archive.zip"))
+        @service = described_class.new(compress_file: file_path("Archive.zip"))
         @service.process
       end
 
@@ -78,7 +78,7 @@ RSpec.describe SopImportService do
 
   describe "#validate" do
     context "missing excel file" do
-      let(:service) { described_class.new(file_path("archive-no-excel.zip")) }
+      let(:service) { described_class.new(compress_file: file_path("archive-no-excel.zip")) }
 
       it "raise file not found message" do
         expect { service.validate }.to raise_error(RuntimeError, I18n.t(".sop_import_service.not_found"))

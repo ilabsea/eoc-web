@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class SopImportService
-  def initialize(zip_file)
-    @zip_file = zip_file
-    @dest = Rails.root.join("tmp", "import", SecureRandom.uuid).to_path
+  attr_reader :destination
+
+  def initialize(attributes)
+    @compress_file = attributes[:compress_file]
+    @destination = attributes[:destination] || Rails.root.join("tmp", "import", SecureRandom.uuid).to_path
     @spreadsheet = get_spreadsheet
   end
 
@@ -18,7 +20,7 @@ class SopImportService
       sop.save
     end
 
-    FileUtils.remove_dir(@dest, true)
+    FileUtils.remove_dir(@destination, true)
   end
 
   def validate
@@ -34,13 +36,15 @@ class SopImportService
 
   private
     def get_spreadsheet
-      Zip::File.open(@zip_file) do |zip_file|
-        zip_file.each do |entry|
-          entry.extract "#{@dest}/#{entry.name}"
+      if @compress_file.present? && @spreadsheet.nil?
+        Zip::File.open(@compress_file) do |files|
+          files.each do |entry|
+            entry.extract "#{@destination}/#{entry.name}"
+          end
         end
       end
 
-      Dir.glob("#{@dest}/**/*.xlsx").first
+      Dir.glob("#{@destination}/**/*.xlsx").first
     end
 
     def import_data(types)

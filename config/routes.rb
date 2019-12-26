@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :uploads, only: [:index] do
     collection do
       post :validate
+      post :import
     end
   end
 
