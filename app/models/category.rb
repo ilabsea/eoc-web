@@ -42,6 +42,11 @@ class Category < ApplicationRecord
     create(name: data[:name], parent_id: parent_id)
   end
 
+  def self.build_record(data)
+    parent_id = Category.find_by(name: data[:parent_name]).try(:id)
+    category = new(name: data[:name], parent_id: parent_id)
+  end
+
   private
     def check_category
       unless is_empty?

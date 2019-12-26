@@ -66,6 +66,17 @@ class Sop < ApplicationRecord
     sop.save
   end
 
+  def self.build_record(data)
+    category_id = Category.find_by(name: data[:category_name]).try(:id)
+    sop = new(name: data[:name], description: data[:description], tags: data[:tags], category_id: category_id)
+
+    if data[:file].present?
+      File.open(data[:file]) { |f| sop.file = f }
+    end
+
+    sop
+  end
+
   private
     def es_file_index?
       ENV["ES_FILE_INDEXABLE"] == "true"

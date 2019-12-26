@@ -1,0 +1,14 @@
+%table.table.table-striped.table-borderless
+  %thead
+    %tr
+      %th
+        = t("name")
+      %th
+        = t("parent_category")
+  %tbody
+    - categories.each do |category|
+      %tr
+        %td
+          = category.name
+        %td
+          = category.parent.try(:name)

@@ -33,4 +33,5 @@ en:
   description: "Description"
   go_back: "Go Back"
   save: "Save"
-  
+  name: Name
+  parent_category: Parent Category

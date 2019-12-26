@@ -2,3 +2,9 @@ en:
   views:
     uploads:
       validate: Validate
+      valid_categories: Valid categories
+      error_categories: Error categories
+      existed_categories: Existed categories
+      valid_sop: Valid Sop
+      error_sop: Error Sop
+      existed_sop: Existed Sop

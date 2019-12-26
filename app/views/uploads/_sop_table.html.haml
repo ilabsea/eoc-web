@@ -1,0 +1,26 @@
+%table.table.table-striped.table-borderless
+  %thead
+    %tr
+      %th
+        = t("name")
+      %th
+        = t("description")
+      %th
+        = t("attachment")
+      %th
+        = t("tag")
+      %th
+        = t("category")
+  %tbody
+    - sops.each do |sop|
+      %tr
+        %td
+          = sop.name
+        %td
+          = sop.description
+        %td
+          = sop.file.filename
+        %td
+          = sop.tags.join(", ")
+        %td
+          = sop.category.try(:name)

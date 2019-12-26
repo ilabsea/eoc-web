@@ -7,9 +7,9 @@ RSpec.describe SopImportService do
   let(:not_found) { file_path("404.zip") }
   let(:archive) { file_path("Archive.zip") }
 
-  describe :process do
+  describe "#process" do
     context "missing excel file" do
-      let(:service) { SopImportService.new(file_path("archive-no-excel.zip")) }
+      let(:service) { described_class.new(file_path("archive-no-excel.zip")) }
 
       it "raise file not found message" do
         expect { service.process }.to raise_error(RuntimeError, I18n.t(".sop_import_service.not_found"))
@@ -18,7 +18,7 @@ RSpec.describe SopImportService do
 
     context "import categories" do
       before(:all) do
-        @service = SopImportService.new(file_path("Archive.zip"))
+        @service = described_class.new(file_path("Archive.zip"))
         @service.process
       end
 
@@ -45,7 +45,7 @@ RSpec.describe SopImportService do
 
     context "import sops" do
       before(:all) do
-        @service = SopImportService.new(file_path("Archive.zip"))
+        @service = described_class.new(file_path("Archive.zip"))
         @service.process
       end
 
@@ -72,6 +72,39 @@ RSpec.describe SopImportService do
       it "import tags" do
         expect(sop1.tags).to match_array(["hepatitis-a", "high-danger"])
         expect(sop2.tags).to be_empty
+      end
+    end
+  end
+
+  describe "#validate" do
+    context "missing excel file" do
+      let(:service) { described_class.new(file_path("archive-no-excel.zip")) }
+
+      it "raise file not found message" do
+        expect { service.validate }.to raise_error(RuntimeError, I18n.t(".sop_import_service.not_found"))
+      end
+    end
+
+    context "import categories" do
+      before(:all) do
+        create(:category, name: "cat 1.1")
+        @service = described_class.new(file_path("Archive.zip"))
+        @result = @service.validate
+      end
+
+      it "return existed records" do
+        expect(@result[:category][:exists].first.name).to eq("cat 1.1")
+        expect(@result[:category][:exists].count).to eq(1)
+      end
+
+      it "return valid records" do
+        expect(@result[:category][:valids].first.name).to eq("root cat")
+        expect(@result[:category][:valids].count).to eq(3)
+      end
+
+      it "return errors records" do
+        expect(@result[:category][:errors].first.name).to be_nil
+        expect(@result[:category][:errors].count).to eq(1)
       end
     end
   end

@@ -24,7 +24,6 @@
 //= require tagify.min
 
 //= require_tree .
-//
 
 $(document).on('ready turbolinks:load', () => {
   const currentPage = EOC.Util.getCurrentPage();

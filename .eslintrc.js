@@ -5,9 +5,9 @@ module.exports = {
     jquery: true,
   },
   extends: [
-    'eslint:recommended',
+    "eslint:recommended",
     'google',
-    'prettier'
+    "plugin:prettier/recommended"
   ],
   globals: {
     Atomics: 'readonly',
@@ -15,7 +15,7 @@ module.exports = {
     EOC: 'writable'
   },
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2016,
   },
   plugins: [
     'prettier'
