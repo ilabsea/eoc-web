@@ -9,3 +9,6 @@ en:
       error_sop: Error Sop
       existed_sop: Existed Sop
       import: Import
+      step_upload: Upload
+      step_validate: Validate
+      step_done: Done
