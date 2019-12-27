@@ -21,7 +21,7 @@ class SopsController < ApplicationController
 
     @sop = Sop.new(data)
     if @sop.save
-      PushNotificationJob.perform_later("all", data: sop_notification_data)
+      PushNotificationJob.perform_later("all", data: sop_notification_data, priority: "high")
       redirect_to sop_path(@sop)
     else
       flash.now[:alert] = @sop.errors.full_messages
@@ -73,7 +73,7 @@ class SopsController < ApplicationController
 
       begin
         service.process
-        PushNotificationJob.perform_later("all", data: notification_data)
+        PushNotificationJob.perform_later("all", data: notification_data, priority: "high")
         redirect_to categories_path, notice: t(:import_success)
       rescue RuntimeError, Zip::Error => e
         flash[:alert] = e.message
