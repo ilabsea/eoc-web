@@ -1,2 +1,9 @@
-= render partial: "progress_bar"
-Success
+#upload-sucess
+  = render partial: "progress_bar"
+
+  .text-wrapper
+    .d-flex.justify-content-center.display-4.text-success
+      %i.fa.fa-check
+
+    .d-flex.justify-content-center
+      = t("views.uploads.success_message")
