@@ -1,24 +1,23 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3 Home
-      .ml-auto
-        = render 'shared/search_form'
-      %ul.navbar-nav.ml-auto
-        %li.nav-item
-          .dropdown
-            %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{ type: :button, 'data-toggle' => :dropdown, 'aria-haspopup' => 'true', 'aria-expanded' => 'false' }
-              New
-            .dropdown-menu{ 'aria-labelledby' => 'dropdownMenuButton' }
-              = link_to new_category_path, class: 'dropdown-item' do
-                %i.fa.fa-folder
-                Category
-              = link_to new_sop_path, class: 'dropdown-item' do
-                %i.far.fa-file
-                Sop
-      .col-md-1
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t(:home)
+    .ml-auto
+      = render 'shared/search_form'
+    %ul.navbar-nav.ml-auto
+      %li.nav-item
+        .dropdown
+          %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{ type: :button, 'data-toggle' => :dropdown, 'aria-haspopup' => 'true', 'aria-expanded' => 'false' }
+            = t(:new)
+          .dropdown-menu{ 'aria-labelledby' => 'dropdownMenuButton' }
+            = link_to new_category_path, class: 'dropdown-item' do
+              %i.fa.fa-folder
+              = t(:category)
+            = link_to new_sop_path, class: 'dropdown-item' do
+              %i.far.fa-file
+              = t(:sop)
+    .col-md-1
 
-  = render 'breadcrumb'
-  = render 'item_lists'
-  = render 'category_modal'
+= render 'breadcrumb'
+= render 'item_lists'
+= render 'category_modal'
 

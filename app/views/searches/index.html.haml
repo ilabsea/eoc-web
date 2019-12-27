@@ -1,35 +1,34 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3 Search
-      .ml-auto
-        = render 'shared/search_form'
-      .ml-auto
-      -# %ul.navbar-nav.ml-auto
-        -# %li.nav-item.mr-sm-2
-          -# = link_to new_sop_path, class: 'btn btn-primary' do
-            -# %i.fas.fa-plus
-        -# %li.nav-item
-          -# = link_to upload_sops_path, class: 'btn btn-primary' do
-            -# %i.fas.fa-file-archive
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t(:search)
+    .ml-auto
+      = render 'shared/search_form'
+    .ml-auto
+    -# %ul.navbar-nav.ml-auto
+      -# %li.nav-item.mr-sm-2
+        -# = link_to new_sop_path, class: 'btn btn-primary' do
+          -# %i.fas.fa-plus
+      -# %li.nav-item
+        -# = link_to upload_sops_path, class: 'btn btn-primary' do
+          -# %i.fas.fa-file-archive
 
-  - if @results.size.positive?
-    %table.table.table-hover.medium-width
-      %thead
-        %tr
-          %th Name
-          %th Tags
-          -# %th File
-          -# %th Category
-          %th
+- if @results.size.positive?
+  %table.table.table-hover.medium-width
+    %thead
+      %tr
+        %th= t(:name)
+        %th= t(:tags)
+        -# %th File
+        -# %th Category
+        %th
 
-      %tbody#body-content
-        - @results.each do |result|
-          - if result.instance_of? Category
-            = render 'category_result', result: result
-          - else
-            = render 'sop_result', result: result
-  - if @pagy.pages > 1
-    .pagy-wrapper.d-flex.justify-content-center
-      != pagy_bootstrap_nav(@pagy)
+    %tbody#body-content
+      - @results.each do |result|
+        - if result.instance_of? Category
+          = render 'category_result', result: result
+        - else
+          = render 'sop_result', result: result
+- if @pagy.pages > 1
+  .pagy-wrapper.d-flex.justify-content-center
+    != pagy_bootstrap_nav(@pagy)
 

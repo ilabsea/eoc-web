@@ -1,15 +1,15 @@
 .w-50.view-center
   = simple_form_for @category, html: { id: 'category-form' } do |f|
-    = f.input :name
+    = f.input :name, label: t(:name)
     .form-group
-      %label.form-control-label{ for: 'category[tags]'} Tags:
+      %label.form-control-label{ for: 'category[tags]'}= "#{t(:tags)}:"
       %input#category-tags.form-control{ name: 'category[tags]', value: @category.tags.join(' ') }
     .form-group
-      %label.form-control-label{ for: 'sop[category_id]' } Parent Category
+      %label.form-control-label{ for: 'sop[category_id]' }= t(:category_parent)
       %select.form-control{ disabled: true }
         %option= @category.parent.try(:name)
       = f.input :parent_id, as: :hidden, value: @category.parent_id
 
     .actions{style: 'margin-top: 30px'}
-      = f.button :submit, class: 'btn btn-primary'
-      = link_to 'Cancel', url, class: 'btn btn-secondary'
+      = f.button :submit, class: 'btn btn-primary', value: t(:save)
+      = link_to t(:cancel), url, class: 'btn btn-secondary'

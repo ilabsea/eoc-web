@@ -1,40 +1,38 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3= @sop.name
-      %ul.navbar-nav.ml-auto
-        %li.nav-item.mr-sm-2
-          = link_to edit_sop_path(@sop), class: 'btn btn-primary' do
-            %i.fas.fa-pen
-        %li.nav-item
-          = link_to sop_path(@sop), method: :delete, class: 'btn btn-danger', :data => {confirm: 'Are you sure to delete this sop?'} do
-            %i.fas.fa-trash
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= @sop.name
+    %ul.navbar-nav.ml-auto
+      %li.nav-item.mr-sm-2
+        = link_to edit_sop_path(@sop), class: 'btn btn-primary' do
+          %i.fas.fa-pen
+      %li.nav-item
+        = link_to sop_path(@sop), method: :delete, class: 'btn btn-danger', :data => {confirm: t(:confirm_delete, resource: 'sop')} do
+          %i.fas.fa-trash
 
-  .container
+.container
+  .row
+    .col-sm-1= t(:name)
+    .col-sm= @sop.name
+  - if @sop.description.present?
     .row
-      .col-sm-1 Name
-      .col-sm= @sop.name
-    - if @sop.description.present?
-      .row
-        .col-sm-1 Description:
-        .col-sm= simple_format @sop.description
-    - if @sop.category.present?
-      .row
-        .col-sm-1 Category:
-        .col-sm= link_to @sop.category_name, category_path(@sop.category)
-    - if @sop.tags.size.positive?
-      .row
-        .col-sm-1 Tags:
-        .col-sm
-          - @sop.tags.each do |tag|
-            .badge.badge-secondary= tag
-    - unless @sop.file.file.nil?
-      .row
-        .col-sm-1 File:
-        .col-sm
-          = link_to @sop.file.url, download: name(@sop.file.url) do
-            = name(@sop.file.path)
-            %i.fa.fa-download
-    %br
-    = link_to return_url, class: 'btn btn-secondary' do
-      Go Back
+      .col-sm-1= "#{t(:description)}:"
+      .col-sm= simple_format @sop.description
+  - if @sop.category.present?
+    .row
+      .col-sm-1= "#{t(:category)}:"
+      .col-sm= link_to @sop.category_name, category_path(@sop.category)
+  - if @sop.tags.size.positive?
+    .row
+      .col-sm-1= "#{t(:tags)}:"
+      .col-sm
+        - @sop.tags.each do |tag|
+          .badge.badge-secondary= tag
+  - unless @sop.file.file.nil?
+    .row
+      .col-sm-1= "#{t(:file)}:"
+      .col-sm
+        = link_to @sop.file.url, download: name(@sop.file.url) do
+          = name(@sop.file.path)
+          %i.fa.fa-download
+  %br
+  = link_to t(:go_back), return_url, class: 'btn btn-secondary'

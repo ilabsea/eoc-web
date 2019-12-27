@@ -11,6 +11,6 @@
 
     %td= sop.category_name
     %td
-      = link_to 'Edit', edit_sop_path(sop), class: 'badge badge-info'
+      = link_to t(:edit), edit_sop_path(sop), class: 'badge badge-info'
       = "/"
-      = link_to 'Delete', sop_path(sop), method: :delete, class: 'badge badge-danger', :data => {confirm: 'Are you sure to delete this sop?'}
+      = link_to t(:delete), sop_path(sop), method: :delete, class: 'badge badge-danger', :data => {confirm: t(:confirm_delete, resource: 'sop')}

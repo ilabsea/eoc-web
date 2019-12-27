@@ -1,18 +1,17 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3= t("sidebar.import_sop")
-      %ul.navbar-nav.ml-auto
-        = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: 'Download sample' do
-          %i.fas.fa-download
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t("sidebar.import_sop")
+    %ul.navbar-nav.ml-auto
+      = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: t(:download) do
+        %i.fas.fa-download
 
-  = form_with(url: import_sops_path, method: :post, multipart: true) do |f|
-    .col-auto
-      .form-group
-        %label{ for: :zip_file } Please select .zip file to import
-        = f.file_field(:zip_file, class: "form-control-file", accept: "application/zip")
-        - if flash[:alert].present?
-          .text-danger= flash[:alert]
-    %br
-    .col-auto
-      = f.submit "Import", class: 'btn btn-primary'
+= form_with(url: import_sops_path, method: :post, multipart: true) do |f|
+  .col-auto
+    .form-group
+      %label{ for: :zip_file }= t(:import_option)
+      = f.file_field(:zip_file, class: "form-control-file", accept: "application/zip")
+      - if flash[:alert].present?
+        .text-danger= flash[:alert]
+  %br
+  .col-auto
+    = f.submit t(:import), class: 'btn btn-primary'
