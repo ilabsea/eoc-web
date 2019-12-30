@@ -6,19 +6,24 @@ class UploadsController < ApplicationController
 
   def validate
     if params[:zip_file] && params[:zip_file].content_type == "application/zip"
-      service = SopImportService.new(compress_file: params[:zip_file])
-      @result = service.validate
-      render partial: "validate", locals: { result: @result, destination: service.destination }
+      begin
+        service = SopImportService.new(compress_file: params[:zip_file])
+        @result = service.validate
+        render partial: "validate", locals: { result: @result, destination: service.destination, step: 2 }
+      rescue RuntimeError, Zip::Error => e
+        flash[:alert] = e.message
+        render partial: "upload", locals: { step: 1 }
+      end
     else
       flash[:alert] = t("views.uploads.invalid_import_file")
-      redirect_to uploads_path
+      render partial: "upload", locals: { step: 1 }
     end
   end
 
   def import
     service = SopImportService.new(destination: import_params[:destination])
     service.process
-    render partial: "success", locals: {}
+    render partial: "success", locals: { step: 3 }
   end
 
   private

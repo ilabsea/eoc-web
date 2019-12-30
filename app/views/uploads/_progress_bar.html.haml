@@ -1,20 +1,21 @@
+- step = 1 if step.nil?
 .stepper-wrapper.mb-3
   .wizard-stepper.d-flex.justify-content-center.no-gutters
     .col-sm-2
       .d-flex.justify-content-center.wizard-step-start
-        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if request.path == uploads_path)}" }
+        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if step == 1 )}" }
           %div 1
       .d-flex.justify-content-center
         = t("views.uploads.step_upload")
     .col-sm-2
       .d-flex.justify-content-center.wizard-step
-        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if request.path == validate_uploads_path)}" }
+        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if step == 2)}" }
           %div 2
       .d-flex.justify-content-center
         = t("views.uploads.step_validate")
     .col-sm-2
       .d-flex.justify-content-center.wizard-end
-        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if request.path == import_uploads_path)}" }
+        %button{ class: "btn btn-secondary btn-circle my-1 #{('btn-success' if step == 3 )}" }
           %div 3
       .d-flex.justify-content-center
         = t("views.uploads.step_done")

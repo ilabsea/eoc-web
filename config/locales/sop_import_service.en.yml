@@ -2,6 +2,6 @@ en:
   sop_import_service:
     too_many: 'Too many extracted files'
     too_large: 'File too large when extracted'
-    not_found: "File Excel not found"
+    not_found: "There's no excel file in comporess file"
     blacklist_ext: "Allow extension(s): %{allowance}"
     unprocessible: "Unprocessible: %{msg}"
