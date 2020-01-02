@@ -1,58 +1,65 @@
 #upload-validation
-  = render partial: "progress_bar"
+  = render partial: "progress_bar", locals: { step: step }
 
   %ul
     %li
       Category
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-primary{ data: { toggle: "collapse", target: "#valid-categories" } }
           = "#{t("views.uploads.valid_categories")} (#{result[:category][:valids].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:category][:valids].count.positive?
-          #valid-categories.collapse.mt-3
+        #valid-categories.collapse.mt-3
+          - if result[:category][:valids].count.positive?
             = render partial: "category_table", locals: { categories: result[:category][:valids]}
 
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-danger{ data: { toggle: "collapse", target: "#error-categories" } }
           = "#{t("views.uploads.error_categories")} (#{result[:category][:errors].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:category][:errors].count.positive?
-          #error-categories.collapse
-            = render partial: "category_table", locals: { categories: result[:category][:valids]}
+        #error-categories.collapse
+          - if result[:category][:errors].count.positive?
+            = render partial: "category_table", locals: { categories: result[:category][:errors]}
 
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-warning{ data: { toggle: "collapse", target: "#existed-categories" } }
           = "#{t("views.uploads.existed_categories")} (#{result[:category][:exists].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:category][:exists].count.positive?
-          #existed-categories.collapse
+        #existed-categories.collapse
+          - if result[:category][:exists].count.positive?
             = render partial: "category_table", locals: { categories: result[:category][:exists]}
 
     %li
       Sop
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-primary{ data: { toggle: "collapse", target: "#valid-sops" } }
           = "#{t("views.uploads.valid_sop")} (#{result[:sop][:valids].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:sop][:valids].count.positive?
-          #valid-sops.collapse.mt-3
+        #valid-sops.collapse.mt-3
+          - if result[:sop][:valids].count.positive?
             = render partial: "sop_table", locals: { sops: result[:sop][:valids] }
 
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-danger{ data: { toggle: "collapse", target: "#error-sops" } }
           = "#{t("views.uploads.error_sop")} (#{result[:sop][:errors].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:sop][:errors].count.positive?
-          #error-sops.collapse.mt-3
+        #error-sops.collapse.mt-3
+          - if result[:sop][:errors].count.positive?
             = render partial: "sop_table", locals: { sops: result[:sop][:errors] }
 
-      .d-block.p-2.border.my-2
+      .d-block.p-2.border.my-2.validate-result
         .text-warning{ data: { toggle: "collapse", target: "#existed-sops" } }
           = "#{t("views.uploads.existed_sop")} (#{result[:sop][:exists].count})"
+          %i.fa.fa-angle-down.d-inline-block
 
-        - if result[:sop][:exists].count.positive?
-          #existed-sops.collapse.mt-3
+        #existed-sops.collapse.mt-3
+          - if result[:sop][:exists].count.positive?
             = render partial: "sop_table", locals: { sops: result[:sop][:exists] }
+
     = form_with(url: import_uploads_path, method: :post, id: "import-validate-form") do |f|
       = f.hidden_field :destination, value: destination
       = f.submit t("views.uploads.import"), class: "btn btn-primary"

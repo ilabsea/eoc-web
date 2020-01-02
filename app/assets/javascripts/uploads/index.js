@@ -18,16 +18,20 @@ EOC.UploadsIndex = (() => {
   }
 
   function collapseIcon() {
-    $('.panel-collapse').on('show.bs.collapse', function() {
-      $(this)
-        .siblings('.panel-heading')
-        .addClass('active');
+    let arrowDown = 'fa-angle-down';
+    let arrowUp = 'fa-angle-up';
+    $(document).on('show.bs.collapse', '.validate-result', e => {
+      $(e.currentTarget)
+        .find(`.${arrowDown}`)
+        .addClass(arrowUp)
+        .removeClass(arrowDown);
     });
 
-    $('.panel-collapse').on('hide.bs.collapse', function() {
-      $(this)
-        .siblings('.panel-heading')
-        .removeClass('active');
+    $(document).on('hide.bs.collapse', '.validate-result', e => {
+      $(e.currentTarget)
+        .find(`.${arrowUp}`)
+        .addClass(arrowDown)
+        .removeClass(arrowUp);
     });
   }
 })();
