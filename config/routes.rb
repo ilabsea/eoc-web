@@ -20,8 +20,6 @@ Rails.application.routes.draw do
   resources :sops do
     collection do
       get :download
-      get :upload
-      post :import
     end
   end
 

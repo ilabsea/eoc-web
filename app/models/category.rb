@@ -44,7 +44,7 @@ class Category < ApplicationRecord
 
   def self.build_record(data)
     parent_id = Category.find_by(name: data[:parent_name]).try(:id)
-    category = new(name: data[:name], parent_id: parent_id)
+    new(name: data[:name], parent_id: parent_id)
   end
 
   private

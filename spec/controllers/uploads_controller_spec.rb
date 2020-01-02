@@ -20,14 +20,14 @@ RSpec.describe UploadsController, type: :controller do
     context "invalid attached file" do
       it "renders upload when no attach file" do
         post :validate
-        expect(subject).to redirect_to(uploads_path)
+        expect(subject).to render_template("uploads/_upload")
         expect(subject.request.flash[:alert]).to eq I18n.t("views.uploads.invalid_import_file")
       end
 
       it "renders upload when no wrong attachment type" do
         post :validate, params: { zip_file: fixture_file_upload(file_path("test.xlsx"), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") }
 
-        expect(subject).to redirect_to(uploads_path)
+        expect(subject).to render_template("uploads/_upload")
         expect(subject.request.flash[:alert]).to eq(I18n.t("views.uploads.invalid_import_file"))
       end
     end

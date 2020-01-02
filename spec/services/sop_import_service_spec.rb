@@ -17,7 +17,7 @@ RSpec.describe SopImportService do
     end
 
     context "import categories" do
-      before(:all) do
+      before(:each) do
         @service = described_class.new({ compress_file: file_path("Archive.zip") })
         @service.process
       end
@@ -44,7 +44,7 @@ RSpec.describe SopImportService do
     end
 
     context "import sops" do
-      before(:all) do
+      before(:each) do
         @service = described_class.new(compress_file: file_path("Archive.zip"))
         @service.process
       end
@@ -86,9 +86,9 @@ RSpec.describe SopImportService do
     end
 
     context "import categories" do
-      before(:all) do
+      before(:each) do
         create(:category, name: "cat 1.1")
-        @service = described_class.new(file_path("Archive.zip"))
+        @service = described_class.new(compress_file: file_path("Archive.zip"))
         @result = @service.validate
       end
 

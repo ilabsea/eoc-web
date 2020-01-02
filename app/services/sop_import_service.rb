@@ -10,15 +10,9 @@ class SopImportService
   end
 
   def process
-    result = validate()
+    raise I18n.t(".sop_import_service.not_found") if @spreadsheet.nil?
 
-    result[:category][:valids].each do |category|
-      category.save
-    end
-
-    result[:sop][:valids].each do |sop|
-      sop.save
-    end
+    import_data(["category", "sop"])
 
     FileUtils.remove_dir(@destination, true)
   end
