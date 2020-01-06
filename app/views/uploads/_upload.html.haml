@@ -2,11 +2,13 @@
   = render partial: "progress_bar", locals: { step: local_assigns[:step] || Constant::UPLOAD_STEP }
   %ul.border.d-inline-block.my-3.py-2
     %li
-      Before you begin, you can download sample compress file here
-      = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-default', 'data-toggle' => :tooltip, title: 'Download sample' do
+      = t("views.uploads.ins_before_begin")
+      = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-default', 'data-toggle' => :tooltip, title: t("views.uploads.download_sample") do
         %i.fas.fa-download
-
-    %li update spreadsheet
+    %li.mb-2
+      = t("views.uploads.ins_upload_spreadsheet")
+    %li
+      = t("views.uploads.in_attachment")
 
   = form_with(url: validate_uploads_path, method: :post, multipart: true, id: "import-wizard-form") do |f|
     .col-auto

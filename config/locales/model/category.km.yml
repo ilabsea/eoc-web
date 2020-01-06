@@ -1,0 +1,9 @@
+km:
+  activerecord:
+    errors:
+      models:
+        category:
+          attributes:
+            name:
+              blank: ឈ្មោះមិនអាចទទេ
+              taken: ឈ្មោះត្រូវបានគេយក
