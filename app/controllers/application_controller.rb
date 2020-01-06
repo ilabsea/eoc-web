@@ -7,17 +7,13 @@ class ApplicationController < ActionController::Base
 
   layout :layout_by_resource
 
-  def default_url_options
-    { locale: params[:locale] || I18n.default_locale }
-  end
-
   private
     def layout_by_resource
       devise_controller? ? "minimal" : "application"
     end
 
     def switch_locale(&action)
-      locale = params[:locale] || I18n.default_locale
+      locale = current_user.try(:locale) || :en
       I18n.with_locale(locale, &action)
     end
 end

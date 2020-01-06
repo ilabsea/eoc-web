@@ -21,12 +21,10 @@
         = t('sidebar.logout')
 
   .switch-language
-    - if params[:locale] == "km"
-      %label ប្ដូរភាសារ៖
-      = link_to "English", url_for(locale: "en"), class: "language"
-    - else
-      %label Change language:
-      = link_to "ខ្មែរ", url_for(locale: "km"), class: "language"
+    = simple_form_for(current_user, url: update_locale_users_path, method: :post, remote: true, html: { id: "switch-language" }) do |f|
+      %label= switch_language_data[:label]
+      = f.hidden_field :locale, value: switch_language_data[:locale]
+      = f.submit switch_language_data[:submit_label], class: "btn btn-link language"
 
   .copyright
     © 2019 InSTEDD
