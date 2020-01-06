@@ -7,6 +7,8 @@
       %li.nav-item.mr-sm-2
         .dropdown
           %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{ type: :button, 'data-toggle' => :dropdown, 'aria-haspopup' => 'true', 'aria-expanded' => 'false' }
+            %i.fa.fa-plus
+            &nbsp;
             = t(:new)
           .dropdown-menu{ 'aria-labelledby' => 'dropdownMenuButton' }
             = link_to new_category_path(parent_id: @category.try(:id)), class: 'dropdown-item' do

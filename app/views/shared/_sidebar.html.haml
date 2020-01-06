@@ -20,5 +20,13 @@
         %i.fas.fa-key
         = t('sidebar.logout')
 
+  .switch-language
+    - if params[:locale] == "km"
+      %label ប្ដូរភាសារ៖
+      = link_to "English", url_for(locale: "en"), class: "language"
+    - else
+      %label Change language:
+      = link_to "ខ្មែរ", url_for(locale: "km"), class: "language"
+
   .copyright
     © 2019 InSTEDD
