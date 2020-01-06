@@ -1,0 +1,5 @@
+km:
+  devise:
+    sessions:
+      user:
+        signed_in: បានចូលប្រើដោយជោគជ័យ

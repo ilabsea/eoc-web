@@ -13,7 +13,7 @@ module ApplicationHelper
   def switch_language_data
     if current_user.locale == "km"
       {
-        label: "ប្ដូរភាសារ៖",
+        label: "ប្ដូរភាសា៖",
         locale: "en",
         submit_label: "English"
       }
