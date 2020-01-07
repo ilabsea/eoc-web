@@ -1,6 +1,7 @@
 .git
 .gitignore
 README.md
+config/master.key
 
 # OS X
 .DS_Store
