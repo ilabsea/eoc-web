@@ -9,21 +9,21 @@ class UploadsController < ApplicationController
       begin
         service = SopImportService.new(compress_file: params[:zip_file])
         @result = service.validate
-        render partial: "validate", locals: { result: @result, destination: service.destination, step: 2 }
+        render partial: "validate", locals: { result: @result, destination: service.destination, step: Constant::VALIDATE_STEP }
       rescue RuntimeError, Zip::Error => e
         flash[:alert] = e.message
-        render partial: "upload", locals: { step: 1 }
+        render partial: "upload", locals: { step: Constant::UPLOAD_STEP }
       end
     else
       flash[:alert] = t("views.uploads.invalid_import_file")
-      render partial: "upload", locals: { step: 1 }
+      render partial: "upload", locals: { step: Constant::UPLOAD_STEP }
     end
   end
 
   def import
     service = SopImportService.new(destination: import_params[:destination])
     service.process
-    render partial: "success", locals: { step: 3 }
+    render partial: "success", locals: { step: Constant::COMPLETE_STEP }
   end
 
   private

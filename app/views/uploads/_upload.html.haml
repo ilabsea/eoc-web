@@ -1,5 +1,5 @@
 #upload-wizard
-  = render partial: "progress_bar", locals: { step: local_assigns[:step] || 1 }
+  = render partial: "progress_bar", locals: { step: local_assigns[:step] || Constant::UPLOAD_STEP }
   %ul.border.d-inline-block.my-3.py-2
     %li
       Before you begin, you can download sample compress file here

@@ -35,11 +35,10 @@ class Importer
         record = import_factory.build_record(row)
         if import_factory.find_by(name: row[:name]).present?
           result[:exists] << record
-        elsif record.valid?
-          result[:valids] << record
-        else
-          result[:errors] << record
+          next
         end
+
+        record.valid? ? result[:valids] << record : result[:errors] << record
       end
     end
     result
