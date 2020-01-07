@@ -36,4 +36,5 @@ en:
   name: Name
   parent_category: Parent Category
   attachment: Attachment
-  tag: ស្លាក
+  tag: Tag
+  search_eoc: Search EOC
