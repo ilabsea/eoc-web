@@ -1,0 +1,74 @@
+version: '3'
+
+volumes:
+  db:
+  bundle:
+  elastic:
+  certs:
+
+services:
+  db:
+    image: postgres:11.6
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - app
+  app: &rails
+    image: ilabsea/eoc-web:0.1
+    restart: unless-stopped
+    volumes:
+      - bundle:/usr/local/bundle
+      - certs:$CERTS_DIR
+    depends_on:
+      - db
+      - redis
+      - elasticsearch
+    environment:
+      - LANG=C.UTF-8
+      - ES_FILE_INDEXABLE=false
+      - RAILS_SERVE_STATIC_FILES=true
+      - REDIS_URL=redis://redis:6379
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_REQUEST_TIMEOUT=300 #seconds
+      - ELASTIC_COMPRESSION=true
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ENABLE_EVENT_WORKER=true
+
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: '5'
+    command:
+      - /bin/sh
+      - -c
+      - bundle exec puma -e production -b tcp://0.0.0.0:80
+
+  redis:
+    image: redis:5.0.7
+
+  sidekiq:
+    <<: *rails
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    ports: []
+
+  elasticsearch:
+    image: elasticsearch:7.4.1
+    environment:
+      - discovery.type=single-node
+      - ELASTIC_PASSWORD=$ELASTIC_PASSWORD
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - elastic:/usr/share/elasticsearch/data
+      - certs:$CERTS_DIR
+    healthcheck:
+      test: curl -s http://localhost:9200 >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+      interval: 30s
+      timeout: 10s
+      retries: 5

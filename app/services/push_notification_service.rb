@@ -2,7 +2,7 @@
 
 class PushNotificationService
   def initialize
-    @fcm = ::FCM.new(ENV["FIREBASE_SERVER_KEY"])
+    @fcm = ::FCM.new(Rails.application.credentials.app[:firebase_server_key])
   end
 
   def send_to_topic(topic, data)

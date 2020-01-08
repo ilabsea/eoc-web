@@ -36,13 +36,13 @@ ActiveRecord::Schema.define(version: 2020_01_06_073321) do
 
   create_table "sops", force: :cascade do |t|
     t.string "name"
-    t.text "description"
     t.string "file"
-    t.text "tags", default: [], array: true
     t.integer "category_id"
     t.integer "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "tags", default: [], array: true
+    t.text "description"
     t.boolean "is_deleted", default: false
     t.index ["is_deleted"], name: "index_sops_on_is_deleted"
   end

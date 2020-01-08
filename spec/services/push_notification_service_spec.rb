@@ -6,7 +6,7 @@ require_relative "../support/fcm_fake"
 RSpec.describe PushNotificationService do
   context "initialize" do
     it "should have fcm key" do
-      expect(FCM).to receive(:new).with(ENV["FIREBASE_SERVER_KEY"])
+      expect(FCM).to receive(:new).with(Rails.application.credentials.app[:firebase_server_key])
       described_class.new
     end
   end
