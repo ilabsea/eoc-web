@@ -59,6 +59,7 @@ public/uploads/
 
 # Ignore docker environment variable
 docker-env
+docker-compose.prod.yml
 
 /public/packs
 /public/packs-test
