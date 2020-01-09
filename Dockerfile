@@ -1,5 +1,4 @@
 FROM ruby:2.6.3
-ARG rails_master_key
 
 LABEL maintainer="Sokly <sokly@instedd.org>"
 
@@ -27,7 +26,7 @@ COPY . /app
 RUN if [ -d .git ]; then git describe --always > VERSION; fi
 
 # Precompile assets
-RUN bundle exec rake assets:precompile RAILS_ENV=production RAILS_MASTER_KEY=${rails_master_key}
+RUN bash assets_precompile.sh
 
 ENV RAILS_LOG_TO_STDOUT=true
 ENV RACK_ENV=production
