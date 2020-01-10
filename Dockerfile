@@ -13,11 +13,10 @@ RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
 RUN mkdir /app
 WORKDIR /app
 
-RUN gem install bundler:2.0.2
-
 COPY Gemfile* /app/
 
-RUN bundle install --jobs 20 --deployment --without development test
+RUN gem install bundler:2.0.2 && \
+  bundle install --jobs 20 --deployment --without development test
 
 # Install the application
 COPY . /app
@@ -26,7 +25,8 @@ COPY . /app
 RUN if [ -d .git ]; then git describe --always > VERSION; fi
 
 # Precompile assets
-RUN bash assets_precompile.sh
+RUN bundle exec rake assets:precompile RAILS_ENV=production && \
+  rm config/credentials/production.key
 
 ENV RAILS_LOG_TO_STDOUT=true
 ENV RACK_ENV=production
