@@ -1,0 +1,20 @@
+#upload-wizard
+  = render partial: "progress_bar", locals: { step: local_assigns[:step] || Constant::UPLOAD_STEP }
+  %ul.border.d-inline-block.my-3.py-2
+    %li
+      Before you begin, you can download sample compress file here
+      = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-default', 'data-toggle' => :tooltip, title: 'Download sample' do
+        %i.fas.fa-download
+
+    %li update spreadsheet
+
+  = form_with(url: validate_uploads_path, method: :post, multipart: true, id: "import-wizard-form") do |f|
+    .col-auto
+      .form-group
+        %label{ for: :zip_file }= t("views.uploads.upload_label")
+        = f.file_field(:zip_file, class: "form-control-file", accept: "application/zip")
+        - if flash[:alert].present?
+          .text-danger= flash[:alert]
+    %br
+    .col-auto
+      = f.submit t("views.uploads.validate"), class: 'btn btn-primary'

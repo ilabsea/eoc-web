@@ -64,27 +64,6 @@ class SopsController < ApplicationController
     send_file "#{Rails.root}/public/#{params[:file]}", disposition: "attachment"
   end
 
-  def upload
-  end
-
-  def import
-    if params[:zip_file] && params[:zip_file].content_type == "application/zip"
-      service = SopImportService.new(params[:zip_file])
-
-      begin
-        service.process
-        PushNotificationJob.perform_later("all", data: notification_data, priority: "high")
-        redirect_to categories_path, notice: t(:import_success)
-      rescue RuntimeError, Zip::Error => e
-        flash[:alert] = e.message
-        redirect_to upload_sops_path
-      end
-    else
-      flash[:alert] = t(:import_invalid)
-      redirect_to upload_sops_path
-    end
-  end
-
   private
     def sop_params
       params.require(:sop).permit(

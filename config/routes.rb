@@ -20,8 +20,6 @@ Rails.application.routes.draw do
   resources :sops do
     collection do
       get :download
-      get :upload
-      post :import
     end
   end
 
@@ -33,6 +31,13 @@ Rails.application.routes.draw do
   end
 
   resources :searches, only: [:index]
+
+  resources :uploads, only: [:index] do
+    collection do
+      post :validate
+      post :import
+    end
+  end
 
   if Rails.env.production?
     authenticate :user, lambda { |u| u.admin? } do

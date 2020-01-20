@@ -15,5 +15,5 @@ Sop.reindex
 zip_path = Rails.root.join("sample", "sample.zip").to_s
 raise "File #{File.basename(zip_path)} not exist" unless File.exist?(zip_path)
 
-service = SopImportService.new(zip_path)
+service = SopImportService.new(compress_file: zip_path)
 service.process

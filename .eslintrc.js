@@ -7,20 +7,18 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'google',
-    'prettier'
+    'plugin:prettier/recommended'
   ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
-    EOC: 'writable'
+    EOC: 'writable',
   },
   parserOptions: {
     ecmaVersion: 2018,
   },
-  plugins: [
-    'prettier'
-  ],
+  plugins: ['prettier'],
   rules: {
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
   },
 };

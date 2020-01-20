@@ -12,7 +12,7 @@ class Importer
 
   def initialize(attributes = {})
     @parser = attributes[:parser]
-    @type = attributes[:type]
+    @type = @parser.type
   end
 
   def import
@@ -22,6 +22,26 @@ class Importer
         import_factory.create_record(row)
       end
     end
+  end
+
+  def validate
+    result = {
+      valids: [],
+      errors: [],
+      exists: []
+    }
+    if valid?
+      rows.each do |row|
+        record = import_factory.build_record(row)
+        if import_factory.find_by(name: row[:name]).present?
+          result[:exists] << record
+          next
+        end
+
+        record.valid? ? result[:valids] << record : result[:errors] << record
+      end
+    end
+    result
   end
 
   private

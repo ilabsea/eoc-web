@@ -1,0 +1,16 @@
+en:
+  views:
+    uploads:
+      validate: Validate
+      valid_categories: Valid categories
+      error_categories: Error categories
+      existed_categories: Existed categories
+      valid_sop: Valid Sop
+      error_sop: Error Sop
+      existed_sop: Existed Sop
+      import: Import
+      step_upload: Upload
+      step_validate: Validate
+      step_done: Done
+      success_message: Data has been imported
+      upload_label: Please select compress file (.zip)

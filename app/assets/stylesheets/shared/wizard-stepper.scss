@@ -1,0 +1,29 @@
+.wizard-stepper{
+  .wizard-step, .wizard-step-end {
+    &::before {
+      content: '';
+      width: 50%;
+      height: 2px;
+      background: lightgray;
+      position: absolute;
+      left: 0;
+      top: 25px;
+      z-index: -1
+    }
+  }
+
+  .wizard-step, .wizard-step-start {
+    &::after {
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: lightgray;
+      position: relative;
+      left: 0;
+      top: 25px;
+      z-index: -1;
+      margin-right: -100%;
+    }
+  }
+}
+
