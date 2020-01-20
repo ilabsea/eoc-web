@@ -39,6 +39,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :users do
+    collection do
+      post :update_locale
+    end
+  end
+
   if Rails.env.production?
     authenticate :user, lambda { |u| u.admin? } do
       mount Sidekiq::Web => "/sidekiq"

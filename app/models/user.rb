@@ -28,5 +28,8 @@ class User < ApplicationRecord
     user: 2
   }
 
+  validates :locale, inclusion: { in: %w(en km) }
+
   attribute :role, :integer, default: "user"
+  attribute :locale, :string, default: "en"
 end

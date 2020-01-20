@@ -1,0 +1,21 @@
+km:
+  views:
+    uploads:
+      validate: ផ្ទៀងផ្ទាត់
+      valid_categories: categories ត្រឹមត្រុវ
+      error_categories: categories មានបញ្ហា
+      existed_categories: categories មានរួចហើយ
+      valid_sop: Sop ត្រឹមត្រុវ
+      error_sop: Sop មានបញ្ហា
+      existed_sop: Sop មានរួចហើយ
+      import: នាំចូល
+      step_upload: បញ្ជូនទៅ
+      step_validate: ផ្ទៀងផ្ទាត់
+      step_done: រួចរាល់
+      success_message: ទិន្នន័យត្រូវបាននាំចូលដោយជោគជ័យ
+      upload_label: សូមជ្រើសរើសឯកសារបង្រួម (.zip)
+      ins_before_begin: មុនចាប់ផ្ដើម សូមទាញយកឯកសារគំរូនៅទីនេះ
+      ins_upload_spreadsheet: បញ្ចូលទិន្នន័យក្នុងឯកសារ spreadsheet
+      in_attachment: ចំលងកសារ Sop ទៅក្នុងថត "attachment"
+      invalid_import_file: ឯកសារមិនត្រឹមត្រូវ
+      download_sample: ទាញយកឯកសារគំរូ

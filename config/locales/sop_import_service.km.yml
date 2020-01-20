@@ -1,7 +1,7 @@
-en:
+km:
   sop_import_service:
     too_many: 'Too many extracted files'
     too_large: 'File too large when extracted'
-    not_found: There's no excel file in comporess file
+    not_found: មិនមាន spreadsheet នៅក្នុងកសារបង្រួម
     blacklist_ext: "Allow extension(s): %{allowance}"
     unprocessible: "Unprocessible: %{msg}"

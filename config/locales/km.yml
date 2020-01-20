@@ -33,4 +33,6 @@ km:
   description: "ពណ៌នា"
   go_back: "ថយក្រោយ"
   save: "រក្សាទុក"
-  
+  parent_category: category មេ
+  attachment: ឯាកសាភ្ជាប់
+  tag: ស្លាក

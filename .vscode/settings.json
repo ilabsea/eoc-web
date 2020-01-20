@@ -1,4 +1,3 @@
 {
   "ruby.useBundler": true,
-  "solargraph.commandPath": "~/.rbenv/shims/solargraph",
 }
