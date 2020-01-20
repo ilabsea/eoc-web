@@ -18,7 +18,7 @@ Rails.application.configure do
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
   # or in config/master.key. This key is used to decrypt credentials (and other encrypted files).
-  # config.require_master_key = true
+  config.require_master_key = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
@@ -70,13 +70,15 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: ENV["SETTINGS__SMTP__ADDRESS"],
-    port: ENV.fetch("SETTINGS__SMTP__PORT") { 25 },
-    authentication: ENV.fetch("SETTINGS__SMTP__AUTHENTICATION") { "plain" },
-    enable_starttls_auto: ENV.fetch("SETTINGS__SMTP__ENABLE__STARTTLS__AUTO") { true },
-    user_name: ENV["SETTINGS__SMTP__USER_NAME"],
-    password: ENV["SETTINGS__SMTP__PASSWORD"]
+    address: Rails.application.credentials.mailer[:smtp_address],
+    port: Rails.application.credentials.mailer[:smtp_port],
+    authentication: Rails.application.credentials.mailer[:smtp_authentication],
+    enable_starttls_auto: Rails.application.credentials.mailer[:smpt_enable_starttls_auto],
+    user_name: Rails.application.credentials.mailer[:smtp_username],
+    password: Rails.application.credentials.mailer[:smtp_password]
   }
+
+  config.action_mailer.default_url_options = { host: ENV["HOST"] }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).

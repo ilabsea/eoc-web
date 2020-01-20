@@ -1,6 +1,10 @@
-%form{action: searches_path, method: :get}
-  .row
-    .col-sm-10
-      %input.form-control{name: :q, value: params[:q]}
-    .col-sm-2
-      %button.btn.btn-secondary{type: :submit}= t(:search)
+.col-sm-6.mx-auto
+  %form{action: searches_path, method: :get}
+    .row
+      .input-group
+        .input-group-prepend
+          %span.input-group-text
+            %i.fa.fa-search
+        %input.form-control{name: :q, value: params[:q], placeholder: t("search_eoc")}
+        .input-group-append
+          %button.btn.btn-secondary{type: :submit}= t(:search)

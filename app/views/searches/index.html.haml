@@ -1,25 +1,15 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
     %h3= t(:search)
+    = render 'shared/search_form'
     .ml-auto
-      = render 'shared/search_form'
-    .ml-auto
-    -# %ul.navbar-nav.ml-auto
-      -# %li.nav-item.mr-sm-2
-        -# = link_to new_sop_path, class: 'btn btn-primary' do
-          -# %i.fas.fa-plus
-      -# %li.nav-item
-        -# = link_to upload_sops_path, class: 'btn btn-primary' do
-          -# %i.fas.fa-file-archive
 
 - if @results.size.positive?
-  %table.table.table-hover.medium-width
+  %table.table.table-hover
     %thead
       %tr
         %th= t(:name)
         %th= t(:tags)
-        -# %th File
-        -# %th Category
         %th
 
     %tbody#body-content

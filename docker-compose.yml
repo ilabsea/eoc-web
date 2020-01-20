@@ -40,7 +40,7 @@ services:
     ports: []
 
   elasticsearch:
-    image: elasticsearch:7.3.1
+    image: elasticsearch:7.4.1
     environment:
       - discovery.type=single-node
     volumes:

@@ -1,0 +1,64 @@
+.git
+.gitignore
+README.md
+# config/credentials/production.key
+Dockerfile
+docker-compose.prod.yml
+app.env
+docker-env
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Rails
+.env
+.env.sample
+*.rbc
+capybara-*.html
+coverage
+log
+tmp/*
+!tmp/pids
+!tmp/pids/.keep
+db/*.sqlite3
+db/*.sqlite3-journal
+public/system
+public/uploads
+coverage/
+spec/tmp
+**.orig
+node_modules/
+
+.bundle
+
+.ruby-version
+.ruby-gemset
+
+.rvmrc
+
+# if using bower-rails ignore default bower_components path bower.json files
+vendor/assets/bower_components
+*.bowerrc
+bower.json
+
+# Ignore pow environment settings
+.powenv

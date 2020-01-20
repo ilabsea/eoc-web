@@ -1,9 +1,8 @@
-#content
-  %nav.navbar.navbar-expand-lg.navbar-light.bg-light
-    .container-fluid
-      %h3= t("sidebar.import_wizard")
-      %ul.navbar-nav.ml-auto
-        = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: t("views.uploads.download_sample") do
-          %i.fas.fa-download
+%nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
+    %h3= t("sidebar.import_wizard")
+    %ul.navbar-nav.ml-auto
+      = link_to asset_path("sop-import.zip"), download: "sop-import-sample.zip", class: 'btn btn-secondary', 'data-toggle' => :tooltip, title: t("views.uploads.download_sample") do
+        %i.fas.fa-download
 
-  = render partial: "upload"
+= render partial: "upload"

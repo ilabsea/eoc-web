@@ -1,10 +1,9 @@
 %nav.navbar.navbar-expand-lg.navbar-light.bg-light
   .container-fluid
     %h3= @category.name
-    .ml-auto
-      = render 'shared/search_form'
+    = render 'shared/search_form'
     %ul.navbar-nav.ml-auto
-      %li.nav-item.mr-sm-2
+      %li.nav-item.mx-sm-2
         .dropdown
           %button#dropdownMenuButton.btn.btn-primary.dropdown-toggle{ type: :button, 'data-toggle' => :dropdown, 'aria-haspopup' => 'true', 'aria-expanded' => 'false' }
             %i.fa.fa-plus

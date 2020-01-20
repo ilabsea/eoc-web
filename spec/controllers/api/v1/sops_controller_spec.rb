@@ -21,7 +21,7 @@ RSpec.describe Api::V1::SopsController, type: :controller do
 
   context "Authorize" do
     before do
-      request.headers["Authorization"] = "bearer #{ENV["SERVER_SECRET_KEY_BASE"]}"
+      request.headers["Authorization"] = "bearer #{Rails.application.credentials.app[:server_secret_key_base]}"
     end
 
     describe "GET #index" do

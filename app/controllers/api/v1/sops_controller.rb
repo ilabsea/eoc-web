@@ -25,7 +25,7 @@ module Api::V1
       end
 
       def check_secret_key
-        if token != ENV["SERVER_SECRET_KEY_BASE"]
+        if token != Rails.application.credentials.app[:server_secret_key_base]
           render json: { error: t(:unauthorize), status: :bad_request }
         end
       end
