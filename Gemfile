@@ -62,7 +62,7 @@ gem "fcm", "~> 0.0.6"
 gem "pagy", "~> 3.6.0"
 
 gem "webpacker"
-gem "sidekiq", "~> 6.0.3"
+gem "sidekiq", "~> 6.4.0"
 gem "pdf-reader", "~> 2.4.0"
 
 group :development, :test do
